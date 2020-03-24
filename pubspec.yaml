@@ -19,24 +19,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_map:
-    git:
-      url: git@github.com:nishontan/flutter_map.git
-      ref: master
-  user_location:
-    git:
-      url: git@github.com:nishontan/user_location_plugin.git
-      ref: master
+  flutter_map: ^0.8.2
+
   shared_preferences: ^0.5.3+4
   geojson: ^0.7.3
   snapping_sheet: ^1.1.1
   flutter_form_builder: ^3.8.1
-
-
-  flutter_map_marker_cluster:
-    git:
-      url: git://github.com/naxa-developers/flutter_map_marker_cluster
-      ref: master
+  user_location: ^0.1.2
+  flutter_map_marker_cluster: ^0.2.7
 
 
   # The following adds the Cupertino Icons font to your application.
