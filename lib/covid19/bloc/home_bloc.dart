@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:openspaces/covid19/api.dart';
 import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/covid19/modal/homestat.dart';
@@ -9,10 +10,11 @@ class HomeBloc extends BaseBloc {
   StreamController<HomeStat> _streamController = StreamController();
   Stream<HomeStat> get homeStream => _streamController.stream;
 
-  getHomeData() {
+  getHomeData({ @required String province}) {
     try {
       print("[homeApiCalled]");
-      http.get(get_home_stat).timeout(Duration(minutes: 5)).then((resp) {
+      http.get("$get_home_stat/?provice=$province").timeout(Duration(minutes: 5)).then((resp) {
+        print("[homedata]======>>> ${resp.body}");
         if(resp.statusCode >= 200 && resp.statusCode <= 400) {
           Map<String, dynamic> respMap = jsonDecode(resp.body);
           _streamController.sink.add(HomeStat.fromJson(respMap));

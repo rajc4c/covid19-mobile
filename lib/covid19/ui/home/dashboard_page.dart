@@ -22,11 +22,6 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   List<String> selectorItems = ["National", "Province"];
   String selectorItem = "National";
 
-  _getHomeStats() {
-    print('refreshing home...');
-    homeBloc.getHomeData();
-  }
-
   @override
   void dispose() {
     if (homeBloc != null) {
@@ -38,7 +33,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   @override
   void initState() {
     if(homeBloc != null) {
-      homeBloc.getHomeData();
+      homeBloc.getHomeData(province: "1");
     }
     super.initState();
   }
