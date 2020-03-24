@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'api.dart';
 import 'colors.dart';
 
@@ -93,15 +93,15 @@ Widget buildNetworkSVGWidget(String url, {label = "A image"}) {
       color: OpenSpaceColors.icon_color);
 }
 
-Widget buildSvgWidget(String iconName, Color color) {
-  final Widget svgIcon = SvgPicture.asset(iconName,
-      height: 20.0,
-      width: 20.0,
-      semanticsLabel: 'Ajustes Logo',
-      allowDrawingOutsideViewBox: true,
-      color: color);
-  return svgIcon;
-}
+//Widget buildSvgWidget(String iconName, Color color) {
+//  final Widget svgIcon = SvgPicture.asset(iconName,
+//      height: 20.0,
+//      width: 20.0,
+//      semanticsLabel: 'Ajustes Logo',
+//      allowDrawingOutsideViewBox: true,
+//      color: color);
+//  return svgIcon;
+//}
 
 Widget buildMapMarker(String openSpaceId) {
   return InkWell(

@@ -25,14 +25,25 @@ class MapHospitalScreen extends StatefulWidget {
 
 class _MapHospitalScreenState extends State<MapHospitalScreen> {
   MapController _mapController;
+  SnappingSheetController _snappingSheetController;
   List<Marker> locationMarkers = [];
 
   @override
   void initState() {
     super.initState();
     _mapController = MapController();
-
+    _snappingSheetController = SnappingSheetController();
     pointOfInterestBloc.fetchHealthFacilities();
+
+    sheetPositionObserver();
+  }
+
+  void sheetPositionObserver() {
+    pointOfInterestBloc.getBottomSheetSnapPosition.where((sheetPosition) {
+      return sheetPosition != null;
+    }).listen((sheetPosition) {
+      _snappingSheetController.snapToPosition(sheetPosition);
+    });
   }
 
   @override
@@ -52,6 +63,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
             }),
           ),
           SnappingSheet(
+            snappingSheetController: _snappingSheetController,
             snapPositions: const [
               SnapPosition(positionPixel: 0.0),
               SnapPosition(positionFactor: 0.3),
@@ -116,7 +128,12 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
       List<PointOfInterest> pointOfInterestItems) {
     return pointOfInterestItems.map((pointOfInterestItem) {
       return InkWell(
-        onTap: () {},
+        onTap: () {
+          pointOfInterestBloc.updateBottomSheetSnapPosition(
+
+            SnapPosition(positionFactor: 1),
+          );
+        },
         child: PlaceListItem(pointOfInterestItem),
       );
     }).toList();
@@ -124,6 +141,10 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
 
   Widget searchField() {
     return TextFormField(
+      onTap: () {
+        pointOfInterestBloc
+            .updateBottomSheetSnapPosition(SnapPosition(positionFactor: 1));
+      },
       onChanged: ((text) {
         pointOfInterestBloc.addUserSearchText(text);
       }),

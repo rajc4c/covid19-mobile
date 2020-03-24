@@ -23,7 +23,7 @@ class PlaceListItem extends StatelessWidget {
                 Text(
                   pointOfInterest.name,
                   maxLines: 1,
-                  overflow: TextOverflow.ellipsi,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
                     fontSize: 16,

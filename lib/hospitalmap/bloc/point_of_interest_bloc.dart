@@ -8,12 +8,21 @@ import 'package:openspaces/hospitalmap/repo/point_of_interest.dart';
 import 'package:openspaces/hospitalmap/repo/point_of_interest_repository.dart';
 import 'package:latlong/latlong.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:snapping_sheet/snapping_sheet.dart';
 
 class PointOfInterestBloc extends BaseBloc {
   final pointOfInterestController = BehaviorSubject<List<PointOfInterest>>();
   final pointOfInterestCountController = BehaviorSubject<int>();
   final _pointOfInterestMarkers = BehaviorSubject<List<Marker>>();
   final _userSearchTextController = BehaviorSubject<String>();
+
+  final _bottomSheetPositionController = BehaviorSubject<SnapPosition>();
+
+  Function(SnapPosition) get updateBottomSheetSnapPosition =>
+      _bottomSheetPositionController.sink.add;
+
+  Observable<SnapPosition> get getBottomSheetSnapPosition =>
+      _bottomSheetPositionController.stream;
 
   Stream<List<PointOfInterest>> get pointOfInterests =>
       pointOfInterestController.stream;
@@ -43,7 +52,6 @@ class PointOfInterestBloc extends BaseBloc {
         .debounceTime(Duration(seconds: 1))
         .distinct()
         .listen((text) {
-
       fetchHealthFacilities();
     });
   }
@@ -84,6 +92,7 @@ class PointOfInterestBloc extends BaseBloc {
     _pointOfInterestMarkers.close();
     pointOfInterestCountController.close();
     _userSearchTextController.close();
+    _bottomSheetPositionController.close();
   }
 }
 
