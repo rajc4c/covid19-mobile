@@ -7,11 +7,12 @@ import 'package:openspaces/covid19/common_widgets.dart';
 import 'package:openspaces/hospitalmap/repo/point_of_interest.dart';
 import 'package:openspaces/hospitalmap/repo/point_of_interest_repository.dart';
 import 'package:latlong/latlong.dart';
+import 'package:rxdart/rxdart.dart';
 
 class PointOfInterestBloc extends BaseBloc {
-  final pointOfInterestController = StreamController<List<PointOfInterest>>();
-  final pointOfInterestCountController = StreamController<int>();
-  final _pointOfInterestMarkers = StreamController<List<Marker>>();
+  final  pointOfInterestController = BehaviorSubject<List<PointOfInterest>>();
+  final pointOfInterestCountController = BehaviorSubject<int>();
+  final _pointOfInterestMarkers = BehaviorSubject<List<Marker>>();
 
   Stream<List<PointOfInterest>> get pointOfInterests =>
       pointOfInterestController.stream;

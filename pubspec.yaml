@@ -32,6 +32,7 @@ dependencies:
   snapping_sheet: ^1.1.1
   flutter_form_builder: ^3.8.1
 
+
   flutter_map_marker_cluster:
     git:
       url: git://github.com/naxa-developers/flutter_map_marker_cluster
