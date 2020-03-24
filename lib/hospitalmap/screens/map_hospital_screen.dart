@@ -129,19 +129,18 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
       List<PointOfInterest> pointOfInterestItems) {
     return pointOfInterestItems.map((pointOfInterestItem) {
       return InkWell(
-        onTap: () {
-
-
-        },
+        onTap: () {},
         child: PlaceListItem(pointOfInterestItem),
       );
     }).toList();
   }
 
   Widget searchField() {
+    final TextEditingController _controller = new TextEditingController();
+
     return TextFormField(
+      controller: _controller,
       onTap: () {
-        print("Hello");
         pointOfInterestBloc
             .updateBottomSheetSnapPosition(SnapPosition(positionFactor: 1));
       },
@@ -155,7 +154,13 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
           borderSide: new BorderSide(),
         ),
         labelText: 'Search',
-        suffixIcon: Icon(Icons.close),
+        suffixIcon: InkWell(
+          child: Icon(Icons.close),
+          onTap: () {
+            _controller.clear();
+            pointOfInterestBloc.addUserSearchText("");
+          },
+        ),
         prefixIcon: Icon(Icons.search),
       ),
     );
