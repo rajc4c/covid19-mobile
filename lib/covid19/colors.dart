@@ -21,6 +21,9 @@ class OpenSpaceColors {
   static final Color icon_color = Color(0xff757575);
 
   static final yellow = Colors.orangeAccent;
+
+  static var searchFillColor = Color(0xffF5F5F5);
+  static var searchBorderColor = Color(0xffDCDCDC);
 }
 
 class DimenConstants {

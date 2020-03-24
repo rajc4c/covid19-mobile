@@ -6,12 +6,12 @@ import 'covid19/colors.dart';
 import 'covid19/common_widgets.dart';
 import 'covid19/geo.dart';
 import 'general_assement_repository.dart';
+import 'hospitalmap/repo/point_of_interest.dart';
 
 class PlaceListItem extends StatelessWidget {
-  PlaceListItem(this.openSpace, this.scaffoldKey);
+  PlaceListItem(this.openSpace);
 
-  final GlobalKey<ScaffoldState> scaffoldKey;
-  final OpenSpaceWithAssessment openSpace;
+  final PointOfInterest openSpace;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class PlaceListItem extends StatelessWidget {
   }
 
   Widget leftSection() {
-    return buildNetworkCacheImageWidget(openSpace.thumbnail, 70.0, 70.0);
+    return buildNetworkCacheImageWidget("openSpace.thumbnail", 70.0, 70.0);
   }
 
   Widget middleSection(BuildContext context) {
@@ -58,7 +58,7 @@ class PlaceListItem extends StatelessWidget {
     return Container(
       // color: Colors.blue,
       child: Text(
-        getSafeString(openSpace.title),
+        getSafeString(openSpace.name),
         overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.title,
       ),
@@ -82,7 +82,7 @@ class PlaceListItem extends StatelessWidget {
                     color: OpenSpaceColors.grey,
                   ),
                   Text(
-                    getSafeString(openSpace.address),
+                    getSafeString("openSpace.address"),
                     style: Theme.of(buildContext).textTheme.body1,
                   )
                 ],
@@ -100,14 +100,14 @@ class PlaceListItem extends StatelessWidget {
                       builder: (context, snapshot) {
                         var text = "Not Available";
 
-                        if (snapshot.hasData) {
-                          text = calcApproxDistance(
-                              snapshot.data,
-                              LatLng(openSpace.centroid[1],
-                                  openSpace.centroid[0]));
-
-                          openSpace.distanceFromCurrentLocation = text;
-                        }
+//                        if (snapshot.hasData) {
+//                          text = calcApproxDistance(
+//                              snapshot.data,
+//                              LatLng(openSpace.centroid[1],
+//                                  openSpace.centroid[0]));
+//
+//                          openSpace.distanceFromCurrentLocation = text;
+//                        }
 
                         return Text(
                           text,
