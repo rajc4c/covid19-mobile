@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:openspaces/covid19/colors.dart';
+import 'package:openspaces/covid19/common_widgets.dart';
+import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 
 class HeaderText extends StatefulWidget {
   final String title;
@@ -18,20 +20,29 @@ class _HeaderTextState extends State<HeaderText> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        RichText(
-            text: TextSpan(
-                text: 'Medical Facilities'.toUpperCase(),
-                children: [
-                  TextSpan(text: ' '),
-                  TextSpan(
-                      text: '129',
-                      style: TextStyle(
-                          color: OpenSpaceColors.black, fontSize: 18)),
-                ],
-                style: TextStyle(
-                    color: OpenSpaceColors.red,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold))),
+        StreamBuilder(
+          stream: pointOfInterestBloc.pointOfInterestsCount,
+          builder: ((context, AsyncSnapshot<int> snapshot) {
+            Widget noDataLayout = buildProgressAndNoData(context, snapshot);
+            if (noDataLayout != null) {
+              return Container(height: 20, width: 20, child: noDataLayout);
+            }
+            return RichText(
+                text: TextSpan(
+                    text: 'Medical Facilities'.toUpperCase(),
+                    children: [
+                      TextSpan(text: '  '),
+                      TextSpan(
+                          text: snapshot.data.toString(),
+                          style: TextStyle(
+                              color: OpenSpaceColors.black, fontSize: 18)),
+                    ],
+                    style: TextStyle(
+                        color: OpenSpaceColors.red,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold)));
+          }),
+        ),
         DropdownButton<String>(
           items: <String>['National'].map((String value) {
             return DropdownMenuItem<String>(
