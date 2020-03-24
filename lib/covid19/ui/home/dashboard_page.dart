@@ -37,6 +37,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 
   @override
   void initState() {
+    if(homeBloc != null) {
+      homeBloc.getHomeData();
+    }
     super.initState();
   }
 
