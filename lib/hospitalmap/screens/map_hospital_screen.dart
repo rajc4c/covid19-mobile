@@ -30,8 +30,11 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
+    return
+//      Scaffold(
+//      appBar: covidAppBar(),
+//      body:
+      Stack(
         children: <Widget>[
           buildMap(),
           SnappingSheet(
@@ -59,7 +62,8 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
                     SliverPadding(
                       padding: EdgeInsets.all(16.0),
                       sliver: SliverList(
-                        delegate: SliverChildListDelegate([]),
+                        delegate: SliverChildListDelegate(
+                            buildHospitalListItem([PointOfInterest("XYZ")])),
                       ),
                     )
                   ],
@@ -74,7 +78,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
             ),
           )
         ],
-      ),
+//      ),
     );
   }
 
