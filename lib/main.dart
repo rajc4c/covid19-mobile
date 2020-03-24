@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'hospitalmap/screens/map_hospital_screen.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -7,11 +9,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Covid 19',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DashboardPage(),
+      home: MapHospitalScreen(),
     );
   }
 }

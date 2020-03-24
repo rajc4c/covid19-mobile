@@ -6,30 +6,74 @@ import 'covid19/colors.dart';
 import 'covid19/common_widgets.dart';
 import 'covid19/geo.dart';
 import 'general_assement_repository.dart';
+import 'hospitalmap/repo/point_of_interest.dart';
 
 class PlaceListItem extends StatelessWidget {
-  PlaceListItem(this.openSpace, this.scaffoldKey);
+  PlaceListItem(this.pointOfInterest);
 
-  final GlobalKey<ScaffoldState> scaffoldKey;
-  final OpenSpaceWithAssessment openSpace;
+  final PointOfInterest pointOfInterest;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
-      height: 70.0,
-      child: Row(
-        children: <Widget>[
-          leftSection(),
-          middleSection(context),
-          rightSection(),
-        ],
-      ),
-    );
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        color: OpenSpaceColors.listItemBackground,
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  pointOfInterest.name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  pointOfInterest.distance,
+                  style: TextStyle(
+                    color: OpenSpaceColors.icon_color,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14,
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  pointOfInterest.address,
+                  style: TextStyle(
+                      color: OpenSpaceColors.icon_color, fontSize: 14),
+                )),
+            SizedBox(
+              height: 0.5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                RichText(
+                  text: TextSpan(
+                      text: pointOfInterest.type,
+                      style: TextStyle(color: OpenSpaceColors.icon_color)),
+                ),
+                Icon(
+                  Icons.directions,
+                  size: 32,
+                  color: OpenSpaceColors.icon_color,
+                )
+              ],
+            ),
+          ],
+        ));
   }
 
   Widget leftSection() {
-    return buildNetworkCacheImageWidget(openSpace.thumbnail, 70.0, 70.0);
+    return buildNetworkCacheImageWidget("openSpace.thumbnail", 70.0, 70.0);
   }
 
   Widget middleSection(BuildContext context) {
@@ -58,7 +102,7 @@ class PlaceListItem extends StatelessWidget {
     return Container(
       // color: Colors.blue,
       child: Text(
-        getSafeString(openSpace.title),
+        getSafeString(pointOfInterest.name),
         overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.title,
       ),
@@ -82,7 +126,7 @@ class PlaceListItem extends StatelessWidget {
                     color: OpenSpaceColors.grey,
                   ),
                   Text(
-                    getSafeString(openSpace.address),
+                    getSafeString("openSpace.address"),
                     style: Theme.of(buildContext).textTheme.body1,
                   )
                 ],
@@ -100,14 +144,14 @@ class PlaceListItem extends StatelessWidget {
                       builder: (context, snapshot) {
                         var text = "Not Available";
 
-                        if (snapshot.hasData) {
-                          text = calcApproxDistance(
-                              snapshot.data,
-                              LatLng(openSpace.centroid[1],
-                                  openSpace.centroid[0]));
-
-                          openSpace.distanceFromCurrentLocation = text;
-                        }
+//                        if (snapshot.hasData) {
+//                          text = calcApproxDistance(
+//                              snapshot.data,
+//                              LatLng(openSpace.centroid[1],
+//                                  openSpace.centroid[0]));
+//
+//                          openSpace.distanceFromCurrentLocation = text;
+//                        }
 
                         return Text(
                           text,
