@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:openspaces/covid19/api.dart';
 import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/covid19/modal/homestat.dart';
@@ -12,6 +11,7 @@ class HomeBloc extends BaseBloc {
 
   getHomeData() {
     try {
+      print("[homeApiCalled]");
       http.get(get_home_stat).timeout(Duration(minutes: 5)).then((resp) {
         if(resp.statusCode >= 200 && resp.statusCode <= 400) {
           Map<String, dynamic> respMap = jsonDecode(resp.body);
@@ -36,3 +36,4 @@ class HomeBloc extends BaseBloc {
     _streamController.close();
   }
 }
+final homeBloc = HomeBloc();

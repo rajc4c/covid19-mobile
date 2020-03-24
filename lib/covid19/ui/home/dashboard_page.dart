@@ -4,11 +4,9 @@ import 'package:openspaces/covid19/bloc/home_bloc.dart';
 import 'package:openspaces/covid19/modal/homestat.dart';
 
 class DashboardPage extends StatelessWidget {
-  HomeBloc homeBloc = HomeBloc();
-
   @override
   Widget build(BuildContext context) {
-    return BaseInheritedBlockProvider<HomeBloc>(
+    return BaseInheritedBlockProvider(
       bloc: homeBloc,
       child: DashboardWidget(),
     );
@@ -23,13 +21,10 @@ class DashboardWidget extends StatefulWidget {
 class _DashboardWidgetState extends State<DashboardWidget> {
   List<String> selectorItems = ["National", "Province"];
   String selectorItem = "National";
-  HomeBloc homeBloc;
 
-  _getHomeStats() async {
-    print('refreshing stocks...');
-    if (homeBloc != null) {
-      homeBloc.getHomeData();
-    }
+  _getHomeStats() {
+    print('refreshing home...');
+    homeBloc.getHomeData();
   }
 
   @override
@@ -42,7 +37,6 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 
   @override
   void initState() {
-    homeBloc = BaseInheritedBlockProvider.of<HomeBloc>(context);
     super.initState();
   }
 
@@ -228,9 +222,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: _getHomeStats,
-      child: StreamBuilder<HomeStat>(
+    return  StreamBuilder<HomeStat>(
         stream: homeBloc.homeStream,
         builder: (context, snapshot) {
           if(snapshot == null || snapshot.data == null) {
@@ -238,7 +230,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
           } else if(snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString(), style:  TextStyle(fontSize: 16.0, color: Colors.red),),);
           }
-          return Container(
+          else {
+            return Container(
             height: MediaQuery.of(context).size.height,
             child: SingleChildScrollView(
               child: Column(
@@ -354,9 +347,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 ],
               ),
             ),
-          );
+          ); }
         }
-      ),
-    );
+      );
   }
 }
