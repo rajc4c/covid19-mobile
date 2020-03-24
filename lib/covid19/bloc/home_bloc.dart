@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 class HomeBloc extends BaseBloc {
   StreamController<HomeStat> _streamController = StreamController();
+  Stream<HomeStat> get homeStream => _streamController.stream;
 
   getHomeData() {
     try {
