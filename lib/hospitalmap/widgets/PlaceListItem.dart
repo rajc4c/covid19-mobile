@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 
-import 'covid19/colors.dart';
-import 'covid19/common_widgets.dart';
-import 'hospitalmap/repo/point_of_interest.dart';
+import '../../covid19/colors.dart';
+import '../../covid19/common_widgets.dart';
+import '../repo/point_of_interest.dart';
 
 class PlaceListItem extends StatelessWidget {
   PlaceListItem(this.pointOfInterest, {this.showCloseButton: false});

@@ -33,6 +33,8 @@ class OpenSpaceColors {
   static var icon_color_highligted = headline_blue;
 
   static var border_color = Color(0xffDCDCDC);
+
+  static var button_red = Color(0xffFFEBEC);
 }
 
 class DimenConstants {

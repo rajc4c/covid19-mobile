@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,12 +8,13 @@ import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 import 'package:openspaces/hospitalmap/repo/point_of_interest.dart';
+import 'package:openspaces/hospitalmap/widgets/data_progress_list_item.dart';
 import 'package:openspaces/hospitalmap/widgets/point_of_interest_list_item.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:user_location/user_location.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
-import '../../PlaceListItem.dart';
+import '../widgets/PlaceListItem.dart';
 import '../../custom_line.dart';
 
 class MapHospitalScreen extends StatefulWidget {
@@ -317,6 +316,31 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
           PlaceListItem(
             data,
             showCloseButton: true,
+          ),
+          dataProgressWidget("ICU in use",
+              count: data.numOfIcuBed, total: data.occupiedIcuBed),
+          dataProgressWidget("Ventilators in use",
+              count: data.numOfVentilators, total: data.occupiedVentilators),
+          dataProgressWidget("Isolation beds in use",
+              count: data.occupiedIsolationBed, total: data.numOfIsolationBed),
+          Padding(
+            padding: EdgeInsets.all(16),
+            child: InkWell(
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.all(16),
+                color: OpenSpaceColors.button_red,
+                child: Center(
+                  child: Text(
+                    "EDIT DATA",
+                    style: TextStyle(
+                        color: OpenSpaceColors.red,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ),
+            ),
           )
         ],
       ),
