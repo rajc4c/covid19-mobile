@@ -59,8 +59,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
                     SliverPadding(
                       padding: EdgeInsets.all(16.0),
                       sliver: SliverList(
-                        delegate: SliverChildListDelegate(
-                            buildHospitalListItem([PointOfInterest("XYZ")])),
+                        delegate: SliverChildListDelegate([]),
                       ),
                     )
                   ],
