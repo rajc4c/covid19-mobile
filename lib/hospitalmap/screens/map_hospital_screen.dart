@@ -42,6 +42,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
     pointOfInterestBloc.getBottomSheetSnapPosition.where((sheetPosition) {
       return sheetPosition != null;
     }).listen((sheetPosition) {
+      print(sheetPosition.toString());
       _snappingSheetController.snapToPosition(sheetPosition);
     });
   }
@@ -129,10 +130,8 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
     return pointOfInterestItems.map((pointOfInterestItem) {
       return InkWell(
         onTap: () {
-          pointOfInterestBloc.updateBottomSheetSnapPosition(
 
-            SnapPosition(positionFactor: 1),
-          );
+
         },
         child: PlaceListItem(pointOfInterestItem),
       );
@@ -142,6 +141,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
   Widget searchField() {
     return TextFormField(
       onTap: () {
+        print("Hello");
         pointOfInterestBloc
             .updateBottomSheetSnapPosition(SnapPosition(positionFactor: 1));
       },

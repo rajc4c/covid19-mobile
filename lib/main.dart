@@ -133,6 +133,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: covidAppBar(),
       body: buildPageView(),
       drawer: _mDrawer(),
