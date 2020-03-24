@@ -229,6 +229,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
             return Center(child: Text(snapshot.error.toString(), style:  TextStyle(fontSize: 16.0, color: Colors.red),),);
           }
           else {
+            HomeStat homeStat = snapshot.data;
             return Container(
             height: MediaQuery.of(context).size.height,
             child: SingleChildScrollView(
@@ -246,9 +247,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        _statItems("Tested", 573, Color.fromRGBO(233, 236, 255, 1)),
-                        _statItems("Negative", 573, Color.fromRGBO(229, 247, 230, 1)),
-                        _statItems("Positive", 573, Color.fromRGBO(255, 235, 236, 1))
+                        _statItems("Tested", homeStat.tested, Color.fromRGBO(233, 236, 255, 1)),
+                        _statItems("Negative", homeStat.tested-homeStat.confirmed, Color.fromRGBO(229, 247, 230, 1)),
+                        _statItems("Positive", homeStat.confirmed, Color.fromRGBO(255, 235, 236, 1))
                       ],
                     ),
                   ),
@@ -260,9 +261,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        _statItems("Isolated", 1, Color.fromRGBO(233, 236, 255, 1)),
-                        _statItems("Recovered", 0, Color.fromRGBO(229, 247, 230, 1)),
-                        _statItems("Deaths", 0, Color.fromRGBO(255, 235, 236, 1))
+                        _statItems("Isolated", homeStat.isolation, Color.fromRGBO(233, 236, 255, 1)),
+                        _statItems("Recovered", homeStat.confirmed-homeStat.death- homeStat.isolation, Color.fromRGBO(229, 247, 230, 1)),
+                        _statItems("Deaths", homeStat.death, Color.fromRGBO(255, 235, 236, 1))
                       ],
                     ),
                   ),
