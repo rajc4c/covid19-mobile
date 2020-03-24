@@ -22,6 +22,8 @@ class PlaceListItem extends StatelessWidget {
               children: <Widget>[
                 Text(
                   pointOfInterest.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsi,
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
                     fontSize: 16,

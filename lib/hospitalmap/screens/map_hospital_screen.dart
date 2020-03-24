@@ -35,7 +35,6 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
     pointOfInterestBloc.fetchHealthFacilities();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BaseInheritedBlockProvider(
@@ -125,6 +124,9 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
 
   Widget searchField() {
     return TextFormField(
+      onChanged: ((text) {
+        pointOfInterestBloc.addUserSearchText(text);
+      }),
       decoration: InputDecoration(
         fillColor: OpenSpaceColors.searchFillColor,
         border: new OutlineInputBorder(
@@ -146,10 +148,9 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
         color: OpenSpaceColors.icon_color,
       ),
       decoration:
-      BoxDecoration(color: Colors.white, boxShadow: [defaultBoxShadow()]),
+          BoxDecoration(color: Colors.white, boxShadow: [defaultBoxShadow()]),
     );
   }
-
 
   Widget buildMap(List<Marker> markers) {
     return FlutterMap(

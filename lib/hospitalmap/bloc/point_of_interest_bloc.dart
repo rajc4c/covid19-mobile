@@ -10,12 +10,15 @@ import 'package:latlong/latlong.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PointOfInterestBloc extends BaseBloc {
-  final  pointOfInterestController = BehaviorSubject<List<PointOfInterest>>();
+  final pointOfInterestController = BehaviorSubject<List<PointOfInterest>>();
   final pointOfInterestCountController = BehaviorSubject<int>();
   final _pointOfInterestMarkers = BehaviorSubject<List<Marker>>();
+  final _userSearchTextController = BehaviorSubject<String>();
 
   Stream<List<PointOfInterest>> get pointOfInterests =>
       pointOfInterestController.stream;
+
+  Stream<String> get userSearchText => _userSearchTextController.stream;
 
   Stream<List<Marker>> get pointOfInterestMarkers =>
       _pointOfInterestMarkers.stream;
@@ -26,15 +29,29 @@ class PointOfInterestBloc extends BaseBloc {
   Function(int) get addPointOfInterestCount =>
       pointOfInterestCountController.sink.add;
 
+  Function(String) get addUserSearchText => _userSearchTextController.sink.add;
+
   Function(List<Marker>) get addPointOfInterestMarkers =>
       _pointOfInterestMarkers.sink.add;
 
   Function(List<PointOfInterest>) get addPointOfInterest =>
       pointOfInterestController.sink.add;
 
+  PointOfInterestBloc() {
+    addUserSearchText("");
+    _userSearchTextController
+        .debounceTime(Duration(seconds: 1))
+        .distinct()
+        .listen((text) {
+
+      fetchHealthFacilities();
+    });
+  }
+
   fetchHealthFacilities() async {
+    String query = await userSearchText.first;
     List<PointOfInterest> candidateMatches = await pointOfInterestRepository
-        .fetchHealthFacilities(get_health_facilities)
+        .fetchHealthFacilities(get_health_facilities, query: query)
         .catchError((error, stacktrage) {
       print(stacktrage);
     });
@@ -66,6 +83,7 @@ class PointOfInterestBloc extends BaseBloc {
     pointOfInterestController.close();
     _pointOfInterestMarkers.close();
     pointOfInterestCountController.close();
+    _userSearchTextController.close();
   }
 }
 
