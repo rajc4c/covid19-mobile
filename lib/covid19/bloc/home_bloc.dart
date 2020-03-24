@@ -10,11 +10,12 @@ class HomeBloc extends BaseBloc {
 
   getHomeData() {
     try {
-      http.get(get_home_stat).then((resp) {
+      http.get(get_home_stat).timeout(Duration(minutes: 5)).then((resp) {
         if(resp.statusCode >= 200 && resp.statusCode <= 400) {
 
         }
       }, onError: (err) {
+        print(err.toString());
         _streamController.sink.addError(err.toString());
       });
     } catch (e) {
