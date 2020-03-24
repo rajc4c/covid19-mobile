@@ -82,6 +82,22 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     );
   }
 
+  _dataProgressWidget(String title, int count, int total) {
+    return Column(children: <Widget>[
+      Text(title, style: TextStyle(fontSize: 12.0, color: Colors.grey),),
+      SizedBox(height: 4.0,),
+      Row(children: <Widget>[
+        RichText(text: TextSpan(
+          text: "$count",
+            style: TextStyle(color: Colors.black, fontSize: 24.0, fontWeight: FontWeight.bold),
+            children: <TextSpan>[
+                TextSpan(text: "/$total", style: TextStyle(color: Colors.grey, fontSize: 12.0))
+        ]),),
+        Expanded(child: LinearProgressIndicator(backgroundColor: Colors.red, value: count ==0 || total == 0 ? 0 : count/total,),)
+      ],)
+    ],);
+  }
+
   _headSelector() {
     return Row(
       children: <Widget>[
@@ -254,7 +270,12 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         ),
                         trailing: Icon(Icons.navigate_next),
                       ),
-                    )
+                    ),
+                    _dataProgressWidget("ICU in use", 1,2),
+                    SizedBox(height: 8.0,),
+                    _dataProgressWidget("Ventilator in use", 200, 980),
+                    SizedBox(height: 8.0,),
+                    _dataProgressWidget("Isolation beds in use", 300, 400)
                   ],
                 ),
               )
