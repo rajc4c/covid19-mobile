@@ -36,13 +36,59 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   _mDrawer() {
     return Drawer(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(height: MediaQuery.of(context).size.height*0.05,),
+          ListTile(
+            leading: Image.asset(
+              "assets/images/corona.png",
+              height: 32.0,
+              width: 32.0,
+            ),
+            title: Text(
+              "COVID-19",
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
+            subtitle: RichText(
+              text: TextSpan(
+                  text: "Case Mapping",
+                  style: TextStyle(fontSize: 14.0, color: Colors.grey),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: " NEPAL",
+                        style: TextStyle(fontSize: 12.0, color: Colors.blue))
+                  ]),
+            ),
+          ),
+          Divider(height: 1.0, color: Colors.grey,),
+
           FlatButton.icon(
               onPressed: () {},
-              icon: Icon(Icons.file_upload),
+              icon: Icon(Icons.file_upload, color: Colors.red,),
               label: Text(
                 "Upload data",
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.grey),
+              )),
+
+          FlatButton.icon(
+              onPressed: () {},
+              icon: Icon(Icons.info, color: Colors.red,),
+              label: Text(
+                "About Us",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {
+
+              },
+              icon: Icon(Icons.web, color: Colors.red,),
+              label: Text(
+                "WHO website",
+                style: TextStyle(color: Colors.grey),
               ))
         ],
       ),
