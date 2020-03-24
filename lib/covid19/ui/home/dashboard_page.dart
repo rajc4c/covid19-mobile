@@ -6,14 +6,17 @@ import 'package:openspaces/covid19/modal/homestat.dart';
 class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    HomeBloc homeBloc = HomeBloc();
     return BaseInheritedBlockProvider(
       bloc: homeBloc,
-      child: DashboardWidget(),
+      child: DashboardWidget(homeBloc: homeBloc,),
     );
   }
 }
 
 class DashboardWidget extends StatefulWidget {
+  HomeBloc homeBloc;
+  DashboardWidget({ this.homeBloc });
   @override
   _DashboardWidgetState createState() => _DashboardWidgetState();
 }
@@ -21,19 +24,18 @@ class DashboardWidget extends StatefulWidget {
 class _DashboardWidgetState extends State<DashboardWidget> {
   List<String> selectorItems = ["National", "Province"];
   String selectorItem = "National";
-
   @override
   void dispose() {
-    if (homeBloc != null) {
-      homeBloc.dispose();
+    if (widget.homeBloc != null) {
+      widget.homeBloc.dispose();
     }
     super.dispose();
   }
 
   @override
   void initState() {
-    if (homeBloc != null) {
-      homeBloc.getHomeData(province: "1");
+    if (widget.homeBloc != null) {
+      widget.homeBloc.getHomeData(province: "1");
     }
     super.initState();
   }
@@ -210,7 +212,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<HomeStat>(
-        stream: homeBloc.homeStream,
+        stream: widget.homeBloc.homeStream,
         builder: (context, snapshot) {
           if (snapshot == null || snapshot.data == null) {
             return Center(
