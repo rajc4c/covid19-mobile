@@ -109,7 +109,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         style: TextStyle(color: Colors.grey, fontSize: 12.0))
                   ]),
             ),
-            SizedBox(width: 16.0,),
+            SizedBox(
+              width: 16.0,
+            ),
             Expanded(
               child: LinearProgressIndicator(
                 backgroundColor: Colors.white,
@@ -161,6 +163,69 @@ class _DashboardWidgetState extends State<DashboardWidget> {
           ),
         )
       ],
+    );
+  }
+
+  _hotlineWidget() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(color: Color.fromRGBO(233, 236, 255, 1)),
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        children: <Widget>[
+          FlatButton.icon(
+              onPressed: () {},
+              icon: Icon(
+                Icons.call,
+                color: Colors.red,
+              ),
+              label: Text("COVID-19 Hotline")),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Text("9851255834",
+                  style: TextStyle(
+                      color: Color.fromRGBO(13, 73, 239, 1),
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold)),
+              Text("9851255834",
+                  style: TextStyle(
+                      color: Color.fromRGBO(13, 73, 239, 1),
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold)),
+              Text("9851255834",
+                  style: TextStyle(
+                      color: Color.fromRGBO(13, 73, 239, 1),
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold)),
+            ],
+          ),
+          SizedBox(
+            height: 8.0,
+          ),
+          Text("8am - 8pm",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 12.0,
+              )),
+          SizedBox(
+            height: 16.0,
+          ),
+          Text("1115",
+              style: TextStyle(
+                  color: Color.fromRGBO(13, 73, 239, 1),
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold)),
+          SizedBox(
+            height: 8.0,
+          ),
+          Text("6am - 10pm",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 12.0,
+              )),
+        ],
+      ),
     );
   }
 
@@ -298,7 +363,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         trailing: Icon(Icons.navigate_next),
                       ),
                     ),
-                    SizedBox(height: 16.0,),
+                    SizedBox(
+                      height: 16.0,
+                    ),
                     _dataProgressWidget("ICU in use", 1, 2),
                     SizedBox(
                       height: 16.0,
@@ -307,10 +374,11 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                     SizedBox(
                       height: 16.0,
                     ),
-                    _dataProgressWidget("Isolation beds in use", 300, 400)
+                    _dataProgressWidget("Isolation beds in use", 300, 400),
                   ],
                 ),
-              )
+              ),
+              _hotlineWidget()
             ],
           ),
         ),
