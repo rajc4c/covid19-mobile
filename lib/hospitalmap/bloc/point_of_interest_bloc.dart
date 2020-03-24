@@ -15,11 +15,21 @@ class PointOfInterestBloc extends BaseBloc {
   final pointOfInterestCountController = BehaviorSubject<int>();
   final _pointOfInterestMarkers = BehaviorSubject<List<Marker>>();
   final _userSearchTextController = BehaviorSubject<String>();
-
+  final _selectedPointOfInterestController = BehaviorSubject<PointOfInterest>();
   final _bottomSheetPositionController = BehaviorSubject<SnapPosition>();
+  final _userLocationCacheController = BehaviorSubject<LatLng>();
+
+  Function(LatLng) get updateCurrentLocationCache =>
+      _userLocationCacheController.sink.add;
 
   Function(SnapPosition) get updateBottomSheetSnapPosition =>
       _bottomSheetPositionController.sink.add;
+
+  Function(PointOfInterest) get updateSelectedPointOfInterest =>
+      _selectedPointOfInterestController.sink.add;
+
+  Stream<PointOfInterest> get getSelectedPointOfInterest =>
+      _selectedPointOfInterestController.stream;
 
   Observable<SnapPosition> get getBottomSheetSnapPosition =>
       _bottomSheetPositionController.stream;
@@ -28,6 +38,9 @@ class PointOfInterestBloc extends BaseBloc {
       pointOfInterestController.stream;
 
   Stream<String> get userSearchText => _userSearchTextController.stream;
+
+  Stream<LatLng> get getCurrentUserLocationCache =>
+      _userLocationCacheController.stream;
 
   Stream<List<Marker>> get pointOfInterestMarkers =>
       _pointOfInterestMarkers.stream;
@@ -93,6 +106,8 @@ class PointOfInterestBloc extends BaseBloc {
     pointOfInterestCountController.close();
     _userSearchTextController.close();
     _bottomSheetPositionController.close();
+    _selectedPointOfInterestController.close();
+    _userLocationCacheController.close();
   }
 }
 

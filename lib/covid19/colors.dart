@@ -28,6 +28,11 @@ class OpenSpaceColors {
   static var black = Color(0xff333333);
 
   static var listItemBackground = Color(0xffF5F5F5);
+
+  static var selected_color = Color(0xffE9ECFF);
+  static var icon_color_highligted = headline_blue;
+
+  static var border_color = Color(0xffDCDCDC);
 }
 
 class DimenConstants {
