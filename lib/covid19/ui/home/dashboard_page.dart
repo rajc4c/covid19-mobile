@@ -32,7 +32,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 
   @override
   void initState() {
-    if(homeBloc != null) {
+    if (homeBloc != null) {
       homeBloc.getHomeData(province: "1");
     }
     super.initState();
@@ -155,7 +155,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     );
   }
 
-  _hotlineWidget() {
+  _hotlineWidget(List<String> phones, String time) {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(color: Color.fromRGBO(233, 236, 255, 1)),
@@ -170,29 +170,18 @@ class _DashboardWidgetState extends State<DashboardWidget> {
               ),
               label: Text("COVID-19 Hotline")),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Text("9851255834",
-                  style: TextStyle(
-                      color: Color.fromRGBO(13, 73, 239, 1),
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.bold)),
-              Text("9851255834",
-                  style: TextStyle(
-                      color: Color.fromRGBO(13, 73, 239, 1),
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.bold)),
-              Text("9851255834",
-                  style: TextStyle(
-                      color: Color.fromRGBO(13, 73, 239, 1),
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.bold)),
-            ],
-          ),
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List<Widget>.generate(phones.length, (index) {
+                return Text(phones[index],
+                    style: TextStyle(
+                        color: Color.fromRGBO(13, 73, 239, 1),
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold));
+              })),
           SizedBox(
             height: 8.0,
           ),
-          Text("8am - 8pm",
+          Text(time,
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 12.0,
@@ -208,7 +197,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
           SizedBox(
             height: 8.0,
           ),
-          Text("6am - 10pm",
+          Text(time,
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 12.0,
@@ -220,134 +209,157 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return  StreamBuilder<HomeStat>(
+    return StreamBuilder<HomeStat>(
         stream: homeBloc.homeStream,
         builder: (context, snapshot) {
-          if(snapshot == null || snapshot.data == null) {
-            return Center(child: CircularProgressIndicator(),);
-          } else if(snapshot.hasError) {
-            return Center(child: Text(snapshot.error.toString(), style:  TextStyle(fontSize: 16.0, color: Colors.red),),);
-          }
-          else {
+          if (snapshot == null || snapshot.data == null) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                snapshot.error.toString(),
+                style: TextStyle(fontSize: 16.0, color: Colors.red),
+              ),
+            );
+          } else {
             HomeStat homeStat = snapshot.data;
             return Container(
-            height: MediaQuery.of(context).size.height,
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                    child: _headSelector(),
-                  ),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        _statItems("Tested", homeStat.tested, Color.fromRGBO(233, 236, 255, 1)),
-                        _statItems("Negative", homeStat.tested-homeStat.confirmed, Color.fromRGBO(229, 247, 230, 1)),
-                        _statItems("Positive", homeStat.confirmed, Color.fromRGBO(255, 235, 236, 1))
-                      ],
+              height: MediaQuery.of(context).size.height,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                      child: _headSelector(),
                     ),
-                  ),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        _statItems("Isolated", homeStat.isolation, Color.fromRGBO(233, 236, 255, 1)),
-                        _statItems("Recovered", homeStat.confirmed-homeStat.death- homeStat.isolation, Color.fromRGBO(229, 247, 230, 1)),
-                        _statItems("Deaths", homeStat.death, Color.fromRGBO(255, 235, 236, 1))
-                      ],
+                    SizedBox(
+                      height: 8.0,
                     ),
-                  ),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 16.0),
-                      child: RichText(
-                        text: TextSpan(
-                            text: "Last Updated",
-                            style: TextStyle(fontSize: 14.0, color: Colors.grey),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: " 23/03/2020",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12.0))
-                            ]),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          _statItems("Tested", homeStat.tested,
+                              Color.fromRGBO(233, 236, 255, 1)),
+                          _statItems(
+                              "Negative",
+                              homeStat.tested - homeStat.confirmed,
+                              Color.fromRGBO(229, 247, 230, 1)),
+                          _statItems("Positive", homeStat.confirmed,
+                              Color.fromRGBO(255, 235, 236, 1))
+                        ],
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.all(16.0),
-                    decoration:
-                        BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          "MEDICAL FACILITY STATUS",
-                          style: TextStyle(
-                              fontSize: 12.0,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 8.0,
-                        ),
-                        Card(
-                          color: Colors.white,
-                          child: ListTile(
-                            title: Text(
-                              "Medical Facilities",
-                              style: TextStyle(fontSize: 12.0, color: Colors.grey),
-                            ),
-                            subtitle: Text(
-                              "120",
-                              style: TextStyle(
-                                  fontSize: 24.0,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            trailing: Icon(Icons.navigate_next),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16.0,
-                        ),
-                        _dataProgressWidget("ICU in use", 1, 2),
-                        SizedBox(
-                          height: 16.0,
-                        ),
-                        _dataProgressWidget("Ventilator in use", 200, 980),
-                        SizedBox(
-                          height: 16.0,
-                        ),
-                        _dataProgressWidget("Isolation beds in use", 300, 400),
-                      ],
+                    SizedBox(
+                      height: 8.0,
                     ),
-                  ),
-                  _hotlineWidget()
-                ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          _statItems("Isolated", homeStat.isolation,
+                              Color.fromRGBO(233, 236, 255, 1)),
+                          _statItems(
+                              "Recovered",
+                              homeStat.confirmed -
+                                  homeStat.death -
+                                  homeStat.isolation,
+                              Color.fromRGBO(229, 247, 230, 1)),
+                          _statItems("Deaths", homeStat.death,
+                              Color.fromRGBO(255, 235, 236, 1))
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8.0,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 16.0),
+                        child: RichText(
+                          text: TextSpan(
+                              text: "Last Updated",
+                              style:
+                                  TextStyle(fontSize: 14.0, color: Colors.grey),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: " 23/03/2020",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12.0))
+                              ]),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8.0,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(220, 220, 220, 1)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "MEDICAL FACILITY STATUS",
+                            style: TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
+                          Card(
+                            color: Colors.white,
+                            child: ListTile(
+                              title: Text(
+                                "Medical Facilities",
+                                style: TextStyle(
+                                    fontSize: 12.0, color: Colors.grey),
+                              ),
+                              subtitle: Text(
+                                "120",
+                                style: TextStyle(
+                                    fontSize: 24.0,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              trailing: Icon(Icons.navigate_next),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16.0,
+                          ),
+                          _dataProgressWidget(
+                              "ICU in use", homeStat.occupiedIcu, homeStat.icu),
+                          SizedBox(
+                            height: 16.0,
+                          ),
+                          _dataProgressWidget("Ventilator in use",
+                              homeStat.occupiedVentilator, homeStat.ventilator),
+                          SizedBox(
+                            height: 16.0,
+                          ),
+                          _dataProgressWidget("Isolation beds in use",
+                              homeStat.occupiedVentilator, homeStat.isolation),
+                        ],
+                      ),
+                    ),
+                    _hotlineWidget(homeStat.phones, homeStat.time)
+                  ],
+                ),
               ),
-            ),
-          ); }
-        }
-      );
+            );
+          }
+        });
   }
 }
