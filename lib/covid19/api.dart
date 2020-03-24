@@ -1,5 +1,5 @@
 //const base_url = "https://2f2b62a7.ngrok.io/";
-const base_url = "http://139.59.67.104:8011/";
+const base_url = "http://139.59.67.104:8021/api/v1/";
 
 const get_open_space = base_url + "api/v1/open_space";
 const get_open_space_geo_json = base_url + "api/v1/open_space_geo_json";
@@ -13,3 +13,6 @@ const get_gallery = base_url + "api/v1/gallery/";
 const report = base_url + "api/v1/report/";
 
 const get_amenities = base_url + "api/v1/alternative_near_by_me";
+
+// stats for home dashboard
+const get_home_stat = "$base_url/stat";
