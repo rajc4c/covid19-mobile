@@ -31,7 +31,6 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: covidAppBar(),
       body: Stack(
         children: <Widget>[
           buildMap(),

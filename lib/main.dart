@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:openspaces/dashboard/DashboardV2.dart';
 
+import 'formdata/widgets/upload_data_screen.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
 
 void main() => runApp(MyApp());
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MapHospitalScreen(),
+      home: UploadDataScreen(),
     );
   }
 }
@@ -42,7 +44,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: MediaQuery.of(context).size.height*0.05,),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
           ListTile(
             leading: Image.asset(
               "assets/images/corona.png",
@@ -67,28 +71,36 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                   ]),
             ),
           ),
-          Divider(height: 1.0, color: Colors.grey,),
-
+          Divider(
+            height: 1.0,
+            color: Colors.grey,
+          ),
           FlatButton.icon(
               onPressed: () {},
-              icon: Icon(Icons.file_upload, color: Colors.red,),
+              icon: Icon(
+                Icons.file_upload,
+                color: Colors.red,
+              ),
               label: Text(
                 "Upload data",
                 style: TextStyle(color: Colors.grey),
               )),
-
           FlatButton.icon(
               onPressed: () {},
-              icon: Icon(Icons.info, color: Colors.red,),
+              icon: Icon(
+                Icons.info,
+                color: Colors.red,
+              ),
               label: Text(
                 "About Us",
                 style: TextStyle(color: Colors.grey),
               )),
           FlatButton.icon(
-              onPressed: () {
-
-              },
-              icon: Icon(Icons.web, color: Colors.red,),
+              onPressed: () {},
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
               label: Text(
                 "WHO website",
                 style: TextStyle(color: Colors.grey),
