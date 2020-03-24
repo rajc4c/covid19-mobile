@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
-import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 import 'covid19/ui/home/dashboard_page.dart';
