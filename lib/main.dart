@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
+import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 import 'covid19/ui/home/dashboard_page.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
@@ -132,35 +133,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-        title: ListTile(
-          leading: Image.asset(
-            "assets/images/corona.png",
-            height: 32.0,
-            width: 32.0,
-          ),
-          title: Text(
-            "COVID-19",
-            style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
-          ),
-          subtitle: RichText(
-            text: TextSpan(
-                text: "Case Mapping",
-                style: TextStyle(fontSize: 14.0, color: Colors.grey),
-                children: <TextSpan>[
-                  TextSpan(
-                      text: " NEPAL",
-                      style: TextStyle(fontSize: 12.0, color: Colors.blue))
-                ]),
-          ),
-        ),
-      ),
+      resizeToAvoidBottomPadding: false,
+      appBar: covidAppBar(),
       body: buildPageView(),
       drawer: _mDrawer(),
       bottomNavigationBar: BottomNavigationBar(

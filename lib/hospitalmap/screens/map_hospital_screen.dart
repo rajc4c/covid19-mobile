@@ -42,6 +42,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
     pointOfInterestBloc.getBottomSheetSnapPosition.where((sheetPosition) {
       return sheetPosition != null;
     }).listen((sheetPosition) {
+      print(sheetPosition.toString());
       _snappingSheetController.snapToPosition(sheetPosition);
     });
   }
@@ -128,19 +129,17 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
       List<PointOfInterest> pointOfInterestItems) {
     return pointOfInterestItems.map((pointOfInterestItem) {
       return InkWell(
-        onTap: () {
-          pointOfInterestBloc.updateBottomSheetSnapPosition(
-
-            SnapPosition(positionFactor: 1),
-          );
-        },
+        onTap: () {},
         child: PlaceListItem(pointOfInterestItem),
       );
     }).toList();
   }
 
   Widget searchField() {
+    final TextEditingController _controller = new TextEditingController();
+
     return TextFormField(
+      controller: _controller,
       onTap: () {
         pointOfInterestBloc
             .updateBottomSheetSnapPosition(SnapPosition(positionFactor: 1));
@@ -155,7 +154,13 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
           borderSide: new BorderSide(),
         ),
         labelText: 'Search',
-        suffixIcon: Icon(Icons.close),
+        suffixIcon: InkWell(
+          child: Icon(Icons.close),
+          onTap: () {
+            _controller.clear();
+            pointOfInterestBloc.addUserSearchText("");
+          },
+        ),
         prefixIcon: Icon(Icons.search),
       ),
     );
