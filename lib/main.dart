@@ -159,50 +159,103 @@ class _DashboardWidgetState extends State<DashboardWidget> {
       drawer: _mDrawer(),
       body: Container(
         height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.only(left: 16.0, right: 16.0),
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              _headSelector(),
-              SizedBox(
-                height: 8.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  _statItems("Tested", 573, Color.fromRGBO(233, 236, 255, 1)),
-                  _statItems("Negative", 573, Color.fromRGBO(229, 247, 230, 1)),
-                  _statItems("Positive", 573, Color.fromRGBO(255, 235, 236, 1))
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                child: _headSelector(),
               ),
               SizedBox(
                 height: 8.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  _statItems("Isolated", 1, Color.fromRGBO(233, 236, 255, 1)),
-                  _statItems("Recovered", 0, Color.fromRGBO(229, 247, 230, 1)),
-                  _statItems("Deaths", 0, Color.fromRGBO(255, 235, 236, 1))
-                ],
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    _statItems("Tested", 573, Color.fromRGBO(233, 236, 255, 1)),
+                    _statItems(
+                        "Negative", 573, Color.fromRGBO(229, 247, 230, 1)),
+                    _statItems(
+                        "Positive", 573, Color.fromRGBO(255, 235, 236, 1))
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    _statItems("Isolated", 1, Color.fromRGBO(233, 236, 255, 1)),
+                    _statItems(
+                        "Recovered", 0, Color.fromRGBO(229, 247, 230, 1)),
+                    _statItems("Deaths", 0, Color.fromRGBO(255, 235, 236, 1))
+                  ],
+                ),
               ),
               SizedBox(
                 height: 8.0,
               ),
               Align(
                 alignment: Alignment.bottomRight,
-                child: RichText(
-                  text: TextSpan(
-                      text: "Last Updated",
-                      style: TextStyle(fontSize: 14.0, color: Colors.grey),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: " 23/03/2020",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12.0))
-                      ]),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: RichText(
+                    text: TextSpan(
+                        text: "Last Updated",
+                        style: TextStyle(fontSize: 14.0, color: Colors.grey),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: " 23/03/2020",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.0))
+                        ]),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.all(16.0),
+                decoration:
+                    BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "MEDICAL FACILITY STATUS",
+                      style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.red,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 8.0,),
+                    Card(
+                      color: Colors.white,
+                      child: ListTile(
+                        title: Text(
+                          "Medical Facilities",
+                          style: TextStyle(fontSize: 12.0, color: Colors.grey),
+                        ),
+                        subtitle: Text(
+                          "120",
+                          style: TextStyle(
+                              fontSize: 24.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        trailing: Icon(Icons.navigate_next),
+                      ),
+                    )
+                  ],
                 ),
               )
             ],
@@ -220,7 +273,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         unselectedItemColor: Colors.grey,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
-          BottomNavigationBarItem(icon: Icon(Icons.local_hospital), title: Text("Hospital")),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.local_hospital), title: Text("Hospital")),
           BottomNavigationBarItem(icon: Icon(Icons.info), title: Text("info"))
         ],
       ),
