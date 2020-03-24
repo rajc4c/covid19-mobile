@@ -39,28 +39,35 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
             snapPositions: const [
               SnapPosition(positionPixel: 0.0),
               SnapPosition(positionFactor: 0.3),
-              SnapPosition(positionFactor: 0.8),
+              SnapPosition(positionFactor: 1),
             ],
-            grabbingHeight: 20.0,
+            grabbingHeight: 25.0,
             sheetBelow: Container(
                 color: OpenSpaceColors.white,
                 child: CustomScrollView(
                   slivers: <Widget>[
-                    SliverList(
-                      delegate: SliverChildListDelegate([
-                        HeaderText(
-                          title: "Medical Facilities",
-                        ),
-                        searchField(),
-                      ]),
+                    SliverPadding(
+                      padding: EdgeInsets.all(16.0),
+                      sliver: SliverList(
+                        delegate: SliverChildListDelegate([
+                          HeaderText(
+                            title: "Medical Facilities",
+                          ),
+                          searchField(),
+                        ]),
+                      ),
                     ),
-                    SliverList(
-                      delegate: SliverChildListDelegate(
-                          buildHospitalListItem([PointOfInterest("Nishon")])),
+                    SliverPadding(
+                      padding: EdgeInsets.all(16.0),
+                      sliver: SliverList(
+                        delegate: SliverChildListDelegate(
+                            buildHospitalListItem([PointOfInterest("XYZ")])),
+                      ),
                     )
                   ],
                 )),
             grabbing: Container(
+              color: OpenSpaceColors.white,
               child: Center(
                 child: CustomPaint(
                   painter: DrawHorizontalLine(OpenSpaceColors.icon_color),

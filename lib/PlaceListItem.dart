@@ -9,23 +9,67 @@ import 'general_assement_repository.dart';
 import 'hospitalmap/repo/point_of_interest.dart';
 
 class PlaceListItem extends StatelessWidget {
-  PlaceListItem(this.openSpace);
+  PlaceListItem(this.pointOfInterest);
 
-  final PointOfInterest openSpace;
+  final PointOfInterest pointOfInterest;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
-      height: 70.0,
-      child: Row(
-        children: <Widget>[
-          leftSection(),
-          middleSection(context),
-          rightSection(),
-        ],
-      ),
-    );
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        color: OpenSpaceColors.listItemBackground,
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  pointOfInterest.name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  pointOfInterest.distance,
+                  style: TextStyle(
+                    color: OpenSpaceColors.icon_color,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14,
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Align(
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  pointOfInterest.address,
+                  style: TextStyle(
+                      color: OpenSpaceColors.icon_color, fontSize: 14),
+                )),
+            SizedBox(
+              height: 0.5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                RichText(
+                  text: TextSpan(
+                      text: pointOfInterest.type,
+                      style: TextStyle(color: OpenSpaceColors.icon_color)),
+                ),
+                Icon(
+                  Icons.directions,
+                  size: 32,
+                  color: OpenSpaceColors.icon_color,
+                )
+              ],
+            ),
+          ],
+        ));
   }
 
   Widget leftSection() {
@@ -58,7 +102,7 @@ class PlaceListItem extends StatelessWidget {
     return Container(
       // color: Colors.blue,
       child: Text(
-        getSafeString(openSpace.name),
+        getSafeString(pointOfInterest.name),
         overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.title,
       ),

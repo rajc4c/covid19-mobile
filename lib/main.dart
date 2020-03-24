@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Covid 19',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -222,7 +223,8 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         unselectedItemColor: Colors.grey,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
-          BottomNavigationBarItem(icon: Icon(Icons.local_hospital), title: Text("Hospital")),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.local_hospital), title: Text("Hospital")),
           BottomNavigationBarItem(icon: Icon(Icons.info), title: Text("info"))
         ],
       ),

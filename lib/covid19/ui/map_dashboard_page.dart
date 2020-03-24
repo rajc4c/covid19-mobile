@@ -290,12 +290,13 @@ class _MapDashboardState extends State<MapDashboard> {
   }
 
   List<Widget> buildOpenSpaceItem(List<OpenSpaceWithAssessment> openSpaces) {
-    return openSpaces.map((openSpace) {
-      return InkWell(
-        onTap: () {},
-        child: PlaceListItem(openSpace, _scaffoldKey),
-      );
-    }).toList();
+    return [];
+//    return openSpaces.map((openSpace) {
+//      return InkWell(
+//        onTap: () {},
+//        child: PlaceListItem(openSpace, ),
+//      );
+//    }).toList();
   }
 
   Widget buildHeaderText(var title, context,
