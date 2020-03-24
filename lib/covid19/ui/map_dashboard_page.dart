@@ -14,12 +14,12 @@ import '../common_widgets.dart';
 import 'package:latlong/latlong.dart';
 
 
-class Dashboard extends StatefulWidget {
+class MapDashboard extends StatefulWidget {
   @override
-  _DashboardState createState() => _DashboardState();
+  _MapDashboardState createState() => _MapDashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _MapDashboardState extends State<MapDashboard> {
   var _mapBoxId;
 
   @override
