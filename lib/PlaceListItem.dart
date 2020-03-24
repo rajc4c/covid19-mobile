@@ -1,11 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:latlong/latlong.dart';
 
 import 'covid19/colors.dart';
 import 'covid19/common_widgets.dart';
-import 'covid19/geo.dart';
-import 'general_assement_repository.dart';
 import 'hospitalmap/repo/point_of_interest.dart';
 
 class PlaceListItem extends StatelessWidget {
@@ -31,7 +28,7 @@ class PlaceListItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  pointOfInterest.distance,
+                  "440 M",
                   style: TextStyle(
                     color: OpenSpaceColors.icon_color,
                     fontWeight: FontWeight.w800,
@@ -46,7 +43,7 @@ class PlaceListItem extends StatelessWidget {
             Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  pointOfInterest.address,
+                  pointOfInterest.location ?? "Location Not Avaliable",
                   style: TextStyle(
                       color: OpenSpaceColors.icon_color, fontSize: 14),
                 )),
@@ -58,7 +55,7 @@ class PlaceListItem extends StatelessWidget {
               children: <Widget>[
                 RichText(
                   text: TextSpan(
-                      text: pointOfInterest.type,
+                      text: pointOfInterest.ownership,
                       style: TextStyle(color: OpenSpaceColors.icon_color)),
                 ),
                 Icon(

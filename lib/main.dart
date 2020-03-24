@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
+import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 
 import 'covid19/ui/home/dashboard_page.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
@@ -42,15 +44,11 @@ class _HomePageState extends State<HomePage> {
   Widget buildPageView() {
     return PageView(
       controller: pageController,
-      physics:new NeverScrollableScrollPhysics(),
+      physics: new NeverScrollableScrollPhysics(),
       onPageChanged: (index) {
         pageChanged(index);
       },
-      children: <Widget>[
-        DashboardPage(),
-        MapHospitalScreen(),
-        Container()
-      ],
+      children: <Widget>[DashboardPage(), MapHospitalScreen(), Container()],
     );
   }
 
@@ -58,13 +56,16 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
   }
+
   _mDrawer() {
     return Drawer(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: MediaQuery.of(context).size.height*0.05,),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
           ListTile(
             leading: Image.asset(
               "assets/images/corona.png",
@@ -89,28 +90,36 @@ class _HomePageState extends State<HomePage> {
                   ]),
             ),
           ),
-          Divider(height: 1.0, color: Colors.grey,),
-
+          Divider(
+            height: 1.0,
+            color: Colors.grey,
+          ),
           FlatButton.icon(
               onPressed: () {},
-              icon: Icon(Icons.file_upload, color: Colors.red,),
+              icon: Icon(
+                Icons.file_upload,
+                color: Colors.red,
+              ),
               label: Text(
                 "Upload data",
                 style: TextStyle(color: Colors.grey),
               )),
-
           FlatButton.icon(
               onPressed: () {},
-              icon: Icon(Icons.info, color: Colors.red,),
+              icon: Icon(
+                Icons.info,
+                color: Colors.red,
+              ),
               label: Text(
                 "About Us",
                 style: TextStyle(color: Colors.grey),
               )),
           FlatButton.icon(
-              onPressed: () {
-
-              },
-              icon: Icon(Icons.web, color: Colors.red,),
+              onPressed: () {},
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
               label: Text(
                 "WHO website",
                 style: TextStyle(color: Colors.grey),
@@ -119,6 +128,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,7 +168,8 @@ class _HomePageState extends State<HomePage> {
         onTap: (index) {
           setState(() {
             _selectedBottomNavigationIndex = index;
-            pageController.animateToPage(index, duration: Duration(milliseconds: 300), curve: Curves.ease);
+            pageController.animateToPage(index,
+                duration: Duration(milliseconds: 300), curve: Curves.ease);
           });
         },
         selectedItemColor: Color.fromRGBO(239, 25, 25, 1),
@@ -173,6 +184,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
-

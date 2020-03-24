@@ -2,8 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:openspaces/covid19/api.dart';
+import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/covid19/colors.dart';
+import 'package:openspaces/covid19/common_widgets.dart';
+import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 import 'package:openspaces/hospitalmap/repo/point_of_interest.dart';
+import 'package:openspaces/hospitalmap/repo/point_of_interest_repository.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:openspaces/hospitalmap/widgets/point_of_interest_list_item.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
@@ -26,17 +31,27 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
   void initState() {
     super.initState();
     _mapController = MapController();
+
+    pointOfInterestBloc.fetchHealthFacilities();
   }
+
 
   @override
   Widget build(BuildContext context) {
-    return
-//      Scaffold(
-//      appBar: covidAppBar(),
-//      body:
-      Stack(
+    return BaseInheritedBlockProvider(
+      bloc: pointOfInterestBloc,
+      child: Stack(
         children: <Widget>[
-          buildMap(),
+          StreamBuilder(
+            stream: pointOfInterestBloc.pointOfInterestMarkers,
+            builder: ((context, AsyncSnapshot<List<Marker>> snapshot) {
+              Widget progressNoData = buildProgressAndNoData(context, snapshot);
+              if (progressNoData != null) {
+                return progressNoData;
+              }
+              return buildMap(snapshot.data);
+            }),
+          ),
           SnappingSheet(
             snapPositions: const [
               SnapPosition(positionPixel: 0.0),
@@ -61,9 +76,24 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
                     ),
                     SliverPadding(
                       padding: EdgeInsets.all(16.0),
-                      sliver: SliverList(
-                        delegate: SliverChildListDelegate(
-                            buildHospitalListItem([PointOfInterest("XYZ")])),
+                      sliver: StreamBuilder(
+                        stream: pointOfInterestBloc.pointOfInterests,
+                        builder: ((BuildContext buildContext,
+                            AsyncSnapshot<List<PointOfInterest>> snapshot) {
+                          Widget noDataLayout =
+                              buildProgressAndNoData(context, snapshot);
+
+                          if (noDataLayout != null) {
+                            return SliverToBoxAdapter(
+                              child: noDataLayout,
+                            );
+                          }
+
+                          return SliverList(
+                            delegate: SliverChildListDelegate(
+                                buildHospitalListItem(snapshot.data)),
+                          );
+                        }),
                       ),
                     )
                   ],
@@ -79,6 +109,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
           )
         ],
 //      ),
+      ),
     );
   }
 
@@ -107,7 +138,20 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
     );
   }
 
-  Widget buildMap() {
+  Widget buildLocationZoomWidget() {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+      child: Icon(
+        Icons.location_searching,
+        color: OpenSpaceColors.icon_color,
+      ),
+      decoration:
+      BoxDecoration(color: Colors.white, boxShadow: [defaultBoxShadow()]),
+    );
+  }
+
+
+  Widget buildMap(List<Marker> markers) {
     return FlutterMap(
       mapController: _mapController,
       options: MapOptions(
@@ -120,7 +164,28 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
         new TileLayerOptions(
             urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             subdomains: ['a', 'b', 'c']),
+        MarkerClusterLayerOptions(
+          maxClusterRadius: 120,
+          size: Size(40, 40),
+          fitBoundsOptions: FitBoundsOptions(
+            padding: EdgeInsets.all(50),
+          ),
+          markers: markers != null ? markers : [],
+          polygonOptions: PolygonOptions(
+              borderColor: OpenSpaceColors.transparent,
+              color: OpenSpaceColors.transparent,
+              borderStrokeWidth: 1),
+          builder: (context, markers) {
+            return FloatingActionButton(
+              backgroundColor: OpenSpaceColors.green,
+              child: Text(markers.length.toString()),
+              onPressed: null,
+              heroTag: null,
+            );
+          },
+        ),
         UserLocationOptions(
+          moveToCurrentLocationFloatingActionButton: buildLocationZoomWidget(),
           context: context,
           mapController: _mapController,
           markers: locationMarkers,
