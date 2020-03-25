@@ -13,7 +13,12 @@ class HomeBloc extends BaseBloc {
   getHomeData({ @required String province}) {
     try {
       print("[homeApiCalled]");
-      http.get("$get_home_stat/?provice=$province").timeout(Duration(minutes: 5)).then((resp) {
+      String url = get_home_stat;
+      if(province.isNotEmpty) {
+        url = "$get_home_stat/?provice=$province";
+      }
+     print("[homeApi][url] ===========>>> $url");
+      http.get("$url").timeout(Duration(minutes: 5)).then((resp) {
         print("[homedata]======>>> ${resp.body}");
         if(resp.statusCode >= 200 && resp.statusCode <= 400) {
           Map<String, dynamic> respMap = jsonDecode(resp.body);
