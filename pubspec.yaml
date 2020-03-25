@@ -28,7 +28,7 @@ dependencies:
   user_location: ^0.1.2
   flutter_map_marker_cluster: ^0.2.7
   map_launcher: ^0.4.3
-  flutter_stetho: ^0.5.2
+  flutter_secure_storage: ^3.3.1+1
 
 
   # The following adds the Cupertino Icons font to your application.

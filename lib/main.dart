@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
-
+import 'auth/screens/AuthPage.dart';
 import 'covid19/ui/home/dashboard_page.dart';
 import 'formdata/widgets/upload_data_screen.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
 
 void main() {
-  Stetho.initialize();
   runApp(MyApp());
 }
 
@@ -21,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: AuthPage(),
     );
   }
 }
