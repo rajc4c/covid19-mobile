@@ -16,7 +16,6 @@ class Faq {
     faqList.add(Faq(title: "के यो एक व्यक्त्तिबाट अर्को व्यक्त्ति सर्न सक्दछ?", answers: "अहिले निश्चितताका साथ भन्न सकिने अवस्था छैन। एउटै परिवारका सदस्यहरू बिरामी भएको पाइएकोले, मानव-मानव बीचमा सिमित तवरले सर्ने सम्भावना रहेको अनुमान गरिएको छ । साथै, परिवारका सदस्यहरू एकै स्रोतबाट संक्रमण भएको हुन सक्ने सम्भावना पनि रहेको छ ।"));
     faqList.add(Faq(title: "यस भाइरसको संक्रमणबाट कसरी बच्न सकिन्छ?", answers: "सामान्यतः यस भाइरसको संक्रमण कसरी हुन्छ भन्ने बारेमा एकिन जानकारी छैन। तथापि रुघा, खोकी तथा श्वासप्रश्वासका बिरामीको नजिक नजाने तथा हातको सरसफाई नियमित गरेमा संक्रमणको सम्भावना कम रहन्छ ।"));
     faqList.add(Faq(title: "के कोरोना भाइरसको लागि उपचार छ?", answers: "नोभल कोरोना भाइरसले गर्दा हुने रोगको लागि कुनै खास उपचार छैन। यद्यपि यो भाइरसले निम्त्याएका धेरै लक्षणहरूको उपचार गर्न सकिन्छ, त्यसैले बिरामीको उपचार लक्षणको आधारमा गरिन्छ । साथै यस भाइरसको विरुद्ध हाललाई कुनै खोप उपलब्ध छैन ।"));
-    faqList.add(Faq(title: "", answers: ""));
     return faqList;
   }
 }
@@ -26,14 +25,18 @@ class FaqPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: covidAppBar(),
-      body: ListView.builder(
-        shrinkWrap: true,
-        itemCount: Faq.faqList.length,
-          itemBuilder: (context, pos) {
-          Faq faq = Faq.faqList[pos];
-              return ListTile( title: Text(faq.title, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 14.0),),
-                subtitle:  Text(faq.answers, style: TextStyle( color: Colors.grey, fontSize: 14.0),));
-      }),
+      body: Padding(
+        padding: const EdgeInsets.only(left:16.0, right: 16.0),
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: Faq.faqList.length,
+            itemBuilder: (context, pos) {
+            Faq faq = Faq.faqList[pos];
+                return ListTile(
+                    title: Text("${pos+1}. ${faq.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 14.0),),
+                  subtitle:  Text(faq.answers, style: TextStyle(fontSize: 14.0),));
+        }),
+      ),
     );
   }
 }
