@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:openspaces/auth/repos/login_repository.dart';
 import 'package:openspaces/covid19/colors.dart';
 
 class AuthPage extends StatelessWidget {
@@ -33,9 +34,6 @@ class AuthPage extends StatelessWidget {
             ),
             FormBuilder(
               key: _fbKeyLogin,
-              initialValue: {
-                'date': DateTime.now(),
-              },
               autovalidate: true,
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 16),
@@ -71,6 +69,7 @@ class AuthPage extends StatelessWidget {
                   onTap: () {
                     if (_fbKeyLogin.currentState.saveAndValidate()) {
                       print(_fbKeyLogin.currentState.value);
+                      loginRepository.login(_fbKeyLogin.currentState.value);
                     }
                   },
                   child: Container(
