@@ -60,7 +60,7 @@ class PointOfInterestBloc extends BaseBloc {
 
   Stream<String> get userSearchText => _userSearchTextController.stream;
 
-  Stream<LatLng> get getCurrentUserLocationCache =>
+  Observable<LatLng> get getCurrentUserLocationCache =>
       _userLocationCacheController.stream;
 
   Stream<List<Marker>> get pointOfInterestMarkers =>

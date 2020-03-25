@@ -56,17 +56,28 @@ class PlaceListItem extends StatelessWidget {
                     : StreamBuilder(
                         stream: pointOfInterestBloc.getCurrentUserLocationCache,
                         builder: ((context, AsyncSnapshot<LatLng> snapshot) {
-                          var text = "Not Available";
+                          var textFormatted = "Not Available";
 
                           if (snapshot.hasData) {
-                            text = calcApproxDistance(
+                            double distance = calcApproxDistance(
+                                snapshot.data,
+                                LatLng(
+                                  pointOfInterest.lat,
+                                  pointOfInterest.long,
+                                ),
+                                formatText: false);
+
+                            textFormatted = calcApproxDistance(
                                 snapshot.data,
                                 LatLng(
                                     pointOfInterest.lat, pointOfInterest.long));
+
+                            pointOfInterest.distanceFromCurrentLocation =
+                                distance;
                           }
 
                           return Text(
-                            text,
+                            textFormatted,
                             style: TextStyle(
                               color: OpenSpaceColors.icon_color,
                               fontWeight: FontWeight.w800,
