@@ -4,8 +4,17 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:openspaces/auth/repos/login_repository.dart';
 import 'package:openspaces/covid19/colors.dart';
 
-class AuthPage extends StatelessWidget {
+// ignore: must_be_immutable
+class AuthPage extends StatefulWidget {
+  @override
+  _AuthPageState createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
   final GlobalKey<FormBuilderState> _fbKeyLogin = GlobalKey<FormBuilderState>();
+
+  bool isLoggingIn = false;
+
   var questionLabelStyle = TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w700,
@@ -41,7 +50,7 @@ class AuthPage extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     FormBuilderTextField(
-                      attribute: "email",
+                      attribute: "username",
                       decoration: InputDecoration(
                           labelStyle: questionLabelStyle,
                           labelText: "Email",
@@ -69,20 +78,28 @@ class AuthPage extends StatelessWidget {
                   onTap: () {
                     if (_fbKeyLogin.currentState.saveAndValidate()) {
                       print(_fbKeyLogin.currentState.value);
-                      loginRepository.login(_fbKeyLogin.currentState.value);
+                      loginRepository
+                          .login(_fbKeyLogin.currentState.value)
+                          .then((isLoggedIn) {
+                        setState(() {
+                          isLoggingIn = isLoggedIn;
+                        });
+                      });
                     }
                   },
                   child: Container(
                     padding: EdgeInsets.all(16),
                     color: OpenSpaceColors.red,
                     child: Center(
-                      child: Text(
-                        "SIGN IN",
-                        style: TextStyle(
-                            color: OpenSpaceColors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700),
-                      ),
+                      child: isLoggingIn
+                          ? CircularProgressIndicator()
+                          : Text(
+                              "SIGN IN",
+                              style: TextStyle(
+                                  color: OpenSpaceColors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700),
+                            ),
                     ),
                   ),
                 ),
