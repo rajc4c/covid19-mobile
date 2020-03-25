@@ -36,6 +36,8 @@ class OpenSpaceColors {
 
   static var button_red = Color(0xffFFEBEC);
 
+  static var text_color= Color(0xff333333);
+
 
 }
 

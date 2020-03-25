@@ -3,6 +3,7 @@ import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 import 'covid19/ui/home/dashboard_page.dart';
+import 'formdata/widgets/upload_data_screen.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
 
 void main() {
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
       onPageChanged: (index) {
         pageChanged(index);
       },
-      children: <Widget>[DashboardPage(), MapHospitalScreen(), Container()],
+      children: <Widget>[DashboardPage(), MapHospitalScreen(), UploadDataScreen()],
     );
   }
 
