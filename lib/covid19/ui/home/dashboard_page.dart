@@ -12,7 +12,7 @@ class DashboardPage extends StatelessWidget {
     HomeBloc homeBloc = HomeBloc();
     return BaseInheritedBlockProvider(
       bloc: homeBloc,
-      child: DashboardWidget(homeBloc: homeBloc,),
+      child: DashboardWidget(homeBloc: homeBloc, medicalFacilityClicked: medicalFacilityClicked,),
     );
   }
 }
@@ -353,6 +353,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             child: ListTile(
                               onTap: () {
                                   if(widget.medicalFacilityClicked != null) {
+                                    print("[dashboard][medical clicked]");
                                     widget.medicalFacilityClicked();
                                   }
                               },

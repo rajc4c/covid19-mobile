@@ -57,6 +57,7 @@ class _HomePageState extends State<HomePage> {
       },
       children: <Widget>[
         DashboardPage(medicalFacilityClicked: (){
+          print("[home][medical facilities clicked]");
           pageController.animateToPage(1,
               duration: Duration(milliseconds: 300), curve: Curves.ease);
         },),
