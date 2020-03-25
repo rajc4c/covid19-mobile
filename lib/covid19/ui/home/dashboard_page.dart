@@ -346,6 +346,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           Card(
                             color: Colors.white,
                             child: ListTile(
+                              onTap: () {
+
+                              },
                               title: Text(
                                 "Medical Facilities",
                                 style: TextStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:openspaces/covid19/ui/home/page_comming_soon.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 import 'covid19/ui/home/dashboard_page.dart';
@@ -54,6 +55,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  _openCommingSoonPage() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CommingSoonPage()));
   }
 
   _mDrawer() {
@@ -124,7 +129,9 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.grey),
               )),
           FlatButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                _openCommingSoonPage();
+              },
               icon: Icon(
                 Icons.web,
                 color: Colors.red,
@@ -134,7 +141,9 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.grey),
               )),
           FlatButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                _openCommingSoonPage();
+              },
               icon: Icon(
                 Icons.web,
                 color: Colors.red,
@@ -144,7 +153,9 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.grey),
               )),
           FlatButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                _openCommingSoonPage();
+              },
               icon: Icon(
                 Icons.web,
                 color: Colors.red,
@@ -154,7 +165,9 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.grey),
               )),
           FlatButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                _openCommingSoonPage();
+              },
               icon: Icon(
                 Icons.web,
                 color: Colors.red,
@@ -164,7 +177,9 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.grey),
               )),
           FlatButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                _openCommingSoonPage();
+              },
               icon: Icon(
                 Icons.web,
                 color: Colors.red,
