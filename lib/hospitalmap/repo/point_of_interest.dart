@@ -27,6 +27,7 @@ class PointOfInterest {
   dynamic municipality;
   dynamic category;
   int type;
+  double distanceFromCurrentLocation;
 
   PointOfInterest(
       {this.id,

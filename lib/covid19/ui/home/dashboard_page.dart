@@ -22,7 +22,13 @@ class DashboardWidget extends StatefulWidget {
 }
 
 class _DashboardWidgetState extends State<DashboardWidget> {
-  List<String> selectorItems = ["National", "Province"];
+  List<String> selectorItems = ["National", "Province No. 1",
+    "Province No. 2",
+    "Bagmati Pradesh",
+    "Gandaki Pradesh",
+    "Province No. 5",
+    "Karnali Pradesh",
+    "Sudurpashchim Pradesh"];
   String selectorItem = "National";
   @override
   void dispose() {
