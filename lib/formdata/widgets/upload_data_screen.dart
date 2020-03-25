@@ -49,7 +49,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       decoration: InputDecoration(
                           labelStyle: questionLabelStyle,
                           labelText: "Are you caring for someone ill?"),
-                      attribute: "movie_rating",
+                      attribute: "gender",
                       options: [
                         FormBuilderFieldOption(value: "Male"),
                         FormBuilderFieldOption(
@@ -67,7 +67,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                           hintText: "Normal body temperature is 98.6°F",
                           labelText:
                               "Current body temperature in degree Fahrenheit "),
-                      attribute: "movie_rating",
+                      attribute: "temperature",
                       options: [
                         FormBuilderFieldOption(value: "Normal"),
                         FormBuilderFieldOption(
@@ -87,7 +87,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                           labelStyle: questionLabelStyle,
                           labelText:
                               "Are you experiencing any of the symptoms "),
-                      attribute: "languages",
+                      attribute: "symptoms",
                       initialValue: ["Dry Cough"],
                       options: [
                         FormBuilderFieldOption(value: "Dry Cough"),
@@ -132,42 +132,29 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                   ],
                 ),
               ),
-              FormBuilderCheckboxList(
-                decoration: InputDecoration(
-                    helperText: "mark all those applicable",
-                    labelStyle: questionLabelStyle,
-                    labelText:
-                        "Do you have a history of any of these conditions"),
-                attribute: "languages",
-                initialValue: ["Dry Cough"],
-                options: [
-                  FormBuilderFieldOption(value: "Diabetes"),
-                  FormBuilderFieldOption(value: "High Blood Pressure"),
-                  FormBuilderFieldOption(value: "Heart Disease"),
-                  FormBuilderFieldOption(value: "Kidney Disease"),
-                  FormBuilderFieldOption(value: "Lung Disease"),
-                  FormBuilderFieldOption(value: "Stroke"),
-                  FormBuilderFieldOption(value: "Reduced Immunity"),
-                ],
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: InkWell(
+                  onTap: () {
+                    if (_fbKey.currentState.saveAndValidate()) {
+                      print(_fbKey.currentState.value);
+                    }
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(16),
+                    color: OpenSpaceColors.button_red,
+                    child: Center(
+                      child: Text(
+                        "SUBMIT",
+                        style: TextStyle(
+                            color: OpenSpaceColors.red,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              Row(
-                children: <Widget>[
-                  MaterialButton(
-                    child: Text("Submit"),
-                    onPressed: () {
-                      if (_fbKey.currentState.saveAndValidate()) {
-                        print(_fbKey.currentState.value);
-                      }
-                    },
-                  ),
-                  MaterialButton(
-                    child: Text("Reset"),
-                    onPressed: () {
-                      _fbKey.currentState.reset();
-                    },
-                  ),
-                ],
-              )
             ],
           ),
         ),
