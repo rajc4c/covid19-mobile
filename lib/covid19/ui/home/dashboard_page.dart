@@ -41,7 +41,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   @override
   void initState() {
     if (widget.homeBloc != null) {
-      widget.homeBloc.getHomeData(province: "1");
+      int pos = selectorItems.indexOf(selectorItem);
+      print("[dashboard_page][selectedIndex] ========>> $pos");
+      widget.homeBloc.getHomeData(province: "$pos");
     }
     super.initState();
   }
