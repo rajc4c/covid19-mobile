@@ -26,6 +26,10 @@ class PointOfInterestBloc extends BaseBloc {
   Function(SnapPosition) get updateBottomSheetSnapPosition =>
       _bottomSheetPositionController.sink.add;
 
+
+  Stream<PointOfInterest> get getSelectedPointOfInterest =>
+      _selectedPointOfInterestController.stream;
+
   void updateSelectedPointOfInterest(PointOfInterest pointOfInterest) {
     _selectedPointOfInterestController.sink.add(pointOfInterest);
     List<Marker> markers = [];
@@ -49,8 +53,7 @@ class PointOfInterestBloc extends BaseBloc {
 //  Function(PointOfInterest) get updateSelectedPointOfInterest =>
 //      _selectedPointOfInterestController.sink.add;
 
-  Stream<PointOfInterest> get getSelectedPointOfInterest =>
-      _selectedPointOfInterestController.stream;
+
 
   Observable<SnapPosition> get getBottomSheetSnapPosition =>
       _bottomSheetPositionController.stream;
@@ -136,6 +139,8 @@ class PointOfInterestBloc extends BaseBloc {
     _selectedPointOfInterestController.close();
     _userLocationCacheController.close();
     _activePointOfInterestMarkers.close();
+    _selectedPointOfInterestController.close();
+    _userLocationCacheController.close();
   }
 }
 

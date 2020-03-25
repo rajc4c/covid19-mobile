@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
-import 'package:openspaces/covid19/api.dart';
 import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
@@ -15,6 +15,8 @@ import 'package:openspaces/hospitalmap/widgets/point_of_interest_list_item.dart'
 import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:user_location/user_location.dart';
 import 'package:latlong/latlong.dart';
+import 'package:location/location.dart';
+import '../widgets/PlaceListItem.dart';
 import 'package:location/location.dart';
 
 import '../widgets/PlaceListItem.dart';
