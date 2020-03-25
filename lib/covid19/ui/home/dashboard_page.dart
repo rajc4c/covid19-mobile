@@ -4,19 +4,24 @@ import 'package:openspaces/covid19/bloc/home_bloc.dart';
 import 'package:openspaces/covid19/modal/homestat.dart';
 
 class DashboardPage extends StatelessWidget {
+  Function medicalFacilityClicked;
+  DashboardPage({ this.medicalFacilityClicked });
+
   @override
   Widget build(BuildContext context) {
     HomeBloc homeBloc = HomeBloc();
     return BaseInheritedBlockProvider(
       bloc: homeBloc,
-      child: DashboardWidget(homeBloc: homeBloc,),
+      child: DashboardWidget(homeBloc: homeBloc, medicalFacilityClicked: medicalFacilityClicked,),
     );
   }
 }
 
 class DashboardWidget extends StatefulWidget {
   HomeBloc homeBloc;
-  DashboardWidget({ this.homeBloc });
+  DashboardWidget({ this.homeBloc, this.medicalFacilityClicked});
+  Function medicalFacilityClicked;
+
   @override
   _DashboardWidgetState createState() => _DashboardWidgetState();
 }
@@ -42,13 +47,12 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     if (widget.homeBloc != null) {
       int pos = selectorItems.indexOf(selectorItem);
       print("[dashboard_page][selectedIndex] ========>> $pos");
-      widget.homeBloc.getHomeData(province: pos ==0 ? "all" : "$pos");
+      widget.homeBloc.getHomeData(province: pos ==0 ? "" : "$pos");
     }
   }
 
   @override
   void initState() {
-    _getData();
     super.initState();
   }
 
@@ -171,7 +175,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     );
   }
 
-  _hotlineWidget(List<String> phones, String time) {
+  _hotlineWidget(List<String> phones, String time, String hotline) {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(color: Color.fromRGBO(233, 236, 255, 1)),
@@ -185,39 +189,48 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 color: Colors.red,
               ),
               label: Text("COVID-19 Hotline")),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List<Widget>.generate(phones.length, (index) {
-                return Text(phones[index],
-                    style: TextStyle(
-                        color: Color.fromRGBO(13, 73, 239, 1),
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold));
-              })),
+//          Row(
+//              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//              children: List<Widget>.generate(phones.length, (index) {
+//                return Text(phones[index],
+//                    style: TextStyle(
+//                        color: Color.fromRGBO(13, 73, 239, 1),
+//                        fontSize: 12.0,
+//                        fontWeight: FontWeight.bold));
+//              })),
+//          SizedBox(
+//            height: 8.0,
+//          ),
+//          Text(time,
+//              style: TextStyle(
+//                color: Colors.grey,
+//                fontSize: 12.0,
+//              )),
+//          SizedBox(
+//            height: 16.0,
+//          ),
+//          Text("1115",
+//              style: TextStyle(
+//                  color: Color.fromRGBO(13, 73, 239, 1),
+//                  fontSize: 12.0,
+//                  fontWeight: FontWeight.bold)),
+//          SizedBox(
+//            height: 8.0,
+//          ),
+//          Text(time,
+//              style: TextStyle(
+//                color: Colors.grey,
+//                fontSize: 12.0,
+//              )),
           SizedBox(
-            height: 8.0,
+            width: MediaQuery.of(context).size.width,
+            child: Text(hotline,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Color.fromRGBO(13, 73, 239, 1),
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold)),
           ),
-          Text(time,
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 12.0,
-              )),
-          SizedBox(
-            height: 16.0,
-          ),
-          Text("1115",
-              style: TextStyle(
-                  color: Color.fromRGBO(13, 73, 239, 1),
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold)),
-          SizedBox(
-            height: 8.0,
-          ),
-          Text(time,
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 12.0,
-              )),
         ],
       ),
     );
@@ -225,6 +238,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    _getData();
     return StreamBuilder<HomeStat>(
         stream: widget.homeBloc.homeStream,
         builder: (context, snapshot) {
@@ -337,13 +351,19 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           Card(
                             color: Colors.white,
                             child: ListTile(
+                              onTap: () {
+                                  if(widget.medicalFacilityClicked != null) {
+                                    print("[dashboard][medical clicked]");
+                                    widget.medicalFacilityClicked();
+                                  }
+                              },
                               title: Text(
                                 "Medical Facilities",
                                 style: TextStyle(
                                     fontSize: 12.0, color: Colors.grey),
                               ),
                               subtitle: Text(
-                                "120",
+                                "${homeStat.facilityCount}",
                                 style: TextStyle(
                                     fontSize: 24.0,
                                     color: Colors.black,
@@ -370,7 +390,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         ],
                       ),
                     ),
-                    _hotlineWidget(homeStat.phones, homeStat.time)
+                    _hotlineWidget(homeStat.phones, homeStat.time, homeStat.hotline)
                   ],
                 ),
               ),

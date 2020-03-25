@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:openspaces/covid19/ui/home/page_comming_soon.dart';
 import 'package:flutter_stetho/flutter_stetho.dart';
+import 'package:openspaces/covid19/ui/home/page_faq.dart';
+import 'package:openspaces/covid19/ui/home/info_page.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:openspaces/locale/app_localization.dart';
 import 'package:openspaces/locale/locale_test.dart';
@@ -68,13 +71,27 @@ class _HomePageState extends State<HomePage> {
       onPageChanged: (index) {
         pageChanged(index);
       },
-      children: <Widget>[DashboardPage(), MapHospitalScreen(), UploadDataScreen()],
+      children: <Widget>[
+        DashboardPage(medicalFacilityClicked: (){
+          print("[home][medical facilities clicked]");
+          pageController.animateToPage(1,
+              duration: Duration(milliseconds: 300), curve: Curves.ease);
+        },),
+        MapHospitalScreen(),
+        UploadDataScreen(),
+        InfoPage()
+      ],
     );
   }
 
   @override
   void initState() {
     super.initState();
+  }
+
+  _openCommingSoonPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => CommingSoonPage()));
   }
 
   _mDrawer() {
@@ -121,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.red,
               ),
               label: Text(
-                "Upload data",
+                "Latest Situation",
                 style: TextStyle(color: Colors.grey),
               )),
           FlatButton.icon(
@@ -131,7 +148,77 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.red,
               ),
               label: Text(
-                "About Us",
+                "Medical Facilities",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {},
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
+              label: Text(
+                "Report Symptoms",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {
+                _openCommingSoonPage();
+              },
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
+              label: Text(
+                "Track me",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {
+                _openCommingSoonPage();
+              },
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
+              label: Text(
+                "Emergency Contacts",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {
+                _openCommingSoonPage();
+              },
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
+              label: Text(
+                "Corona Symptoms",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => FaqPage()));
+              },
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
+              label: Text(
+                "FAQ",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {
+                _openCommingSoonPage();
+              },
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
+              label: Text(
+                "About the app",
                 style: TextStyle(color: Colors.grey),
               )),
           FlatButton.icon(
@@ -142,10 +229,10 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.red,
               ),
               label: Text(
-                "WHO website",
+                "Login",
                 style: TextStyle(color: Colors.grey),
               )),
-          FlatButton.icon(
+            FlatButton.icon(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -159,7 +246,33 @@ class _HomePageState extends State<HomePage> {
               label: Text(
                 "Language Change",
                 style: TextStyle(color: Colors.grey),
-              ))
+              )),
+          Spacer(
+            flex: 1,
+          ),
+          Divider(height: 1, color: Colors.grey,),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text("Associated With", style: TextStyle(color: Colors.grey, height: 1),),
+          ),
+          SizedBox(height: 8.0,),
+          ListTile(
+            leading: Image.asset(
+              'assets/images/gov_logo.png',
+              fit: BoxFit.cover,
+              height: 48.0,
+              width: 48.0,
+            ),
+            title: Text(
+              "Government of Nepal",
+              style: TextStyle(color: Colors.blue, fontSize: 14.0),
+            ),
+            subtitle: Text(
+              "Ministry of Health and Population",
+              style: TextStyle(color: Colors.red, fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(height: 16.0,)
         ],
       ),
     );
@@ -187,7 +300,9 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
           BottomNavigationBarItem(
               icon: Icon(Icons.local_hospital), title: Text("Facilities")),
-          BottomNavigationBarItem(icon: Icon(Icons.info), title: Text("Report"))
+          BottomNavigationBarItem(
+              icon: Icon(Icons.report), title: Text("Report")),
+          BottomNavigationBarItem(icon: Icon(Icons.info), title: Text("Info"))
         ],
       ),
     );
