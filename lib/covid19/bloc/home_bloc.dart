@@ -38,4 +38,3 @@ class HomeBloc extends BaseBloc {
     _streamController.close();
   }
 }
-final homeBloc = HomeBloc();
