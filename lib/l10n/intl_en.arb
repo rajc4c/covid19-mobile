@@ -1,0 +1,9 @@
+{
+  "@@last_modified": "2020-02-17T11:24:32.873627",
+  "heyWorld": "Hey World",
+  "@heyWorld": {
+    "description": "Simple word for greeting ",
+    "type": "text",
+    "placeholders": {}
+  }
+}

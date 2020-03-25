@@ -3,14 +3,27 @@ import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 import 'covid19/ui/home/dashboard_page.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+//  AppLocalizationDelegate _localeOverrideDelegate = AppLocalizationDelegate(Locale('en', 'US'));
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [
+        const Locale('en', 'US'),
+        const Locale('np', 'NP')
+      ],
+
       debugShowCheckedModeBanner: false,
       title: 'Covid 19',
       theme: ThemeData(

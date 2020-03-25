@@ -29,6 +29,13 @@ dependencies:
   flutter_map_marker_cluster: ^0.2.7
   map_launcher: ^0.4.3
 
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.16.1
+  intl_translation: ^0.17.1
+
+dependency_overrides:
+  intl: ^0.16.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
