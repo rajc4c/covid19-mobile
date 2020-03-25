@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:openspaces/covid19/geo.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
 import '../../covid19/colors.dart';
 import '../../covid19/common_widgets.dart';
 import '../repo/point_of_interest.dart';
+import 'package:latlong/latlong.dart';
 
 class PlaceListItem extends StatelessWidget {
   PlaceListItem(this.pointOfInterest, {this.showCloseButton: false});
@@ -51,13 +53,27 @@ class PlaceListItem extends StatelessWidget {
                           ),
                         ),
                       )
-                    : Text(
-                        "440 M",
-                        style: TextStyle(
-                          color: OpenSpaceColors.icon_color,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 14,
-                        ),
+                    : StreamBuilder(
+                        stream: pointOfInterestBloc.getCurrentUserLocationCache,
+                        builder: ((context, AsyncSnapshot<LatLng> snapshot) {
+                          var text = "Not Available";
+
+                          if (snapshot.hasData) {
+                            text = calcApproxDistance(
+                                snapshot.data,
+                                LatLng(
+                                    pointOfInterest.lat, pointOfInterest.long));
+                          }
+
+                          return Text(
+                            text,
+                            style: TextStyle(
+                              color: OpenSpaceColors.icon_color,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 14,
+                            ),
+                          );
+                        }),
                       ),
               ],
             ),
