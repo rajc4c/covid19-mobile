@@ -42,7 +42,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     if (widget.homeBloc != null) {
       int pos = selectorItems.indexOf(selectorItem);
       print("[dashboard_page][selectedIndex] ========>> $pos");
-      widget.homeBloc.getHomeData(province: "$pos");
+      widget.homeBloc.getHomeData(province: pos ==0 ? "all" : "$pos");
     }
   }
 
