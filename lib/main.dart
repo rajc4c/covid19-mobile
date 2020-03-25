@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 import 'covid19/ui/home/dashboard_page.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  Stetho.initialize();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -149,8 +153,8 @@ class _HomePageState extends State<HomePage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
           BottomNavigationBarItem(
-              icon: Icon(Icons.local_hospital), title: Text("Hospital")),
-          BottomNavigationBarItem(icon: Icon(Icons.info), title: Text("info"))
+              icon: Icon(Icons.local_hospital), title: Text("Facilities")),
+          BottomNavigationBarItem(icon: Icon(Icons.info), title: Text("Report"))
         ],
       ),
     );
