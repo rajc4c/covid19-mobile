@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:openspaces/locale/app_localization.dart';
+import 'package:openspaces/locale/locale_test.dart';
 
 import 'covid19/ui/home/dashboard_page.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
@@ -129,7 +130,12 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.grey),
               )),
           FlatButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LocaleChangeTest()),
+                );
+              },
               icon: Icon(
                 Icons.web,
                 color: Colors.red,

@@ -7,3 +7,7 @@ var provinces = [
   "Karnali Pradesh",
   "Sudurpashchim Pradesh"
 ];
+
+class SharedPrefsKey {
+  static final String selectedLanguageCode = "selectedlanguageCode";
+}
