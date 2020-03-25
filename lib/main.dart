@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openspaces/covid19/ui/home/page_comming_soon.dart';
 import 'package:flutter_stetho/flutter_stetho.dart';
+import 'package:openspaces/covid19/ui/home/page_faq.dart';
 import 'package:openspaces/covid19/ui/home/report_page.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
@@ -178,7 +179,7 @@ class _HomePageState extends State<HomePage> {
               )),
           FlatButton.icon(
               onPressed: () {
-                _openCommingSoonPage();
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => FaqPage()));
               },
               icon: Icon(
                 Icons.web,

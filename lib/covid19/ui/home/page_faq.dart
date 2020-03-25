@@ -32,7 +32,7 @@ class FaqPage extends StatelessWidget {
           itemBuilder: (context, pos) {
           Faq faq = Faq.faqList[pos];
               return ListTile( title: Text(faq.title, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 14.0),),
-                subtitle:  Text(faq.answers, style: TextStyle( color: Colors.grey, fontSize: 14.0),);
+                subtitle:  Text(faq.answers, style: TextStyle( color: Colors.grey, fontSize: 14.0),));
       }),
     );
   }
