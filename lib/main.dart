@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.red,
               ),
               label: Text(
-                "Upload data",
+                "Latest Situation",
                 style: TextStyle(color: Colors.grey),
               )),
           FlatButton.icon(
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.red,
               ),
               label: Text(
-                "About Us",
+                "Medical Facilities",
                 style: TextStyle(color: Colors.grey),
               )),
           FlatButton.icon(
@@ -120,9 +120,69 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.red,
               ),
               label: Text(
-                "WHO website",
+                "Report Symptoms",
                 style: TextStyle(color: Colors.grey),
-              ))
+              )),
+          FlatButton.icon(
+              onPressed: () {},
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
+              label: Text(
+                "Track me",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {},
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
+              label: Text(
+                "Emergency Contacts",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {},
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
+              label: Text(
+                "Corona Symptoms",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {},
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
+              label: Text(
+                "FAQ",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {},
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
+              label: Text(
+                "About the app",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {},
+              icon: Icon(
+                Icons.web,
+                color: Colors.red,
+              ),
+              label: Text(
+                "Login",
+                style: TextStyle(color: Colors.grey),
+              )),
         ],
       ),
     );
