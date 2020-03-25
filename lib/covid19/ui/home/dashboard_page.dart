@@ -48,7 +48,6 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 
   @override
   void initState() {
-    _getData();
     super.initState();
   }
 
@@ -171,7 +170,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     );
   }
 
-  _hotlineWidget(List<String> phones, String time) {
+  _hotlineWidget(List<String> phones, String time, String hotline) {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(color: Color.fromRGBO(233, 236, 255, 1)),
@@ -185,39 +184,48 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 color: Colors.red,
               ),
               label: Text("COVID-19 Hotline")),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List<Widget>.generate(phones.length, (index) {
-                return Text(phones[index],
-                    style: TextStyle(
-                        color: Color.fromRGBO(13, 73, 239, 1),
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold));
-              })),
+//          Row(
+//              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//              children: List<Widget>.generate(phones.length, (index) {
+//                return Text(phones[index],
+//                    style: TextStyle(
+//                        color: Color.fromRGBO(13, 73, 239, 1),
+//                        fontSize: 12.0,
+//                        fontWeight: FontWeight.bold));
+//              })),
+//          SizedBox(
+//            height: 8.0,
+//          ),
+//          Text(time,
+//              style: TextStyle(
+//                color: Colors.grey,
+//                fontSize: 12.0,
+//              )),
+//          SizedBox(
+//            height: 16.0,
+//          ),
+//          Text("1115",
+//              style: TextStyle(
+//                  color: Color.fromRGBO(13, 73, 239, 1),
+//                  fontSize: 12.0,
+//                  fontWeight: FontWeight.bold)),
+//          SizedBox(
+//            height: 8.0,
+//          ),
+//          Text(time,
+//              style: TextStyle(
+//                color: Colors.grey,
+//                fontSize: 12.0,
+//              )),
           SizedBox(
-            height: 8.0,
+            width: MediaQuery.of(context).size.width,
+            child: Text(hotline,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Color.fromRGBO(13, 73, 239, 1),
+                    fontSize: 12.0,
+                    fontWeight: FontWeight.bold)),
           ),
-          Text(time,
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 12.0,
-              )),
-          SizedBox(
-            height: 16.0,
-          ),
-          Text("1115",
-              style: TextStyle(
-                  color: Color.fromRGBO(13, 73, 239, 1),
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold)),
-          SizedBox(
-            height: 8.0,
-          ),
-          Text(time,
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 12.0,
-              )),
         ],
       ),
     );
@@ -225,6 +233,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    _getData();
     return StreamBuilder<HomeStat>(
         stream: widget.homeBloc.homeStream,
         builder: (context, snapshot) {
@@ -370,7 +379,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         ],
                       ),
                     ),
-                    _hotlineWidget(homeStat.phones, homeStat.time)
+                    _hotlineWidget(homeStat.phones, homeStat.time, homeStat.hotline)
                   ],
                 ),
               ),
