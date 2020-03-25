@@ -54,7 +54,12 @@ class _HomePageState extends State<HomePage> {
       onPageChanged: (index) {
         pageChanged(index);
       },
-      children: <Widget>[DashboardPage(), MapHospitalScreen(), UploadDataScreen(), InfoPage()],
+      children: <Widget>[
+        DashboardPage(),
+        MapHospitalScreen(),
+        UploadDataScreen(),
+        InfoPage()
+      ],
     );
   }
 
@@ -64,7 +69,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   _openCommingSoonPage() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => CommingSoonPage()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => CommingSoonPage()));
   }
 
   _mDrawer() {
@@ -204,8 +210,32 @@ class _HomePageState extends State<HomePage> {
                 "Login",
                 style: TextStyle(color: Colors.grey),
               )),
-          Spacer(flex: 1,),
-          Image.asset('assets/images/drawer_bottom.png', fit: BoxFit.cover,)
+          Spacer(
+            flex: 1,
+          ),
+          Divider(height: 1, color: Colors.grey,),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text("Associated With", style: TextStyle(color: Colors.grey, height: 1),),
+          ),
+          SizedBox(height: 8.0,),
+          ListTile(
+            leading: Image.asset(
+              'assets/images/gov_logo.png',
+              fit: BoxFit.cover,
+              height: 48.0,
+              width: 48.0,
+            ),
+            title: Text(
+              "Government of Nepal",
+              style: TextStyle(color: Colors.blue, fontSize: 14.0),
+            ),
+            subtitle: Text(
+              "Ministry of Health and Population",
+              style: TextStyle(color: Colors.red, fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
+          ),
+          SizedBox(height: 16.0,),
         ],
       ),
     );
@@ -233,7 +263,8 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
           BottomNavigationBarItem(
               icon: Icon(Icons.local_hospital), title: Text("Facilities")),
-          BottomNavigationBarItem(icon: Icon(Icons.report), title: Text("Report")),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.report), title: Text("Report")),
           BottomNavigationBarItem(icon: Icon(Icons.info), title: Text("Info"))
         ],
       ),
