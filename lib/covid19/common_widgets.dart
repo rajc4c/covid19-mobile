@@ -114,7 +114,7 @@ Widget buildMapMarkerV2(PointOfInterest pointOfInterest) {
     },
     child: Icon(
       Icons.local_hospital,
-      color: OpenSpaceColors.icon_color,
+      color: OpenSpaceColors.red,
     ),
   );
 }

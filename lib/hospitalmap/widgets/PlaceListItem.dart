@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:openspaces/covid19/geo.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
@@ -109,15 +110,28 @@ class PlaceListItem extends StatelessWidget {
                       text: pointOfInterest.ownershipDisplay,
                       style: TextStyle(color: OpenSpaceColors.icon_color)),
                 ),
-                Icon(
-                  Icons.directions,
-                  size: 32,
-                  color: OpenSpaceColors.icon_color,
-                )
-              ],
+                InkWell(
+                  onTap: () {
+                    launchInMaps(pointOfInterest);
+                  },
+                  child: Icon(
+                    Icons.directions,
+                    size: 32,
+                    color: OpenSpaceColors.icon_color,
+                  ),
+                )              ],
             ),
           ],
         ));
+  }
+
+  void launchInMaps(PointOfInterest pointOfInterest) async {
+    final availableMaps = await MapLauncher.installedMaps;
+    availableMaps.first.showMarker(
+      description: "",
+      coords: Coords(pointOfInterest.lat, pointOfInterest.long),
+      title: pointOfInterest.name,
+    );
   }
 
   Widget leftSection() {
