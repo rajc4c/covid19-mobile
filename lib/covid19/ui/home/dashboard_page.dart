@@ -38,11 +38,17 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     super.dispose();
   }
 
+  _getData(){
+    if (widget.homeBloc != null) {
+      int pos = selectorItems.indexOf(selectorItem);
+      print("[dashboard_page][selectedIndex] ========>> $pos");
+      widget.homeBloc.getHomeData(province: pos ==0 ? "all" : "$pos");
+    }
+  }
+
   @override
   void initState() {
-    if (widget.homeBloc != null) {
-      widget.homeBloc.getHomeData(province: "1");
-    }
+    _getData();
     super.initState();
   }
 
@@ -136,7 +142,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
           width: 16.0,
         ),
         Container(
-          width: 120.0,
+          width: MediaQuery.of(context).size.width*0.5,
           decoration:
               BoxDecoration(border: Border.all(width: 1.0, color: Colors.grey)),
           child: Center(
@@ -144,16 +150,18 @@ class _DashboardWidgetState extends State<DashboardWidget> {
               items: selectorItems
                   .map<DropdownMenuItem>((string) => DropdownMenuItem<String>(
                         value: string,
-                        child: Text(
-                          string,
-                          style: TextStyle(color: Colors.blue, fontSize: 14.0),
-                        ),
+                        child:Text(
+                            string,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.blue, fontSize: 14.0),
+                          ),
                       ))
                   .toList(),
               value: selectorItem,
               onChanged: (value) {
                 setState(() {
                   selectorItem = value;
+                  _getData();
                 });
               },
             ),
