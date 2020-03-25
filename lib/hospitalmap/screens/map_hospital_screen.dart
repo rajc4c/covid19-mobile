@@ -6,6 +6,7 @@ import 'package:openspaces/covid19/api.dart';
 import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
+import 'package:openspaces/covid19/geo.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 import 'package:openspaces/hospitalmap/repo/point_of_interest.dart';
 import 'package:openspaces/hospitalmap/repo/point_of_interest_repository.dart';
@@ -123,6 +124,10 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
 
   List<Widget> buildHospitalListItem(
       List<PointOfInterest> pointOfInterestItems) {
+    if (pointOfInterestItems != null) {
+      shuffleByLocation(pointOfInterestItems);
+    }
+
     return pointOfInterestItems.map((pointOfInterestItem) {
       return InkWell(
         onTap: () {
@@ -348,5 +353,26 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
         ],
       ),
     );
+  }
+
+  void shuffleByLocation(List<PointOfInterest> openSpaces) {
+    pointOfInterestBloc.getCurrentUserLocationCache
+        .debounceTime(Duration(seconds: 2))
+        .distinct()
+        .listen((currentLocation) {
+      openSpaces.map((openSpace) {
+        LatLng openSpaceLocation = LatLng(openSpace.lat, openSpace.long);
+
+        var distance = calcApproxDistance(currentLocation, openSpaceLocation,
+            formatText: false);
+        openSpace.distanceFromCurrentLocation = distance;
+      }).toList();
+
+      openSpaces
+        ..sort((a, b) => a.distanceFromCurrentLocation
+            .compareTo(b.distanceFromCurrentLocation));
+
+      pointOfInterestBloc.addPointOfInterest(openSpaces);
+    });
   }
 }
