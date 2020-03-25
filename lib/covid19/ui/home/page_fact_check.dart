@@ -52,7 +52,7 @@ class FactCheckPage extends StatelessWidget {
             itemBuilder: (context, pos) {
               FactCheck factCheck = FactCheck.factCheckList[pos];
                 return ListTile(
-                    title: Text("${pos+1}. ${factCheck.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 14.0),),
+                    title: Text("${factCheck.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 14.0),),
                   subtitle:  Text(factCheck.answers, style: TextStyle(fontSize: 14.0),));
         }),
       ),
