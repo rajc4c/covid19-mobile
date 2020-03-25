@@ -4,6 +4,9 @@ import 'package:openspaces/covid19/bloc/home_bloc.dart';
 import 'package:openspaces/covid19/modal/homestat.dart';
 
 class DashboardPage extends StatelessWidget {
+  Function medicalFacilityClicked;
+  DashboardPage({ this.medicalFacilityClicked });
+
   @override
   Widget build(BuildContext context) {
     HomeBloc homeBloc = HomeBloc();
@@ -16,7 +19,9 @@ class DashboardPage extends StatelessWidget {
 
 class DashboardWidget extends StatefulWidget {
   HomeBloc homeBloc;
-  DashboardWidget({ this.homeBloc });
+  DashboardWidget({ this.homeBloc, this.medicalFacilityClicked});
+  Function medicalFacilityClicked;
+
   @override
   _DashboardWidgetState createState() => _DashboardWidgetState();
 }
@@ -347,7 +352,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             color: Colors.white,
                             child: ListTile(
                               onTap: () {
-
+                                  if(widget.medicalFacilityClicked != null) {
+                                    widget.medicalFacilityClicked();
+                                  }
                               },
                               title: Text(
                                 "Medical Facilities",

@@ -56,7 +56,10 @@ class _HomePageState extends State<HomePage> {
         pageChanged(index);
       },
       children: <Widget>[
-        DashboardPage(),
+        DashboardPage(medicalFacilityClicked: (){
+          pageController.animateToPage(1,
+              duration: Duration(milliseconds: 300), curve: Curves.ease);
+        },),
         MapHospitalScreen(),
         UploadDataScreen(),
         InfoPage()
