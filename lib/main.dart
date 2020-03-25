@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:openspaces/covid19/ui/home/page_comming_soon.dart';
 import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:openspaces/covid19/ui/home/page_faq.dart';
-import 'package:openspaces/covid19/ui/home/report_page.dart';
+import 'package:openspaces/covid19/ui/home/info_page.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 import 'covid19/ui/home/dashboard_page.dart';

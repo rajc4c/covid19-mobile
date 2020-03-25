@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:openspaces/covid19/ui/home/page_faq.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 class InfoPage extends StatelessWidget {
@@ -14,12 +15,19 @@ class InfoPage extends StatelessWidget {
               decoration: BoxDecoration(border: Border.all(width: 1.0, color: Colors.black)),
                 width: MediaQuery.of(context).size.width,
                 height: 48.0,
-                child: FlatButton(child: Text("FAQ", style: TextStyle(fontSize: 16.0, color: Colors.black),),)),
+                child: FlatButton(child: Text("FAQ", style: TextStyle(fontSize: 16.0, color: Colors.black),), onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => FaqPage()));
+                },)),
             SizedBox(height: 8.0,),
             Container( decoration: BoxDecoration(border: Border.all(width: 1.0, color: Colors.black)),
                 width: MediaQuery.of(context).size.width,
                 height: 48.0,
                 child: FlatButton(child: Text("Situation Report", style: TextStyle(fontSize: 16.0, color: Colors.black),),)),
+            SizedBox(height: 8.0,),
+            Container( decoration: BoxDecoration(border: Border.all(width: 1.0, color: Colors.black)),
+                width: MediaQuery.of(context).size.width,
+                height: 48.0,
+                child: FlatButton(child: Text("Safety Guidelines", style: TextStyle(fontSize: 16.0, color: Colors.black),),)),
             SizedBox(height: 8.0,),
             Container( decoration: BoxDecoration(border: Border.all(width: 1.0, color: Colors.black)),
                 width: MediaQuery.of(context).size.width,
