@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
+import 'package:openspaces/locale/app_localization.dart';
+import 'package:openspaces/locale/locale_test.dart';
 
 import 'covid19/ui/home/dashboard_page.dart';
 import 'formdata/widgets/upload_data_screen.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 void main() {
   Stetho.initialize();
@@ -12,10 +16,22 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  AppLocalizationDelegate _localeOverrideDelegate = AppLocalizationDelegate(Locale('en', 'US'));
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        _localeOverrideDelegate
+      ],
+      supportedLocales: [
+        const Locale('en', 'US'),
+        const Locale('np', 'NP')
+      ],
+
       debugShowCheckedModeBanner: false,
       title: 'Covid 19',
       theme: ThemeData(
@@ -119,13 +135,29 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.grey),
               )),
           FlatButton.icon(
-              onPressed: () {},
+              onPressed: () {
+              },
               icon: Icon(
                 Icons.web,
                 color: Colors.red,
               ),
               label: Text(
                 "WHO website",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LocaleChangeTest()),
+                );
+              },
+              icon: Icon(
+                Icons.language,
+                color: Colors.red,
+              ),
+              label: Text(
+                "Language Change",
                 style: TextStyle(color: Colors.grey),
               ))
         ],
