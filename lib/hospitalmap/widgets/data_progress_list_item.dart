@@ -41,7 +41,7 @@ dataProgressWidget(String title, {@required int count, @required int total}) {
                   child: LinearProgressIndicator(
                     backgroundColor: Color(0xffEEEEEE),
                     valueColor:
-                    AlwaysStoppedAnimation<Color>(OpenSpaceColors.red),
+                        AlwaysStoppedAnimation<Color>(OpenSpaceColors.red),
                     value: count == 0 || total == 0 ? 0 : count / total,
                   ),
                 ),
