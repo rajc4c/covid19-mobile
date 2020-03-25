@@ -47,38 +47,48 @@ class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage> {
     return Scaffold(
         appBar: covidAppBar(),
         body: Stack(children: [
-          CarouselSlider(
-            items: List<Widget>.generate(
-                SafetyGuideLines.safetyGuideLinesList.length, (index) {
-              SafetyGuideLines safetyGuidelines = SafetyGuideLines.safetyGuideLinesList[index];
-              return Container(
-                width: MediaQuery.of(context).size.width*0.7,
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16.0),),
-                  child: Column( children: <Widget>[
-                    Image.asset(safetyGuidelines.imageSrc, height: 200.0, width: MediaQuery.of(context).size.width,),
-                    SizedBox(height: 8.0,),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(safetyGuidelines.answers,),
-                    )
-                  ],),
-                ),
-              );
-            }),
-            autoPlay: true,
-            aspectRatio: 2.0,
-            onPageChanged: (index) {
-              setState(() {
-                _current = index;
-              });
-            },
+          Align(alignment: Alignment.topCenter, child: Padding(
+            padding: EdgeInsets.all(16.0),
+              child: Text("नोभल कोरोना भाइरसबाट कसरी आफू र अरुलाई बचाउने?", textAlign: TextAlign.center, style: TextStyle(fontSize: 18.0, color: Colors.black, fontWeight: FontWeight.bold),)),),
+
+          Align(
+            alignment: Alignment.center,
+            child: CarouselSlider(
+              enlargeCenterPage: true,
+              items: List<Widget>.generate(
+                  SafetyGuideLines.safetyGuideLinesList.length, (index) {
+                SafetyGuideLines safetyGuidelines = SafetyGuideLines.safetyGuideLinesList[index];
+                return Container(
+                  width: MediaQuery.of(context).size.width*0.8,
+                  height: MediaQuery.of(context).size.height*0.8,
+                  child: Card(
+                    elevation: 4.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.0),),
+                    child: Column( children: <Widget>[
+                      Image.asset(safetyGuidelines.imageSrc, height: 200.0, width: MediaQuery.of(context).size.width,),
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(color: Colors.green),
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(child: Text(safetyGuidelines.answers, style: TextStyle(color: Colors.white, fontSize: 16.0),)),
+                        ),
+                      )
+                    ],),
+                  ),
+                );
+              }),
+              autoPlay: false,
+              aspectRatio: 1,
+              onPageChanged: (index) {
+                setState(() {
+                  _current = index;
+                });
+              },
+            ),
           ),
-          Positioned(
-              top: 0.0,
-              left: 0.0,
-              right: 0.0,
+          Align(
+              alignment: Alignment.bottomCenter,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List<Widget>.generate(
