@@ -1,0 +1,9 @@
+{
+  "@@last_modified": "2020-02-17T11:24:32.873627",
+  "heyWorld": "हे विश्व",
+  "@heyWorld": {
+    "description": "अभिवादन को लागी सरल शब्द",
+    "type": "text",
+    "placeholders": {}
+  }
+}
