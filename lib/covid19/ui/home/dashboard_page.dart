@@ -136,7 +136,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
           width: 16.0,
         ),
         Container(
-          width: 120.0,
+          width: MediaQuery.of(context).size.width*0.5,
           decoration:
               BoxDecoration(border: Border.all(width: 1.0, color: Colors.grey)),
           child: Center(
@@ -144,10 +144,11 @@ class _DashboardWidgetState extends State<DashboardWidget> {
               items: selectorItems
                   .map<DropdownMenuItem>((string) => DropdownMenuItem<String>(
                         value: string,
-                        child: Text(
-                          string,
-                          style: TextStyle(color: Colors.blue, fontSize: 14.0),
-                        ),
+                        child:Text(
+                            string,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.blue, fontSize: 14.0),
+                          ),
                       ))
                   .toList(),
               value: selectorItem,
