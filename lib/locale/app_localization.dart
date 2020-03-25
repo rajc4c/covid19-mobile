@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:openspaces/l10n/messages_all.dart';
@@ -23,8 +22,8 @@ class AppLocalization {
   String get heyWorld {
     return Intl.message(
       'Hey World',
-      name: 'Hello! English',
-      desc: 'Simpel word for greeting ',
+      name: 'heyWorld',
+      desc: 'Simple word for greeting ',
     );
   }
 }
