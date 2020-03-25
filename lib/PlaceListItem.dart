@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 
 import 'covid19/colors.dart';
 import 'covid19/common_widgets.dart';
@@ -29,12 +30,15 @@ class PlaceListItem extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                Text(
-                  "440 M",
-                  style: TextStyle(
-                    color: OpenSpaceColors.icon_color,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 14,
+                StreamBuilder(
+                  stream: pointOfInterestBloc.getUserLocation,
+                  child: Text(
+                    "440 M",
+                    style: TextStyle(
+                      color: OpenSpaceColors.icon_color,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 14,
+                    ),
                   ),
                 )
               ],

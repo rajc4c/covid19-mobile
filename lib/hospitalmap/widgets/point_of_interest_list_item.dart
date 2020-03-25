@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:openspaces/common/constants.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
@@ -15,6 +16,12 @@ class HeaderText extends StatefulWidget {
 
 class _HeaderTextState extends State<HeaderText> {
   String _selectedValue;
+  List<String> filterOptions = provinces;
+
+  _HeaderTextState() {
+    filterOptions.add("National");
+
+  }
 
   Widget buildHeaderText(var title, context, {List<dynamic> items}) {
     return Row(
@@ -43,19 +50,24 @@ class _HeaderTextState extends State<HeaderText> {
                         fontWeight: FontWeight.bold)));
           }),
         ),
-        DropdownButton<String>(
-          items: <String>['National'].map((String value) {
-            return DropdownMenuItem<String>(
-              value: _selectedValue,
-              child: Text(
-                value,
-                style: TextStyle(color: OpenSpaceColors.blue),
-              ),
-            );
-          }).toList(),
-          onChanged: (selectedValue) {
-            _selectedValue = selectedValue;
-          },
+        Container(
+          child: DropdownButton<String>(
+            items: filterOptions.map((String value) {
+              return DropdownMenuItem<String>(
+                value: _selectedValue,
+                child: Container(
+                  width: 150,
+                  child: Text(
+                    value,
+                    style: TextStyle(color: OpenSpaceColors.blue),
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: (selectedValue) {
+              _selectedValue = selectedValue;
+            },
+          ),
         )
       ],
     );

@@ -15,7 +15,6 @@ class PointOfInterestBloc extends BaseBloc {
   final pointOfInterestCountController = BehaviorSubject<int>();
   final _pointOfInterestMarkers = BehaviorSubject<List<Marker>>();
   final _userSearchTextController = BehaviorSubject<String>();
-
   final _bottomSheetPositionController = BehaviorSubject<SnapPosition>();
 
   Function(SnapPosition) get updateBottomSheetSnapPosition =>
