@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
+import 'package:openspaces/hospitalmap/repo/point_of_interest.dart';
+import 'package:snapping_sheet/snapping_sheet.dart';
 
 import 'api.dart';
 import 'colors.dart';
-
 
 Widget buildCacheImageWidget(String imageUrl) {
   return CachedNetworkImage(
@@ -102,6 +104,31 @@ Widget buildNetworkSVGWidget(String url, {label = "A image"}) {
 //      color: color);
 //  return svgIcon;
 //}
+
+Widget buildMapMarkerV2(PointOfInterest pointOfInterest) {
+  return InkWell(
+    onTap: () {
+      pointOfInterestBloc.updateSelectedPointOfInterest(pointOfInterest);
+      pointOfInterestBloc
+          .updateBottomSheetSnapPosition(SnapPosition(positionFactor: 0.3));
+    },
+    child: Icon(
+      Icons.local_hospital,
+      color: OpenSpaceColors.icon_color,
+    ),
+  );
+}
+
+Widget buildActiveMapMarker(PointOfInterest pointOfInterest) {
+  return InkWell(
+    onTap: () {},
+    child: Icon(
+      Icons.local_hospital,
+      size: 32,
+      color: OpenSpaceColors.red,
+    ),
+  );
+}
 
 Widget buildMapMarker(String openSpaceId) {
   return InkWell(
@@ -253,5 +280,3 @@ TextStyle styleInActiveWhite = TextStyle(
     fontSize: 14,
     color: OpenSpaceColors.inactive_tab_text,
     fontWeight: FontWeight.bold);
-
-

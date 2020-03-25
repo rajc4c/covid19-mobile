@@ -6,7 +6,7 @@ class OpenSpaceColors {
   static final Color blue = headline_blue;
   static final Color blue_transparent = headline_blue.withOpacity(0.3);
 
-  static Color headline_blue = Color(0xff174BDD);
+  static Color headline_blue = Color(0xff007bff);
   static const Color transparent = Color(0x00000000);
   static const Color gradient_bottom = Color(0xFFFFFF);
   static var inactive_tab_text = Color(0xffBDBDBD);
@@ -28,6 +28,13 @@ class OpenSpaceColors {
   static var black = Color(0xff333333);
 
   static var listItemBackground = Color(0xffF5F5F5);
+
+  static var icon_color_highligted;
+
+  static var border_color = Color(0xffDCDCDC);
+  static var selected_color = blue;
+
+  static var button_red = Color(0xffFFEBEC);
 }
 
 class DimenConstants {
