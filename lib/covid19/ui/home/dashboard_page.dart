@@ -38,13 +38,17 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     super.dispose();
   }
 
-  @override
-  void initState() {
+  _getData(){
     if (widget.homeBloc != null) {
       int pos = selectorItems.indexOf(selectorItem);
       print("[dashboard_page][selectedIndex] ========>> $pos");
       widget.homeBloc.getHomeData(province: "$pos");
     }
+  }
+
+  @override
+  void initState() {
+    _getData();
     super.initState();
   }
 
@@ -157,6 +161,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
               onChanged: (value) {
                 setState(() {
                   selectorItem = value;
+                  _getData();
                 });
               },
             ),
