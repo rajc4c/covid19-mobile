@@ -1,42 +1,111 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 class SafetyGuideLines {
-  String title;
+  String imageSrc;
   String answers;
 
-  SafetyGuideLines({ this.title, this.answers });
-  
+  SafetyGuideLines({this.imageSrc, this.answers});
+
   static List<SafetyGuideLines> get safetyGuideLinesList {
-    List<SafetyGuideLines> faqList = [];
-    faqList.add(SafetyGuideLines(title: "नोभल कोरोना भाइरस भनेको के हो?", answers: "यो नयाँ प्रजातिको भाइरस हो जुन मानव जातिमा पहिले पहिचान भएको थिएन। यस भाइरसले मानिस र पशुहरूमा संक्रमण गर्दछ। यस भाइरसले सामान्य रुघाखोकी देखि गम्भीर प्रकारको तीव्र श्वासप्रश्वास Severe Acute Respiratory Syndrome (SARS) सम्म गराउन सक्दछ ।"));
-    faqList.add(SafetyGuideLines(title: "के मानिसमा जनावरहरूबाट नोभल कोरोना भाइरस संक्रमित हुन सक्दछ?", answers: "नोभल कोरोना भाइरस जनावरबाट मानिसमा संक्रमित भएको कुनै बैज्ञानिक आधार हाल छैन।"));
-    faqList.add(SafetyGuideLines(title: "के नोभल कोरोना भाइरस र SARS एउटै हुन्?", answers: "सन् २००३ मा देखिएको SARS र नोभल कोरोना भाइरस एउटै प्रजातिका भाइरस हुन्। दुवै भाइरसले बिरामीलाई गम्भीर बनाउन सक्दछन्। महत्त्वपूर्ण कुरा, नोभल कोरोना भाइरस मानिसहरू बीच सजिलै सर्न सक्दछ भनेर अझै पुष्टी भएको छैन।"));
-    faqList.add(SafetyGuideLines(title: "मानिस कसरी यो भाइरसबाट संक्रमित हुन सक्छ ?", answers: "मानिस कसरी यो भाइरसबाट संक्रमित भएका छन् भन्ने बारेमा आज सम्म वैज्ञानिक तवरले पुष्टी भएको छैन। हाल यस विषयमा अनुसन्धान भइरहेको छ ।"));
-    faqList.add(SafetyGuideLines(title: "के यो एक व्यक्त्तिबाट अर्को व्यक्त्ति सर्न सक्दछ?", answers: "अहिले निश्चितताका साथ भन्न सकिने अवस्था छैन। एउटै परिवारका सदस्यहरू बिरामी भएको पाइएकोले, मानव-मानव बीचमा सिमित तवरले सर्ने सम्भावना रहेको अनुमान गरिएको छ । साथै, परिवारका सदस्यहरू एकै स्रोतबाट संक्रमण भएको हुन सक्ने सम्भावना पनि रहेको छ ।"));
-    faqList.add(SafetyGuideLines(title: "यस भाइरसको संक्रमणबाट कसरी बच्न सकिन्छ?", answers: "सामान्यतः यस भाइरसको संक्रमण कसरी हुन्छ भन्ने बारेमा एकिन जानकारी छैन। तथापि रुघा, खोकी तथा श्वासप्रश्वासका बिरामीको नजिक नजाने तथा हातको सरसफाई नियमित गरेमा संक्रमणको सम्भावना कम रहन्छ ।"));
-    faqList.add(SafetyGuideLines(title: "के कोरोना भाइरसको लागि उपचार छ?", answers: "नोभल कोरोना भाइरसले गर्दा हुने रोगको लागि कुनै खास उपचार छैन। यद्यपि यो भाइरसले निम्त्याएका धेरै लक्षणहरूको उपचार गर्न सकिन्छ, त्यसैले बिरामीको उपचार लक्षणको आधारमा गरिन्छ । साथै यस भाइरसको विरुद्ध हाललाई कुनै खोप उपलब्ध छैन ।"));
-    return faqList;
+    List<SafetyGuideLines> safetyGuidelinesList = [];
+    safetyGuidelinesList.add(SafetyGuideLines(
+        imageSrc: "assets/images/safety_guideline_1.png",
+        answers:
+            "ज्वरो र खोकी लागेको व्यक्त्तिबाट टाढा रहने वा आफूलाई ज्वरो र खोकी लागेको छ भने पनि अरू व्यक्त्तिबाट टाढा रहने र मास्कको प्रयोग गर्ने ।"));
+    safetyGuidelinesList.add(SafetyGuideLines(
+        imageSrc: "assets/images/safety_guideline_2.png",
+        answers:
+            "बेलाबेलामा साबुन-पानीले कम्तिमा २० सेकेन्ड मिचिमिचि हात धुने वा अल्कोहल भएको स्यानिटाइजर प्रयोग गर्ने ।"));
+    safetyGuidelinesList.add(SafetyGuideLines(
+        imageSrc: "assets/images/safety_guideline_3.png",
+        answers:
+            "भिडभाडमा नजाने र अरुलाई पनि नजाने सुझाव दिने, हात मिलाउनुको सट्टा नमस्कार गर्ने ।"));
+    safetyGuidelinesList.add(SafetyGuideLines(
+        imageSrc: "assets/images/safety_guideline_4.png",
+        answers:
+            "खोक्दा वा हाछ्युँ गर्दा नाक मुख टिस्यू पेपर वा कुहिनाले छोप्ने र प्रयोग गरेको टिस्यू पेपरलाई बिर्को भएको फोहर फाल्ने भाँडोमा फाल्ने र साबुन-पानीले मिचिमिचि हात धुने वा अल्कोहल भएको स्यानिटाईजर प्रयोग गर्ने ।"));
+    safetyGuidelinesList.add(SafetyGuideLines(
+        imageSrc: "assets/images/safety_guideline_5.png",
+        answers:
+            "कोरोना प्रभावित देशबाट आएको व्यक्त्तिहरूमा माथिका लक्षणहरू देखिए स्वास्थ्य केन्द्रमा तुरून्त जानुपर्दछ । घरैमा बस्दा परिवारका सदस्यहरूबाट १४ दिन सम्म छुट्टै आईसोलेसनमा बस्नु पर्दछ ।"));
+    return safetyGuidelinesList;
   }
 }
-class FaqPage extends StatelessWidget {
+
+class SafetyGuidelinesPage extends StatefulWidget {
+  @override
+  _SafetyGuidelinesPageState createState() => _SafetyGuidelinesPageState();
+}
+
+class _SafetyGuidelinesPageState extends State<SafetyGuidelinesPage> {
+  int _current = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: covidAppBar(),
-      body: Padding(
-        padding: const EdgeInsets.only(left:16.0, right: 16.0),
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: SafetyGuideLines.safetyGuideLinesList.length,
-            itemBuilder: (context, pos) {
-              SafetyGuideLines safetyGuideLines = SafetyGuideLines.safetyGuideLinesList[pos];
-                return ListTile(
-                    title: Text("${pos+1}. ${safetyGuideLines.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 14.0),),
-                  subtitle:  Text(safetyGuideLines.answers, style: TextStyle(fontSize: 14.0),));
-        }),
-      ),
-    );
+        appBar: covidAppBar(),
+        body: Stack(children: [
+          Align(alignment: Alignment.topCenter, child: Padding(
+            padding: EdgeInsets.all(16.0),
+              child: Text("नोभल कोरोना भाइरसबाट कसरी आफू र अरुलाई बचाउने?", textAlign: TextAlign.center, style: TextStyle(fontSize: 18.0, color: Colors.black, fontWeight: FontWeight.bold),)),),
+
+          Align(
+            alignment: Alignment.center,
+            child: CarouselSlider(
+              enlargeCenterPage: true,
+              items: List<Widget>.generate(
+                  SafetyGuideLines.safetyGuideLinesList.length, (index) {
+                SafetyGuideLines safetyGuidelines = SafetyGuideLines.safetyGuideLinesList[index];
+                return Container(
+                  width: MediaQuery.of(context).size.width*0.8,
+                  height: MediaQuery.of(context).size.height*0.8,
+                  child: Card(
+                    elevation: 4.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.0),),
+                    child: Column( children: <Widget>[
+                      Image.asset(safetyGuidelines.imageSrc, height: 200.0, width: MediaQuery.of(context).size.width,),
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(color: Colors.green),
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(child: Text(safetyGuidelines.answers, style: TextStyle(color: Colors.white, fontSize: 16.0),)),
+                        ),
+                      )
+                    ],),
+                  ),
+                );
+              }),
+              autoPlay: false,
+              aspectRatio: 1,
+              onPageChanged: (index) {
+                setState(() {
+                  _current = index;
+                });
+              },
+            ),
+          ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List<Widget>.generate(
+                    SafetyGuideLines.safetyGuideLinesList.length, (index) {
+                  return Container(
+                    width: 8.0,
+                    height: 8.0,
+                    margin:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _current == index
+                            ? Color.fromRGBO(0, 0, 0, 0.9)
+                            : Color.fromRGBO(0, 0, 0, 0.4)),
+                  );
+                }),
+              ))
+        ]));
   }
 }

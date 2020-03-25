@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openspaces/covid19/ui/home/page_fact_check.dart';
 import 'package:openspaces/covid19/ui/home/page_faq.dart';
+import 'package:openspaces/covid19/ui/home/page_safety_guidelines.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 class InfoPage extends StatelessWidget {
@@ -53,6 +54,9 @@ class InfoPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: 48.0,
               child: FlatButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SafetyGuidelinesPage()));
+                },
                 child: Text(
                   "Safety Guidelines",
                   style: TextStyle(fontSize: 16.0, color: Colors.black),
