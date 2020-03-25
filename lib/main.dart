@@ -204,6 +204,8 @@ class _HomePageState extends State<HomePage> {
                 "Login",
                 style: TextStyle(color: Colors.grey),
               )),
+          Spacer(flex: 1,),
+          Image.asset('assets/images/drawer_bottom.png', fit: BoxFit.cover,)
         ],
       ),
     );
