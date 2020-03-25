@@ -74,7 +74,8 @@ class LocaleChangeTestState extends State<LocaleChangeTest> {
               ),
               Padding(
                 padding: EdgeInsets.all(50.0),
-                child: Text(AppLocalization.of(context).heyWorld),
+//                child: Text(AppLocalization.of(context).heyWorld),
+                child: Text(AppLocalization.of(context).localeTest),
               )
             ],
           ),

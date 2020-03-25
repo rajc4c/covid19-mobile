@@ -131,10 +131,6 @@ class _HomePageState extends State<HomePage> {
               )),
           FlatButton.icon(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LocaleChangeTest()),
-                );
               },
               icon: Icon(
                 Icons.web,
@@ -142,6 +138,21 @@ class _HomePageState extends State<HomePage> {
               ),
               label: Text(
                 "WHO website",
+                style: TextStyle(color: Colors.grey),
+              )),
+          FlatButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LocaleChangeTest()),
+                );
+              },
+              icon: Icon(
+                Icons.language,
+                color: Colors.red,
+              ),
+              label: Text(
+                "Language Change",
                 style: TextStyle(color: Colors.grey),
               ))
         ],

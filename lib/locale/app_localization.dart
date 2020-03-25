@@ -26,6 +26,13 @@ class AppLocalization {
       desc: 'Simple word for greeting ',
     );
   }
+  String get localeTest {
+    return Intl.message(
+      'Locale Test',
+      name: 'localeTest',
+      desc: 'Simple word for greeting localeTest ',
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<AppLocalization> {
