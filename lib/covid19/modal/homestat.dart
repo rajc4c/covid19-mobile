@@ -11,6 +11,8 @@ class HomeStat {
   int _occupiedIsolationBed;
   List<String> _phones;
   String _time;
+  int _facilityCount;
+  String _hotline;
 
   HomeStat(
       {int tested,
@@ -24,7 +26,9 @@ class HomeStat {
         int isolationBed,
         int occupiedIsolationBed,
         List<String> phones,
-        String time}) {
+        String time,
+        int facilityCount,
+        String hotline }) {
     this._tested = tested;
     this._confirmed = confirmed;
     this._isolation = isolation;
@@ -37,6 +41,8 @@ class HomeStat {
     this._occupiedIsolationBed = occupiedIsolationBed;
     this._phones = phones;
     this._time = time;
+    this._facilityCount = facilityCount;
+    this._hotline = hotline;
   }
 
   int get tested => _tested;
@@ -66,6 +72,11 @@ class HomeStat {
   String get time => _time;
   set time(String time) => _time = time;
 
+  set facilityCount(int facilityCount) => _facilityCount = facilityCount;
+  int get facilityCount => _facilityCount;
+  set hotline(String hotline) => _hotline = hotline;
+  String get hotline => _hotline;
+
   HomeStat.fromJson(Map<String, dynamic> json) {
     _tested = json['tested'];
     _confirmed = json['confirmed'];
@@ -79,6 +90,8 @@ class HomeStat {
     _occupiedIsolationBed = json['occupied_isolation_bed'];
     _phones = json['phones'].cast<String>();
     _time = json['time'];
+    _hotline = json['hotline'];
+    _facilityCount = json['facility_count'];
   }
 
   Map<String, dynamic> toJson() {
@@ -95,6 +108,8 @@ class HomeStat {
     data['occupied_isolation_bed'] = this._occupiedIsolationBed;
     data['phones'] = this._phones;
     data['time'] = this._time;
+    data['facility_count'] = this._facilityCount;
+    data['hotline'] = this._hotline;
     return data;
   }
 }

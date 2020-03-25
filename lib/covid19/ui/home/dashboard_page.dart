@@ -343,7 +343,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                                     fontSize: 12.0, color: Colors.grey),
                               ),
                               subtitle: Text(
-                                "120",
+                                "${homeStat.facilityCount}",
                                 style: TextStyle(
                                     fontSize: 24.0,
                                     color: Colors.black,
