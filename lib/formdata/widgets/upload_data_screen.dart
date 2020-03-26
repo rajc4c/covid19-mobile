@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
+import 'package:openspaces/formdata/form_repository.dart';
 
 class UploadDataScreen extends StatefulWidget {
   @override
@@ -77,7 +78,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                           hintText: ""),
                       validators: [
                         FormBuilderValidators.numeric(),
-                        FormBuilderValidators.max(100),
+                        FormBuilderValidators.max(200),
                         FormBuilderValidators.required()
                       ],
                     ),
@@ -92,10 +93,12 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       validators: [FormBuilderValidators.required()],
                       options: [
                         FormBuilderFieldOption(
-                          value: "छ",
+                          label: "छ",
+                          value: true,
                         ),
                         FormBuilderFieldOption(
-                          value: "छैन",
+                          value: false,
+                          label: "छैन",
                         ),
                       ],
                     ),
@@ -109,10 +112,12 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       validators: [FormBuilderValidators.required()],
                       options: [
                         FormBuilderFieldOption(
-                          value: "छ",
+                          label: "छ",
+                          value: true,
                         ),
                         FormBuilderFieldOption(
-                          value: "छैन",
+                          value: false,
+                          label: "छैन",
                         ),
                       ],
                     ),
@@ -126,10 +131,12 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       validators: [FormBuilderValidators.required()],
                       options: [
                         FormBuilderFieldOption(
-                          value: "छ",
+                          label: "छ",
+                          value: true,
                         ),
                         FormBuilderFieldOption(
-                          value: "छैन",
+                          value: false,
+                          label: "छैन",
                         ),
                       ],
                     ),
@@ -143,10 +150,12 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       validators: [FormBuilderValidators.required()],
                       options: [
                         FormBuilderFieldOption(
-                          value: "छ",
+                          label: "छ",
+                          value: true,
                         ),
                         FormBuilderFieldOption(
-                          value: "छैन",
+                          value: false,
+                          label: "छैन",
                         ),
                       ],
                     ),
@@ -161,10 +170,12 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       validators: [FormBuilderValidators.required()],
                       options: [
                         FormBuilderFieldOption(
-                          value: "छ",
+                          label: "छ",
+                          value: true,
                         ),
                         FormBuilderFieldOption(
-                          value: "छैन",
+                          value: false,
+                          label: "छैन",
                         ),
                       ],
                     ),
@@ -178,10 +189,12 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       attribute: "body_pain",
                       options: [
                         FormBuilderFieldOption(
-                          value: "छ",
+                          label: "छ",
+                          value: true,
                         ),
                         FormBuilderFieldOption(
-                          value: "छैन",
+                          value: false,
+                          label: "छैन",
                         ),
                       ],
                     ),
@@ -195,10 +208,12 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       attribute: "diarrahoe",
                       options: [
                         FormBuilderFieldOption(
-                          value: "छ",
+                          label: "छ",
+                          value: true,
                         ),
                         FormBuilderFieldOption(
-                          value: "छैन",
+                          value: false,
+                          label: "छैन",
                         ),
                       ],
                     ),
@@ -212,10 +227,12 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       attribute: "runny_nose",
                       options: [
                         FormBuilderFieldOption(
-                          value: "छ",
+                          label: "छ",
+                          value: true,
                         ),
                         FormBuilderFieldOption(
-                          value: "छैन",
+                          value: false,
+                          label: "छैन",
                         ),
                       ],
                     ),
@@ -228,10 +245,12 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       attribute: "vomit",
                       options: [
                         FormBuilderFieldOption(
-                          value: "छ",
+                          label: "छ",
+                          value: true,
                         ),
                         FormBuilderFieldOption(
-                          value: "छैन",
+                          value: false,
+                          label: "छैन",
                         ),
                       ],
                     ),
@@ -257,16 +276,6 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       ),
                       validators: [],
                     ),
-                    FormBuilderTextField(
-                      attribute: "contact_no",
-                      decoration: InputDecoration(
-                          fillColor: OpenSpaceColors.red,
-                          labelStyle: questionLabelStyle,
-                          labelText: "सम्पर्क नम्बर:",
-                          helperText: "उत्तर अनिवार्य छैन",
-                          hintText: ""),
-                      validators: [],
-                    ),
                   ],
                 ),
               ),
@@ -288,6 +297,23 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                             if (_fbKey.currentState.saveAndValidate()) {
                               setState(() {
                                 isUploadingForm = true;
+                              });
+
+                              formRepository
+                                  .uploadSymtomForm(_fbKey.currentState.value)
+                                  .then((statusCode) {
+                                showToastMessage(
+                                    message: statusCode.toString());
+                                setState(() {
+                                  isUploadingForm = false;
+                                });
+                              }).catchError((error, stack) {
+                                print(stack);
+                                showToastMessage(
+                                    message: "फारम बुझाउन असफल भयो");
+                                setState(() {
+                                  isUploadingForm = false;
+                                });
                               });
                             } else {
                               showToastMessage(message: "फारममा त्रुटिहरू छन्");

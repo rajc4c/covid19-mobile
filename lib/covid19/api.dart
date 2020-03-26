@@ -17,3 +17,4 @@ const get_amenities = base_url + "api/v1/alternative_near_by_me";
 // stats for home dashboard
 const get_home_stat = base_url + "/stats";
 const get_health_facilities = "$base_url/health-facility/";
+const post_user_report = "$base_url/user-report/";
