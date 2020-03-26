@@ -1,12 +1,13 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:map_launcher/map_launcher.dart';
+import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/geo.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
-import '../../covid19/colors.dart';
-import '../../covid19/common_widgets.dart';
+
 import '../repo/point_of_interest.dart';
 import 'package:latlong/latlong.dart';
 
@@ -43,7 +44,7 @@ class PlaceListItem extends StatelessWidget {
                           pointOfInterestBloc
                               .updateSelectedPointOfInterest(null);
                           pointOfInterestBloc.updateBottomSheetSnapPosition(
-                              SnapPosition(positionFactor: 1));
+                              SnapPosition(positionFactor: 0.8));
                         },
                         child: Container(
                           margin: EdgeInsets.symmetric(horizontal: 2),
@@ -95,7 +96,7 @@ class PlaceListItem extends StatelessWidget {
             Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  pointOfInterest.location ?? "Location Not Avaliable",
+                  pointOfInterest.categoryName,
                   style: TextStyle(
                       color: OpenSpaceColors.icon_color, fontSize: 14),
                 )),
@@ -105,10 +106,19 @@ class PlaceListItem extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                RichText(
-                  text: TextSpan(
-                      text: pointOfInterest.ownershipDisplay,
-                      style: TextStyle(color: OpenSpaceColors.icon_color)),
+                Expanded(
+                  child: RichText(
+                    maxLines: 3,
+                    text: TextSpan(
+                        text: pointOfInterest.municipalityName,
+                        children: [
+                          TextSpan(text: ", "),
+                          TextSpan(text: pointOfInterest.districtName),
+                          TextSpan(text: ", "),
+                          TextSpan(text: pointOfInterest.provinceName)
+                        ],
+                        style: TextStyle(color: OpenSpaceColors.icon_color)),
+                  ),
                 ),
                 InkWell(
                   onTap: () {
@@ -119,7 +129,8 @@ class PlaceListItem extends StatelessWidget {
                     size: 32,
                     color: OpenSpaceColors.icon_color,
                   ),
-                )              ],
+                )
+              ],
             ),
           ],
         ));
@@ -134,112 +145,7 @@ class PlaceListItem extends StatelessWidget {
     );
   }
 
-  Widget leftSection() {
-    return buildNetworkCacheImageWidget("openSpace.thumbnail", 70.0, 70.0);
-  }
 
-  Widget middleSection(BuildContext context) {
-    return Expanded(
-        child: Padding(
-      padding: const EdgeInsets.only(left: 16.0),
-      child: Container(
-        // color: Colors.black,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            middleUpperSection(context),
-            Expanded(
-              child: Container(
-                height: 10.0,
-              ),
-            ),
-            middleLowerSection(context),
-          ],
-        ),
-      ),
-    ));
-  }
-
-  Widget middleUpperSection(BuildContext context) {
-    return Container(
-      // color: Colors.blue,
-      child: Text(
-        getSafeString(pointOfInterest.name),
-        overflow: TextOverflow.ellipsis,
-        style: Theme.of(context).textTheme.title,
-      ),
-    );
-  }
-
-  Widget middleLowerSection(BuildContext buildContext) {
-    return Container(
-      // color: Colors.amber,
-      child: Row(
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.location_on,
-                    size: 20.0,
-                    color: OpenSpaceColors.grey,
-                  ),
-                  Text(
-                    getSafeString("openSpace.address"),
-                    style: Theme.of(buildContext).textTheme.body1,
-                  )
-                ],
-              ),
-
-              Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.location_on,
-                    size: 20.0,
-                    color: OpenSpaceColors.grey,
-                  ),
-                  StreamBuilder(
-                      stream: null,
-                      builder: (context, snapshot) {
-                        var text = "Not Available";
-
-//                        if (snapshot.hasData) {
-//                          text = calcApproxDistance(
-//                              snapshot.data,
-//                              LatLng(openSpace.centroid[1],
-//                                  openSpace.centroid[0]));
-//
-//                          openSpace.distanceFromCurrentLocation = text;
-//                        }
-
-                        return Text(
-                          text,
-                          style: Theme.of(buildContext).textTheme.body1,
-                        );
-                      })
-                ],
-              ),
-//              Row(
-//                children: <Widget>[
-//                  Icon(
-//                    Icons.map,
-//                    size: 20.0,
-//                  ),
-//                  Text(
-//                    "200m",
-//                    style: TextStyle(fontSize: 13.0, color: OspColors.grey),
-//                  )
-//                ],
-//              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
 
   Widget rightSection() {
     return FloatingActionButton(

@@ -1,6 +1,11 @@
 class PointOfInterest {
   int id;
   String ownershipDisplay;
+  String districtName;
+  String provinceName;
+  String municipalityName;
+  String categoryName;
+  String typeName;
   String name;
   String ownership;
   dynamic contactPerson;
@@ -22,46 +27,56 @@ class PointOfInterest {
   dynamic location;
   double lat;
   double long;
-  dynamic province;
-  dynamic district;
-  dynamic municipality;
-  dynamic category;
+  int province;
+  int district;
+  int municipality;
+  int category;
   int type;
   double distanceFromCurrentLocation;
 
   PointOfInterest(
       {this.id,
-      this.ownershipDisplay,
-      this.name,
-      this.ownership,
-      this.contactPerson,
-      this.contactNum,
-      this.usedForCoronaResponse,
-      this.numOfBed,
-      this.numOfIcuBed,
-      this.occupiedIcuBed,
-      this.numOfVentilators,
-      this.occupiedVentilators,
-      this.numOfIsolationBed,
-      this.occupiedIsolationBed,
-      this.totalTested,
-      this.totalPositive,
-      this.totalDeath,
-      this.totalInIsolation,
-      this.hlcitCode,
-      this.remarks,
-      this.location,
-      this.lat,
-      this.long,
-      this.province,
-      this.district,
-      this.municipality,
-      this.category,
-      this.type});
+        this.ownershipDisplay,
+        this.districtName,
+        this.provinceName,
+        this.municipalityName,
+        this.categoryName,
+        this.typeName,
+        this.name,
+        this.ownership,
+        this.contactPerson,
+        this.contactNum,
+        this.usedForCoronaResponse,
+        this.numOfBed,
+        this.numOfIcuBed,
+        this.occupiedIcuBed,
+        this.numOfVentilators,
+        this.occupiedVentilators,
+        this.numOfIsolationBed,
+        this.occupiedIsolationBed,
+        this.totalTested,
+        this.totalPositive,
+        this.totalDeath,
+        this.totalInIsolation,
+        this.hlcitCode,
+        this.remarks,
+        this.location,
+        this.lat,
+        this.long,
+        this.province,
+        this.district,
+        this.municipality,
+        this.category,
+        this.type});
 
   PointOfInterest.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     ownershipDisplay = json['ownership_display'];
+    districtName = json['district_name'];
+    provinceName = json['province_name'];
+    municipalityName = json['municipality_name'];
+    categoryName = json['category_name'];
+    typeName = json['type_name'];
     name = json['name'];
     ownership = json['ownership'];
     contactPerson = json['contact_person'];
@@ -94,6 +109,11 @@ class PointOfInterest {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['ownership_display'] = this.ownershipDisplay;
+    data['district_name'] = this.districtName;
+    data['province_name'] = this.provinceName;
+    data['municipality_name'] = this.municipalityName;
+    data['category_name'] = this.categoryName;
+    data['type_name'] = this.typeName;
     data['name'] = this.name;
     data['ownership'] = this.ownership;
     data['contact_person'] = this.contactPerson;
