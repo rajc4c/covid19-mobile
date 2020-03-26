@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:openspaces/l10n/messages_all.dart';
+import 'package:openspaces/locale/app_locales.dart';
 
 class AppLocalization {
   static Future<AppLocalization> load(Locale locale) {
@@ -19,19 +20,13 @@ class AppLocalization {
   }
 
   // list of locales
+  AppLocales appLocales = AppLocales();
   String get heyWorld {
-    return Intl.message(
-      'Hey World',
-      name: 'heyWorld',
-      desc: 'Simple word for greeting ',
-    );
+    return appLocales.heyWorld;
   }
+
   String get localeTest {
-    return Intl.message(
-      'Locale Test',
-      name: 'localeTest',
-      desc: 'Simple word for greeting localeTest ',
-    );
+    return appLocales.localeTest;
   }
 }
 
