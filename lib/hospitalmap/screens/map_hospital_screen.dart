@@ -3,32 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:latlong/latlong.dart';
+import 'package:location/location.dart';
 import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
 import 'package:openspaces/covid19/geo.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 import 'package:openspaces/hospitalmap/repo/point_of_interest.dart';
-import 'package:openspaces/hospitalmap/repo/point_of_interest_repository.dart';
-import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:openspaces/hospitalmap/widgets/data_progress_list_item.dart';
 import 'package:openspaces/hospitalmap/widgets/point_of_interest_list_item.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:user_location/user_location.dart';
-import 'package:latlong/latlong.dart';
-import 'package:location/location.dart';
-import '../widgets/PlaceListItem.dart';
-import 'package:location/location.dart';
 
-import '../widgets/PlaceListItem.dart';
 import '../../custom_line.dart';
+import '../widgets/PlaceListItem.dart';
 
 class MapHospitalScreen extends StatefulWidget {
   @override
   _MapHospitalScreenState createState() => _MapHospitalScreenState();
 }
 
-class _MapHospitalScreenState extends State<MapHospitalScreen> {
+class _MapHospitalScreenState extends State<MapHospitalScreen>
+    with TickerProviderStateMixin {
   MapController _mapController;
   SnappingSheetController _snappingSheetController;
   List<Marker> locationMarkers = [];
@@ -52,76 +49,110 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
     });
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState
+        .showSnackBar(new SnackBar(content: new Text(value)));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BaseInheritedBlockProvider(
-      bloc: pointOfInterestBloc,
-      child: Stack(
-        children: <Widget>[
-          StreamBuilder(
-            stream: pointOfInterestBloc.pointOfInterestMarkers,
-            builder: ((context, AsyncSnapshot<List<Marker>> snapshot) {
-              Widget progressNoData = buildProgressAndNoData(context, snapshot);
-              if (progressNoData != null) {
-                return progressNoData;
-              }
-              return buildMap(snapshot.data);
-            }),
-          ),
-          SnappingSheet(
-            snappingSheetController: _snappingSheetController,
-            snapPositions: const [
-              SnapPosition(positionPixel: 0.0),
-              SnapPosition(positionFactor: 0.3),
-              SnapPosition(positionFactor: 1),
-            ],
-            sheetAbove: Align(
-              alignment: Alignment(-0.90, 0.90),
-              child: InkWell(
-                  onTap: () async {
-                    var destZoom = 15.0;
-                    var _location = Location();
-                    await _location.requestPermission();
-                    await _location.requestService();
+    return Scaffold(
+      key: _scaffoldKey,
+      body: BaseInheritedBlockProvider(
+        bloc: pointOfInterestBloc,
+        child: Stack(
+          children: <Widget>[
+            StreamBuilder(
+              stream: pointOfInterestBloc.pointOfInterestMarkers,
+              builder: ((context, AsyncSnapshot<List<Marker>> snapshot) {
+                Widget progressNoData =
+                    buildProgressAndNoData(context, snapshot);
+                if (progressNoData != null) {
+                  return progressNoData;
+                }
 
-                    var destLocation = await pointOfInterestBloc
-                        .getCurrentUserLocationCache.first
-                        .catchError((error, stacktrace) {
-                      print(stacktrace);
-                    });
-
-                    animatedMapMove(
-                        destLocation, destZoom, _mapController, this);
-                  },
-                  child: buildLocationZoomWidget()),
+                return buildMap(snapshot.data);
+              }),
             ),
-            grabbingHeight: 25.0,
-            sheetBelow: Container(
-                color: OpenSpaceColors.white,
-                child: StreamBuilder(
-                  stream: pointOfInterestBloc.getSelectedPointOfInterest,
-                  builder: ((context, AsyncSnapshot<PointOfInterest> snapshot) {
-                    return AnimatedSwitcher(
-                      duration: Duration(milliseconds: 250),
-                      child: snapshot.hasData
-                          ? buildDetail(snapshot.data)
-                          : buildListWithSearch(),
-                    );
-                  }),
-                )),
-            grabbing: Container(
-              color: OpenSpaceColors.white,
-              child: Center(
-                child: CustomPaint(
-                  painter: DrawHorizontalLine(OpenSpaceColors.icon_color),
+            SnappingSheet(
+              snappingSheetController: _snappingSheetController,
+              snapPositions: const [
+                SnapPosition(positionPixel: 0.0),
+                SnapPosition(positionFactor: 0.3),
+                SnapPosition(positionFactor: 0.8),
+              ],
+              sheetAbove: Align(
+                alignment: Alignment(-0.90, 0.90),
+                child: Wrap(
+                  spacing: 5,
+                  children: <Widget>[
+                    InkWell(
+                        onTap: () async {
+                          var destZoom = 15.0;
+                          var _location = Location();
+                          await _location.requestPermission();
+                          await _location.requestService();
+
+                          var destLocation = await pointOfInterestBloc
+                              .getCurrentUserLocationCache.first
+                              .catchError((error, stacktrace) {
+                            print(stacktrace);
+                          });
+
+                          animatedMapMove(
+                              destLocation, destZoom, _mapController, this);
+                        },
+                        child: buildLocationZoomWidget()),
+                    buildRefreshWidget(context)
+                  ],
                 ),
               ),
-            ),
-          )
-        ],
+              grabbingHeight: 25.0,
+              sheetBelow: Container(
+                  color: OpenSpaceColors.white,
+                  child: StreamBuilder(
+                    stream: pointOfInterestBloc.getSelectedPointOfInterest,
+                    builder:
+                        ((context, AsyncSnapshot<PointOfInterest> snapshot) {
+                      return AnimatedSwitcher(
+                        duration: Duration(milliseconds: 250),
+                        child: snapshot.hasData
+                            ? buildDetail(snapshot.data)
+                            : buildListWithSearch(),
+                      );
+                    }),
+                  )),
+              grabbing: Container(
+                color: OpenSpaceColors.white,
+                child: Center(
+                  child: CustomPaint(
+                    painter: DrawHorizontalLine(OpenSpaceColors.icon_color),
+                  ),
+                ),
+              ),
+            )
+          ],
 //      ),
+        ),
       ),
     );
+  }
+
+  Widget buildRefreshWidget(context) {
+    return GestureDetector(
+        onTap: () async {
+      
+          showToastMessage(message: "डाटा पुन: लोड गर्द");
+          pointOfInterestBloc.fetchHealthFacilities();
+        },
+        child: buildMapUiIcon(Icon(
+          Icons.refresh,
+          
+          color: OpenSpaceColors.icon_color_highligted,
+          
+        )));
   }
 
   List<Widget> buildHospitalListItem(
@@ -148,7 +179,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
       controller: _controller,
       onTap: () {
         pointOfInterestBloc
-            .updateBottomSheetSnapPosition(SnapPosition(positionFactor: 1));
+            .updateBottomSheetSnapPosition(SnapPosition(positionFactor: 0.8));
       },
       onChanged: ((text) {
         pointOfInterestBloc.addUserSearchText(text);
@@ -187,7 +218,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
     );
   }
 
-  Widget buildMap(List<Marker> markers) {
+  Widget buildMap(List<Marker> markersHospitals) {
     return FlutterMap(
       mapController: _mapController,
       options: MapOptions(
@@ -212,7 +243,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
           fitBoundsOptions: FitBoundsOptions(
             padding: EdgeInsets.all(50),
           ),
-          markers: markers != null ? markers : [],
+          markers: markersHospitals != null ? markersHospitals : [],
           polygonOptions: PolygonOptions(
               borderColor: OpenSpaceColors.transparent,
               color: OpenSpaceColors.transparent,
@@ -226,6 +257,9 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
             );
           },
         ),
+
+        MarkerLayerOptions(
+            markers: locationMarkers != null ? locationMarkers : []),
         UserLocationOptions(
           onLocationUpdate: (LatLng currentLocation) {
             pointOfInterestBloc.updateCurrentLocationCache(currentLocation);
@@ -288,6 +322,9 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
               HeaderText(
                 title: "Medical Facilities",
               ),
+              SizedBox(
+                height: 10,
+              ),
               searchField(),
             ]),
           ),
@@ -327,12 +364,19 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
             data,
             showCloseButton: true,
           ),
-          dataProgressWidget("ICU in use",
-              count: data.numOfIcuBed, total: data.occupiedIcuBed),
-          dataProgressWidget("Ventilators in use",
-              count: data.numOfVentilators, total: data.occupiedVentilators),
-          dataProgressWidget("Isolation beds in use",
-              count: data.occupiedIsolationBed, total: data.numOfIsolationBed),
+          data.numOfIcuBed != 0
+              ? dataProgressWidget("ICU in use",
+                  count: data.numOfIcuBed, total: data.occupiedIcuBed)
+              : Container(),
+          data.numOfVentilators != 0
+              ? dataProgressWidget("Ventilators in use",
+                  count: data.numOfVentilators, total: data.occupiedVentilators)
+              : Container(),
+          data.numOfIsolationBed != 0
+              ? dataProgressWidget("Isolation beds in use",
+                  count: data.occupiedIsolationBed,
+                  total: data.numOfIsolationBed)
+              : Container(),
           Padding(
             padding: EdgeInsets.all(16),
             child: InkWell(
@@ -341,12 +385,17 @@ class _MapHospitalScreenState extends State<MapHospitalScreen> {
                 padding: EdgeInsets.all(16),
                 color: OpenSpaceColors.button_red,
                 child: Center(
-                  child: Text(
-                    "EDIT DATA",
-                    style: TextStyle(
-                        color: OpenSpaceColors.red,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700),
+                  child: InkWell(
+                    onTap: () {
+                      showInSnackBar("Coming soon");
+                    },
+                    child: Text(
+                      "EDIT DATA",
+                      style: TextStyle(
+                          color: OpenSpaceColors.red,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700),
+                    ),
                   ),
                 ),
               ),

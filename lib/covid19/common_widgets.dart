@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 import 'package:openspaces/hospitalmap/repo/point_of_interest.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
@@ -161,10 +162,13 @@ BoxShadow defaultBoxShadow() {
 
 Widget buildMapUiIcon(Icon icon) {
   return Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(4)),
+      border: Border.all(color: OpenSpaceColors.border_color),
+      color: OpenSpaceColors.selected_color,
+    ),
     padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
     child: icon,
-    decoration:
-        BoxDecoration(color: Colors.white, boxShadow: [defaultBoxShadow()]),
   );
 }
 
@@ -189,6 +193,15 @@ Widget buildButton(String text, Color buttonColor, Color textColor,
       ),
     ),
   );
+}
+
+showToastMessage({message}) {
+  Fluttertoast.showToast(
+      msg: message,
+      gravity: ToastGravity.CENTER,
+      toastLength: Toast.LENGTH_LONG,
+      backgroundColor: OpenSpaceColors.white,
+      textColor: OpenSpaceColors.text_color);
 }
 
 Widget buildAppBar(BuildContext context, String title) {

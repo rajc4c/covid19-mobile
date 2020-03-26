@@ -5,7 +5,6 @@ import 'package:openspaces/covid19/bloc/open_space_bloc.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:user_location/user_location.dart';
 
-import '../../hospitalmap/widgets/PlaceListItem.dart';
 import '../../custom_line.dart';
 import '../../general_assement_repository.dart';
 import '../base_inherited_bloc_provider.dart';
@@ -33,7 +32,7 @@ class _MapDashboardState extends State<MapDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     return BaseInheritedBlockProvider(
         bloc: openSpaceBloc,
         child: Scaffold(
