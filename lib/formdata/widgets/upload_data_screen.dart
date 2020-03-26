@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:openspaces/covid19/colors.dart';
-import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 class UploadDataScreen extends StatefulWidget {
   @override
@@ -38,25 +37,36 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
-                          labelText: "How old are you?",
-                          hintText: "Your age in years"),
+                          labelText: "नामः",
+                          hintText: ""),
+                      validators: [FormBuilderValidators.required()],
+                    ),
+                    FormBuilderTextField(
+                      attribute: "age",
+                      decoration: InputDecoration(
+                          fillColor: OpenSpaceColors.red,
+                          labelStyle: questionLabelStyle,
+                          labelText: "उमेरः",
+                          hintText: ""),
                       validators: [
                         FormBuilderValidators.numeric(),
-                        FormBuilderValidators.max(70),
+                        FormBuilderValidators.max(100),
+                        FormBuilderValidators.required()
                       ],
                     ),
                     FormBuilderSegmentedControl(
                       decoration: InputDecoration(
-                          labelStyle: questionLabelStyle,
-                          labelText: "Are you caring for someone ill?"),
+                        labelStyle: questionLabelStyle,
+                        labelText: "प्रयोगकर्ताको लिङ्ग: "
+                      ),
                       attribute: "movie_rating",
                       options: [
-                        FormBuilderFieldOption(value: "Male"),
+                        FormBuilderFieldOption(value: "पुरुष"),
                         FormBuilderFieldOption(
-                          value: "Female",
+                          value: "महिला",
                         ),
                         FormBuilderFieldOption(
-                          value: "Not Applicable",
+                          value: "अन्य",
                         )
                       ],
                     ),
@@ -64,91 +74,185 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       decoration: InputDecoration(
                           labelStyle: questionLabelStyle,
                           alignLabelWithHint: false,
-                          hintText: "Normal body temperature is 98.6°F",
-                          labelText:
-                              "Current body temperature in degree Fahrenheit "),
+                          hintText: "",
+                          labelText: "तापक्रमः"),
                       attribute: "movie_rating",
                       options: [
-                        FormBuilderFieldOption(value: "Normal"),
+                        FormBuilderFieldOption(value: "सामान्य(96°F-98.6°F)"),
                         FormBuilderFieldOption(
-                          value: "Fever",
+                          value: "ज्वरो(98.6°F-102.5°F)",
                         ),
                         FormBuilderFieldOption(
-                          value: "High Fever",
+                          value: "उच्च ज्वरो(>102°F)",
                         ),
                         FormBuilderFieldOption(
-                          value: "Don't Know",
+                          value: "नभएको",
                         )
-                      ],
-                    ),
-                    FormBuilderCheckboxList(
-                      decoration: InputDecoration(
-                          helperText: "mark all those applicable",
-                          labelStyle: questionLabelStyle,
-                          labelText:
-                              "Are you experiencing any of the symptoms "),
-                      attribute: "languages",
-                      initialValue: ["Dry Cough"],
-                      options: [
-                        FormBuilderFieldOption(value: "Dry Cough"),
-                        FormBuilderFieldOption(value: "Sneezing"),
-                        FormBuilderFieldOption(value: "Sore Throat"),
-                        FormBuilderFieldOption(value: "Weakness"),
-                        FormBuilderFieldOption(
-                            value: "Difficulty in Breathing"),
-                        FormBuilderFieldOption(value: "None of these"),
                       ],
                     ),
                     FormBuilderSegmentedControl(
                       decoration: InputDecoration(
                           labelStyle: questionLabelStyle,
+                          alignLabelWithHint: false,
+                          hintText: "",
                           labelText:
-                              "Please select your travel and exposure details "),
-                      attribute: "travel",
+                              "के तपाईँ सेल्फ क्वारेन्टाइनमा बस्नुभएको छ?"),
+                      attribute: "movie_rating",
                       options: [
                         FormBuilderFieldOption(
-                          value: "No Travel History",
-                          child: Text(
-                            "No Travel History",
-                            textAlign: TextAlign.center,
-                          ),
+                          value: "छ",
                         ),
                         FormBuilderFieldOption(
-                          child: Text(
-                            "No Contact With Anyone With Symptom",
-                            textAlign: TextAlign.center,
-                          ),
-                          value: "No Contact With Anyone With Symptom",
+                          value: "छैन",
+                        ),
+                      ],
+                    ),
+                    FormBuilderSegmentedControl(
+                      decoration: InputDecoration(
+                          labelStyle: questionLabelStyle,
+                          alignLabelWithHint: false,
+                          hintText: "",
+                          labelText: "सुख्खा तथा लहरे खोकीः "),
+                      attribute: "movie_rating",
+                      options: [
+                        FormBuilderFieldOption(
+                          value: "छ",
                         ),
                         FormBuilderFieldOption(
-                          child: Text(
-                            "History of travel or meeting in affected geographical area in last 14 days",
-                            textAlign: TextAlign.center,
-                          ),
-                          value: "",
+                          value: "छैन",
+                        ),
+                      ],
+                    ),
+                                        FormBuilderSegmentedControl(
+                      decoration: InputDecoration(
+                          labelStyle: questionLabelStyle,
+                          alignLabelWithHint: false,
+                          hintText: "",
+                          labelText: "थकाई लाग्नेः "),
+                      attribute: "movie_rating",
+                      options: [
+                        FormBuilderFieldOption(
+                          value: "छ",
+                        ),
+                        FormBuilderFieldOption(
+                          value: "छैन",
+                        ),
+                      ],
+                    ),
+                                        FormBuilderSegmentedControl(
+                      decoration: InputDecoration(
+                          labelStyle: questionLabelStyle,
+                          alignLabelWithHint: false,
+                          hintText: "",
+                          labelText: "घाँटी बस्नेः "),
+                      attribute: "movie_rating",
+                      options: [
+                        FormBuilderFieldOption(
+                          value: "छ",
+                        ),
+                        FormBuilderFieldOption(
+                          value: "छैन",
+                        ),
+                      ],
+                    ),
+                                        FormBuilderSegmentedControl(
+                      decoration: InputDecoration(
+                          labelStyle: questionLabelStyle,
+                          alignLabelWithHint: false,
+                          hintText: "",
+                          labelText: "आराम गर्दा पनि सास छोटो भएजस्तो लाग्नेः "),
+                      attribute: "movie_rating",
+                      options: [
+                        FormBuilderFieldOption(
+                          value: "छ",
+                        ),
+                        FormBuilderFieldOption(
+                          value: "छैन",
+                        ),
+                      ],
+                    ),
+                                        FormBuilderSegmentedControl(
+                      decoration: InputDecoration(
+                          labelStyle: questionLabelStyle,
+                          alignLabelWithHint: false,
+                          hintText: "",
+                          labelText: "जीउ दुखाईः "),
+                      attribute: "movie_rating",
+                      options: [
+                        FormBuilderFieldOption(
+                          value: "छ",
+                        ),
+                        FormBuilderFieldOption(
+                          value: "छैन",
+                        ),
+                      ],
+                    ),
+                                        FormBuilderSegmentedControl(
+                      decoration: InputDecoration(
+                          labelStyle: questionLabelStyle,
+                          alignLabelWithHint: false,
+                          hintText: "",
+                          labelText: "पखालाः "),
+                      attribute: "movie_rating",
+                      options: [
+                        FormBuilderFieldOption(
+                          value: "छ",
+                        ),
+                        FormBuilderFieldOption(
+                          value: "छैन",
+                        ),
+                      ],
+                    ),
+                                        FormBuilderSegmentedControl(
+                      decoration: InputDecoration(
+                          labelStyle: questionLabelStyle,
+                          alignLabelWithHint: false,
+                          hintText: "",
+                          labelText: "सिँगान बग्नेः "),
+                      attribute: "movie_rating",
+                      options: [
+                        FormBuilderFieldOption(
+                          value: "छ",
+                        ),
+                        FormBuilderFieldOption(
+                          value: "छैन",
+                        ),
+                      ],
+                    ),
+                                        FormBuilderSegmentedControl(
+                      decoration: InputDecoration(
+                          labelStyle: questionLabelStyle,
+                          alignLabelWithHint: false,
+                     
+                          labelText: "वाकवाकीः "),
+                      attribute: "movie_rating",
+                      options: [
+                        FormBuilderFieldOption(
+                          value: "छ",
+                        ),
+                        FormBuilderFieldOption(
+                          value: "छैन",
+                        ),
+                      ],
+                    ),
+                                        FormBuilderSegmentedControl(
+                      decoration: InputDecoration(
+                          labelStyle: questionLabelStyle,
+                          alignLabelWithHint: false,
+                          hintText: "",
+                          labelText: "सुख्खा तथा लहरे खोकीः "),
+                      attribute: "movie_rating",
+                      options: [
+                        FormBuilderFieldOption(
+                          value: "छ",
+                        ),
+                        FormBuilderFieldOption(
+                          value: "छैन",
                         ),
                       ],
                     ),
                   ],
                 ),
-              ),
-              FormBuilderCheckboxList(
-                decoration: InputDecoration(
-                    helperText: "mark all those applicable",
-                    labelStyle: questionLabelStyle,
-                    labelText:
-                        "Do you have a history of any of these conditions"),
-                attribute: "languages",
-                initialValue: ["Dry Cough"],
-                options: [
-                  FormBuilderFieldOption(value: "Diabetes"),
-                  FormBuilderFieldOption(value: "High Blood Pressure"),
-                  FormBuilderFieldOption(value: "Heart Disease"),
-                  FormBuilderFieldOption(value: "Kidney Disease"),
-                  FormBuilderFieldOption(value: "Lung Disease"),
-                  FormBuilderFieldOption(value: "Stroke"),
-                  FormBuilderFieldOption(value: "Reduced Immunity"),
-                ],
               ),
               Row(
                 children: <Widget>[
