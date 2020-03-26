@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:openspaces/covid19/colors.dart';
+import 'package:openspaces/covid19/common_widgets.dart';
 
 class UploadDataScreen extends StatefulWidget {
   @override
@@ -26,14 +27,12 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
             children: <Widget>[
               FormBuilder(
                 key: _fbKey,
-                initialValue: {
-                  'date': DateTime.now(),
-                },
+                initialValue: {},
                 autovalidate: true,
                 child: Column(
                   children: <Widget>[
                     FormBuilderTextField(
-                      attribute: "age",
+                      attribute: "name",
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
@@ -56,9 +55,8 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                     ),
                     FormBuilderSegmentedControl(
                       decoration: InputDecoration(
-                        labelStyle: questionLabelStyle,
-                        labelText: "प्रयोगकर्ताको लिङ्ग: "
-                      ),
+                          labelStyle: questionLabelStyle,
+                          labelText: "प्रयोगकर्ताको लिङ्ग: "),
                       attribute: "movie_rating",
                       options: [
                         FormBuilderFieldOption(value: "पुरुष"),
@@ -70,24 +68,17 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         )
                       ],
                     ),
-                    FormBuilderSegmentedControl(
+                    FormBuilderTextField(
+                      attribute: "temperature:",
                       decoration: InputDecoration(
+                          fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
-                          alignLabelWithHint: false,
-                          hintText: "",
-                          labelText: "तापक्रमः"),
-                      attribute: "movie_rating",
-                      options: [
-                        FormBuilderFieldOption(value: "सामान्य(96°F-98.6°F)"),
-                        FormBuilderFieldOption(
-                          value: "ज्वरो(98.6°F-102.5°F)",
-                        ),
-                        FormBuilderFieldOption(
-                          value: "उच्च ज्वरो(>102°F)",
-                        ),
-                        FormBuilderFieldOption(
-                          value: "नभएको",
-                        )
+                          labelText: "तापक्रम:",
+                          hintText: ""),
+                      validators: [
+                        FormBuilderValidators.numeric(),
+                        FormBuilderValidators.max(100),
+                        FormBuilderValidators.required()
                       ],
                     ),
                     FormBuilderSegmentedControl(
@@ -97,7 +88,8 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                           hintText: "",
                           labelText:
                               "के तपाईँ सेल्फ क्वारेन्टाइनमा बस्नुभएको छ?"),
-                      attribute: "movie_rating",
+                      attribute: "in_self_quarrantine",
+                      validators: [FormBuilderValidators.required()],
                       options: [
                         FormBuilderFieldOption(
                           value: "छ",
@@ -113,7 +105,8 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                           alignLabelWithHint: false,
                           hintText: "",
                           labelText: "सुख्खा तथा लहरे खोकीः "),
-                      attribute: "movie_rating",
+                      attribute: "have_cough",
+                      validators: [FormBuilderValidators.required()],
                       options: [
                         FormBuilderFieldOption(
                           value: "छ",
@@ -123,13 +116,14 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         ),
                       ],
                     ),
-                                        FormBuilderSegmentedControl(
+                    FormBuilderSegmentedControl(
                       decoration: InputDecoration(
                           labelStyle: questionLabelStyle,
                           alignLabelWithHint: false,
                           hintText: "",
                           labelText: "थकाई लाग्नेः "),
-                      attribute: "movie_rating",
+                      attribute: "have_fatigue",
+                      validators: [FormBuilderValidators.required()],
                       options: [
                         FormBuilderFieldOption(
                           value: "छ",
@@ -139,13 +133,14 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         ),
                       ],
                     ),
-                                        FormBuilderSegmentedControl(
+                    FormBuilderSegmentedControl(
                       decoration: InputDecoration(
                           labelStyle: questionLabelStyle,
                           alignLabelWithHint: false,
                           hintText: "",
                           labelText: "घाँटी बस्नेः "),
-                      attribute: "movie_rating",
+                      attribute: "have_throat_pain",
+                      validators: [FormBuilderValidators.required()],
                       options: [
                         FormBuilderFieldOption(
                           value: "छ",
@@ -155,13 +150,15 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         ),
                       ],
                     ),
-                                        FormBuilderSegmentedControl(
+                    FormBuilderSegmentedControl(
                       decoration: InputDecoration(
                           labelStyle: questionLabelStyle,
                           alignLabelWithHint: false,
                           hintText: "",
-                          labelText: "आराम गर्दा पनि सास छोटो भएजस्तो लाग्नेः "),
-                      attribute: "movie_rating",
+                          labelText:
+                              "आराम गर्दा पनि सास छोटो भएजस्तो लाग्नेः "),
+                      attribute: "fast_breathe",
+                      validators: [FormBuilderValidators.required()],
                       options: [
                         FormBuilderFieldOption(
                           value: "छ",
@@ -171,13 +168,14 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         ),
                       ],
                     ),
-                                        FormBuilderSegmentedControl(
+                    FormBuilderSegmentedControl(
+                      validators: [FormBuilderValidators.required()],
                       decoration: InputDecoration(
                           labelStyle: questionLabelStyle,
                           alignLabelWithHint: false,
                           hintText: "",
                           labelText: "जीउ दुखाईः "),
-                      attribute: "movie_rating",
+                      attribute: "body_pain",
                       options: [
                         FormBuilderFieldOption(
                           value: "छ",
@@ -187,13 +185,14 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         ),
                       ],
                     ),
-                                        FormBuilderSegmentedControl(
+                    FormBuilderSegmentedControl(
+                      validators: [FormBuilderValidators.required()],
                       decoration: InputDecoration(
                           labelStyle: questionLabelStyle,
                           alignLabelWithHint: false,
                           hintText: "",
                           labelText: "पखालाः "),
-                      attribute: "movie_rating",
+                      attribute: "diarrahoe",
                       options: [
                         FormBuilderFieldOption(
                           value: "छ",
@@ -203,13 +202,14 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         ),
                       ],
                     ),
-                                        FormBuilderSegmentedControl(
+                    FormBuilderSegmentedControl(
+                      validators: [FormBuilderValidators.required()],
                       decoration: InputDecoration(
                           labelStyle: questionLabelStyle,
                           alignLabelWithHint: false,
                           hintText: "",
                           labelText: "सिँगान बग्नेः "),
-                      attribute: "movie_rating",
+                      attribute: "runny_nose",
                       options: [
                         FormBuilderFieldOption(
                           value: "छ",
@@ -219,13 +219,13 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         ),
                       ],
                     ),
-                                        FormBuilderSegmentedControl(
+                    FormBuilderSegmentedControl(
+                      validators: [FormBuilderValidators.required()],
                       decoration: InputDecoration(
                           labelStyle: questionLabelStyle,
                           alignLabelWithHint: false,
-                     
                           labelText: "वाकवाकीः "),
-                      attribute: "movie_rating",
+                      attribute: "vomit",
                       options: [
                         FormBuilderFieldOption(
                           value: "छ",
@@ -235,42 +235,73 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         ),
                       ],
                     ),
-                                        FormBuilderSegmentedControl(
+                    FormBuilderTextField(
+                      attribute: "contact_no",
                       decoration: InputDecoration(
+                          fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
-                          alignLabelWithHint: false,
-                          hintText: "",
-                          labelText: "सुख्खा तथा लहरे खोकीः "),
-                      attribute: "movie_rating",
-                      options: [
-                        FormBuilderFieldOption(
-                          value: "छ",
-                        ),
-                        FormBuilderFieldOption(
-                          value: "छैन",
-                        ),
+                          labelText: "सम्पर्क नम्बर:",
+                          hintText: ""),
+                      validators: [
+                        FormBuilderValidators.required(),
+                        FormBuilderValidators.numeric()
                       ],
+                    ),
+                    FormBuilderTextField(
+                      attribute: "address",
+                      decoration: InputDecoration(
+                        fillColor: OpenSpaceColors.red,
+                        labelStyle: questionLabelStyle,
+                        labelText: "ठेगाना:",
+                        helperText: "उत्तर अनिवार्य छैन",
+                      ),
+                      validators: [],
+                    ),
+                    FormBuilderTextField(
+                      attribute: "contact_no",
+                      decoration: InputDecoration(
+                          fillColor: OpenSpaceColors.red,
+                          labelStyle: questionLabelStyle,
+                          labelText: "सम्पर्क नम्बर:",
+                          helperText: "उत्तर अनिवार्य छैन",
+                          hintText: ""),
+                      validators: [],
                     ),
                   ],
                 ),
               ),
-              Row(
-                children: <Widget>[
-                  MaterialButton(
-                    child: Text("Submit"),
-                    onPressed: () {
-                      if (_fbKey.currentState.saveAndValidate()) {
-                        print(_fbKey.currentState.value);
-                      }
-                    },
-                  ),
-                  MaterialButton(
-                    child: Text("Reset"),
-                    onPressed: () {
-                      _fbKey.currentState.reset();
-                    },
-                  ),
-                ],
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 60,
+                padding: EdgeInsets.all(16),
+                color: OpenSpaceColors.button_red,
+                child: Center(
+                  child: isUploadingForm
+                      ? Container(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator())
+                      : InkWell(
+                          onTap: () {
+                            if (_fbKey.currentState.saveAndValidate()) {
+                              setState(() {
+                                isUploadingForm = true;
+                              });
+                            } else {
+                              showToastMessage(message: "फारममा त्रुटिहरू छन्");
+                            }
+                          },
+                          child: Text(
+                            "फारम बुझाउनुहोस्",
+                            style: TextStyle(
+                                color: OpenSpaceColors.red,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                ),
               )
             ],
           ),
@@ -278,4 +309,6 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
       ),
     );
   }
+
+  bool isUploadingForm = false;
 }

@@ -198,7 +198,7 @@ Widget buildButton(String text, Color buttonColor, Color textColor,
 showToastMessage({message}) {
   Fluttertoast.showToast(
       msg: message,
-      gravity: ToastGravity.CENTER,
+      gravity: ToastGravity.BOTTOM,
       toastLength: Toast.LENGTH_LONG,
       backgroundColor: OpenSpaceColors.white,
       textColor: OpenSpaceColors.text_color);
