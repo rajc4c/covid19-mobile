@@ -5,21 +5,24 @@ import 'package:openspaces/covid19/modal/homestat.dart';
 
 class DashboardPage extends StatelessWidget {
   Function medicalFacilityClicked;
-  DashboardPage({ this.medicalFacilityClicked });
+  DashboardPage({this.medicalFacilityClicked});
 
   @override
   Widget build(BuildContext context) {
     HomeBloc homeBloc = HomeBloc();
     return BaseInheritedBlockProvider(
       bloc: homeBloc,
-      child: DashboardWidget(homeBloc: homeBloc, medicalFacilityClicked: medicalFacilityClicked,),
+      child: DashboardWidget(
+        homeBloc: homeBloc,
+        medicalFacilityClicked: medicalFacilityClicked,
+      ),
     );
   }
 }
 
 class DashboardWidget extends StatefulWidget {
   HomeBloc homeBloc;
-  DashboardWidget({ this.homeBloc, this.medicalFacilityClicked});
+  DashboardWidget({this.homeBloc, this.medicalFacilityClicked});
   Function medicalFacilityClicked;
 
   @override
@@ -27,13 +30,16 @@ class DashboardWidget extends StatefulWidget {
 }
 
 class _DashboardWidgetState extends State<DashboardWidget> {
-  List<String> selectorItems = ["National", "Province No. 1",
+  List<String> selectorItems = [
+    "National",
+    "Province No. 1",
     "Province No. 2",
     "Bagmati Pradesh",
     "Gandaki Pradesh",
     "Province No. 5",
     "Karnali Pradesh",
-    "Sudurpashchim Pradesh"];
+    "Sudurpashchim Pradesh"
+  ];
   String selectorItem = "National";
   @override
   void dispose() {
@@ -43,11 +49,11 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     super.dispose();
   }
 
-  _getData(){
+  _getData() {
     if (widget.homeBloc != null) {
       int pos = selectorItems.indexOf(selectorItem);
       print("[dashboard_page][selectedIndex] ========>> $pos");
-      widget.homeBloc.getHomeData(province: pos ==0 ? "" : "$pos");
+      widget.homeBloc.getHomeData(province: pos == 0 ? "" : "$pos");
     }
   }
 
@@ -146,7 +152,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
           width: 16.0,
         ),
         Container(
-          width: MediaQuery.of(context).size.width*0.5,
+          width: MediaQuery.of(context).size.width * 0.5,
           decoration:
               BoxDecoration(border: Border.all(width: 1.0, color: Colors.grey)),
           child: Center(
@@ -154,11 +160,11 @@ class _DashboardWidgetState extends State<DashboardWidget> {
               items: selectorItems
                   .map<DropdownMenuItem>((string) => DropdownMenuItem<String>(
                         value: string,
-                        child:Text(
-                            string,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.blue, fontSize: 14.0),
-                          ),
+                        child: Text(
+                          string,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.blue, fontSize: 14.0),
+                        ),
                       ))
                   .toList(),
               value: selectorItem,
@@ -175,7 +181,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     );
   }
 
-  _hotlineWidget(List<String> phones, String time, String hotline) {
+  _hotlineWidget(String phones, String time, String hotline) {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(color: Color.fromRGBO(233, 236, 255, 1)),
@@ -352,10 +358,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                             color: Colors.white,
                             child: ListTile(
                               onTap: () {
-                                  if(widget.medicalFacilityClicked != null) {
-                                    print("[dashboard][medical clicked]");
-                                    widget.medicalFacilityClicked();
-                                  }
+                                if (widget.medicalFacilityClicked != null) {
+                                  print("[dashboard][medical clicked]");
+                                  widget.medicalFacilityClicked();
+                                }
                               },
                               title: Text(
                                 "Medical Facilities",
@@ -390,7 +396,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         ],
                       ),
                     ),
-                    _hotlineWidget(homeStat.phones, homeStat.time, homeStat.hotline)
+                    _hotlineWidget(homeStat.hotline, "", homeStat.hotline)
                   ],
                 ),
               ),
