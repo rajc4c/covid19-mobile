@@ -95,7 +95,7 @@ class PlaceListItem extends StatelessWidget {
             Align(
                 alignment: Alignment.bottomLeft,
                 child: Text(
-                  pointOfInterest.location ?? "Location Not Avaliable",
+                  pointOfInterest.category,
                   style: TextStyle(
                       color: OpenSpaceColors.icon_color, fontSize: 14),
                 )),
