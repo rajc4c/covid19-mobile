@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:openspaces/common/utils.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 class AboutUsPage extends StatelessWidget {
@@ -41,15 +42,22 @@ class AboutUsPage extends StatelessWidget {
               Text("प्राविधिक सहयोगः", style: TextStyle(fontSize: 16.0, color: Colors.black, fontWeight: FontWeight.bold),),
 
               ListTile(
+                onTap: (){
+                  Utils.launchURL("https://codeforcore.com/");
+                },
                 leading: Image.asset(supporterLogos[2], height: 56.0, width: 56.0,),
                 title: Text("Code for Core inovation"),
 //                subtitle: Text("PEAN"),
               ),
               ListTile(
+                onTap: () {
+                  Utils.launchURL("http://naxa.com.np/home/");
+                },
                 leading: Image.asset(supporterLogos[1], height: 56.0, width: 56.0,),
                 title: Text("Naxa pvt. ltd."),
 //                subtitle: Text("PEAN"),
               ),
+
 //              ListTile(
 //                title: Text(""),
 //                subtitle: Column(
