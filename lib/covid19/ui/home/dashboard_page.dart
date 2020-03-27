@@ -79,7 +79,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 
   _statItems(String title, int count, Color color) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.1,
+      height: MediaQuery.of(context).size.height * 0.15,
       width: MediaQuery.of(context).size.width * 0.28,
       child: Card(
         elevation: 2.0,

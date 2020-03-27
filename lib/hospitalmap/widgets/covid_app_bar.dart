@@ -32,7 +32,7 @@ Widget logo() {
       width: 48.0,
     ),
     title: Text(
-      "स्वास्थ्य नेपाल",
+      "Hamro Swasthya (हाम्रो स्वास्थ्य)",
       style: TextStyle(
           fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
     ),
