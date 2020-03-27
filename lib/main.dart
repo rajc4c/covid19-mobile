@@ -19,7 +19,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   AppLocalizationDelegate _localeOverrideDelegate =
-      AppLocalizationDelegate(Locale('en', 'US'));
+  AppLocalizationDelegate(Locale('en', 'US'));
 
   // This widget is the root of your application.
   @override
@@ -97,7 +97,10 @@ class _HomePageState extends State<HomePage> {
       child: ListView(
         children: <Widget>[
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.05,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height * 0.05,
           ),
           logo(),
           SizedBox(
@@ -297,30 +300,33 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      appBar: covidAppBar(),
-      body: buildPageView(),
-      drawer: _mDrawer(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedBottomNavigationIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedBottomNavigationIndex = index;
-            pageController.animateToPage(index,
-                duration: Duration(milliseconds: 300), curve: Curves.ease);
-          });
-        },
-        selectedItemColor: Color.fromRGBO(239, 25, 25, 1),
-        unselectedItemColor: Colors.grey,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.local_hospital), title: Text("Facilities")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.report), title: Text("Report")),
-          BottomNavigationBarItem(icon: Icon(Icons.info), title: Text("Info"))
-        ],
-      ),
+        resizeToAvoidBottomPadding: false,
+        appBar: covidAppBar(),
+        body: buildPageView(),
+        drawer: _mDrawer(),
+    );
+  }
+
+  buildBottomBar() {
+    return BottomNavigationBar(
+      currentIndex: _selectedBottomNavigationIndex,
+      onTap: (index) {
+        setState(() {
+          _selectedBottomNavigationIndex = index;
+          pageController.animateToPage(index,
+              duration: Duration(milliseconds: 300), curve: Curves.ease);
+        });
+      },
+      selectedItemColor: Color.fromRGBO(239, 25, 25, 1),
+      unselectedItemColor: Colors.grey,
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.local_hospital), title: Text("Facilities")),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.report), title: Text("Report")),
+        BottomNavigationBarItem(icon: Icon(Icons.info), title: Text("Info"))
+      ],
     );
   }
 }

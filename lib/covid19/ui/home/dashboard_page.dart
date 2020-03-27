@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/covid19/bloc/home_bloc.dart';
+import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/modal/homestat.dart';
+import 'package:openspaces/covid19/ui/home/page_faq.dart';
+import 'package:openspaces/formdata/widgets/upload_data_screen.dart';
+import 'package:openspaces/hospitalmap/screens/map_hospital_screen.dart';
+
+import 'info_page.dart';
 
 class DashboardPage extends StatelessWidget {
   Function medicalFacilityClicked;
@@ -346,6 +352,9 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                     SizedBox(
                       height: 8.0,
                     ),
+                    navigationItemSelfAssement(),
+                    navigationItemSelfMAP(),
+                    navigationItemSelfFAQ(),
                     _hotlineWidget(homeStat.hotline, "", homeStat.hotline)
                   ],
                 ),
@@ -355,8 +364,138 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         });
   }
 
+  Widget navigationItems() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1)),
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget navigationItemSelfFAQ() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => InfoPage()));
+      },
+      child: Container(
+        width: double.infinity,
+        height: 180.0,
+        decoration: BoxDecoration(
+            boxShadow: [BoxShadow(blurRadius: 5.0, color: Color(0x335169ed))],
+            borderRadius: BorderRadius.circular(10.0),
+            color: Colors.white),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Spacer(),
+            Container(
+                height: 60.0,
+                width: 60.0,
+                child: Image.asset('assets/images/prevention.png')),
+            Spacer(),
+            Text(
+              'उपयोगी जानकारी',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black87,
+                  fontSize: 18.0),
+            ),
+            Spacer(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget navigationItemSelfMAP() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => MapHospitalScreen()));
+      },
+      child: Container(
+        width: double.infinity,
+        height: 180.0,
+        decoration: BoxDecoration(
+            boxShadow: [BoxShadow(blurRadius: 5.0, color: Color(0x335169ed))],
+            borderRadius: BorderRadius.circular(10.0),
+            color: Color.fromRGBO(229, 247, 230, 1)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Spacer(),
+            Container(
+                height: 60.0,
+                width: 60.0,
+                child: Image.asset('assets/images/map.png')),
+            Spacer(),
+            Text(
+              'नक्शा',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black87,
+                  fontSize: 18.0),
+            ),
+            Spacer(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget navigationItemSelfAssement() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => UploadDataScreen()));
+      },
+      child: Container(
+        width: double.infinity,
+        height: 180.0,
+        decoration: BoxDecoration(
+            boxShadow: [BoxShadow(blurRadius: 5.0, color: Color(0x335169ed))],
+            borderRadius: BorderRadius.circular(10.0),
+            color: Colors.white),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Spacer(),
+            Container(
+                height: 60.0,
+                width: 60.0,
+                child: Image.asset('assets/images/assessment.png')),
+            Spacer(),
+            Text(
+              'कोभिड-१९ को लक्षणहरू आफै मूल्यांकन गर्नुहोस्',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black87,
+                  fontSize: 18.0),
+            ),
+            Spacer(),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget medicalFacilitiesStatus(homeStat) {
-    Container(
+    return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(16.0),
       decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1)),

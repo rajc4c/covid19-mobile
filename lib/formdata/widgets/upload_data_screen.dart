@@ -4,6 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
 import 'package:openspaces/formdata/form_repository.dart';
+import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 class UploadDataScreen extends StatefulWidget {
   @override
@@ -20,6 +21,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: covidAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),

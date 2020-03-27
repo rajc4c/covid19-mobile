@@ -11,6 +11,7 @@ import 'package:openspaces/covid19/common_widgets.dart';
 import 'package:openspaces/covid19/geo.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 import 'package:openspaces/hospitalmap/repo/point_of_interest.dart';
+import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:openspaces/hospitalmap/widgets/data_progress_list_item.dart';
 import 'package:openspaces/hospitalmap/widgets/point_of_interest_list_item.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
@@ -59,6 +60,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: covidAppBar(),
       key: _scaffoldKey,
       body: BaseInheritedBlockProvider(
         bloc: pointOfInterestBloc,
