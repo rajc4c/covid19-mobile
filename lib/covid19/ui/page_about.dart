@@ -3,9 +3,9 @@ import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 class AboutUsPage extends StatelessWidget {
   List<String> supporterLogos = [
+    "assets/images/pean_logo.jpg",
     "assets/images/naxa_logo.png",
     "assets/images/c4c_logo.jpg",
-    "assets/images/pean_logo.jpg"
   ];
 
   @override
@@ -57,10 +57,12 @@ class AboutUsPage extends StatelessWidget {
                   children: List<Widget>.generate(
                       supporterLogos.length,
                       (index) => Container(
-                        width: 150.0,
+                          width: 150.0,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular((16.0))),
-                          child: Card( child: Image.asset(supporterLogos[index]),))),
+                          child: Card(
+                            child: Image.asset(supporterLogos[index]),
+                          ))),
                 ),
               )
             ],

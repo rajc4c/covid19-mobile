@@ -243,43 +243,34 @@ class _HomePageState extends State<HomePage> {
 //                      style: TextStyle(color: Colors.grey),
 //                    )),
 
-            Spacer(flex: 1,),
-              Divider(
-                height: 1,
-                color: Colors.grey,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  "Associated With",
-                  style: TextStyle(color: Colors.grey, height: 1),
-                ),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              ListTile(
-                leading: Image.asset(
-                  'assets/images/gov_logo.png',
-                  fit: BoxFit.cover,
-                  height: 48.0,
-                  width: 48.0,
-                ),
-                title: Text(
-                  "Government of Nepal",
-                  style: TextStyle(color: Colors.blue, fontSize: 14.0),
-                ),
-                subtitle: Text(
-                  "Ministry of Health and Population",
-                  style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(
-                height: 16.0,
-              )
+//            Spacer(flex: 1,),
+//              Divider(
+//                height: 1,
+//                color: Colors.grey,
+//              ),
+//
+//              ListTile(
+//                leading: Image.asset(
+//                  'assets/images/gov_logo.png',
+//                  fit: BoxFit.cover,
+//                  height: 48.0,
+//                  width: 48.0,
+//                ),
+//                title: Text(
+//                  "Government of Nepal",
+//                  style: TextStyle(color: Colors.blue, fontSize: 14.0),
+//                ),
+//                subtitle: Text(
+//                  "Ministry of Health and Population",
+//                  style: TextStyle(
+//                      color: Colors.red,
+//                      fontSize: 16.0,
+//                      fontWeight: FontWeight.bold),
+//                ),
+//              ),
+//              SizedBox(
+//                height: 16.0,
+//              )
             ],
           ),
         ),
