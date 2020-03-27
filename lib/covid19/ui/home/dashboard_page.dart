@@ -206,12 +206,13 @@ class _DashboardWidgetState extends State<DashboardWidget> {
       child: Column(
         children: <Widget>[
           FlatButton.icon(
-              onPressed: () {},
+              onPressed: () {
+              },
               icon: Icon(
                 Icons.call,
                 color: Colors.red,
               ),
-              label: Text("COVID-19 Hotline")),
+              label: Text("COVID-19 हटलाइन")),
 //          Row(
 //              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 //              children: List<Widget>.generate(phones.length, (index) {
