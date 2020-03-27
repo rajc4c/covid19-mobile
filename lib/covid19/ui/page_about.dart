@@ -4,8 +4,8 @@ import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 class AboutUsPage extends StatelessWidget {
   List<String> supporterLogos = [
     "assets/images/naxa_logo.png",
-    "assets/images/c4c_logo.png",
-    "assets/images/pean_logo.png"
+    "assets/images/c4c_logo.jpg",
+    "assets/images/pean_logo.jpg"
   ];
 
   @override
@@ -13,6 +13,7 @@ class AboutUsPage extends StatelessWidget {
     return Scaffold(
       appBar: covidAppBar(),
       body: Container(
+        padding: EdgeInsets.all(16.0),
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Column(
@@ -35,6 +36,8 @@ class AboutUsPage extends StatelessWidget {
               ListTile(
                 title: Text("प्राविधिक सहयोगः"),
                 subtitle: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text("NAXA"),
                     SizedBox(
@@ -54,7 +57,7 @@ class AboutUsPage extends StatelessWidget {
                   children: List<Widget>.generate(
                       supporterLogos.length,
                       (index) => Container(
-                        width: 120.0,
+                        width: 150.0,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular((16.0))),
                           child: Card( child: Image.asset(supporterLogos[index]),))),
