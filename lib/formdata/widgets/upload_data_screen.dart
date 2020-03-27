@@ -308,6 +308,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                                 isUploadingForm = true;
                               });
 
+                              print(_fbKey.currentState.value);
                               formRepository
                                   .uploadSymtomForm(_fbKey.currentState.value)
                                   .then((statusCode) {
