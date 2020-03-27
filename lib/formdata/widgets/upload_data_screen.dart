@@ -40,10 +40,11 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
               FormBuilder(
                 key: _fbKey,
                 initialValue: {},
-                autovalidate: true,
+                autovalidate: false,
                 child: Column(
                   children: <Widget>[
                     FormBuilderTextField(
+                      autocorrect: false,
                       attribute: "name",
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -53,6 +54,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       validators: [FormBuilderValidators.required()],
                     ),
                     FormBuilderTextField(
+                      autocorrect: false,
                       attribute: "age",
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -70,6 +72,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                           labelStyle: questionLabelStyle,
                           labelText: "प्रयोगकर्ताको लिङ्ग: "),
                       attribute: "gender",
+                      validators: [],
                       options: [
                         FormBuilderFieldOption(
                           label: "पुरुष",
@@ -85,18 +88,16 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         )
                       ],
                     ),
-                    FormBuilderTextField(
-                      attribute: "temperature:",
+                    FormBuilderSlider(
+                      attribute: "temperature",
+                      min: 90,
+                      max: 106,
+                      initialValue: 90,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
                           labelText: "तापक्रम:",
                           hintText: ""),
-                      validators: [
-                        FormBuilderValidators.numeric(),
-                        FormBuilderValidators.max(200),
-                        FormBuilderValidators.required()
-                      ],
                     ),
                     FormBuilderSegmentedControl(
                       decoration: InputDecoration(
