@@ -214,6 +214,15 @@ launchURL(url) async {
   }
 }
 
+launchCaller(String number) async {
+  var url = "tel:$number";
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
 Widget buildAppBar(BuildContext context, String title) {
   return AppBar(
       title: Text(

@@ -199,6 +199,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   }
 
   _hotlineWidget(String phones, String time, String hotline) {
+    List<String> numbers = hotline.split(",");
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(color: Color.fromRGBO(233, 236, 255, 1)),
@@ -206,22 +207,30 @@ class _DashboardWidgetState extends State<DashboardWidget> {
       child: Column(
         children: <Widget>[
           FlatButton.icon(
-              onPressed: () {
-              },
+              onPressed: () {},
               icon: Icon(
                 Icons.call,
                 color: Colors.red,
               ),
               label: Text("COVID-19 हटलाइन")),
-//          Row(
-//              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//              children: List<Widget>.generate(phones.length, (index) {
-//                return Text(phones[index],
-//                    style: TextStyle(
-//                        color: Color.fromRGBO(13, 73, 239, 1),
-//                        fontSize: 12.0,
-//                        fontWeight: FontWeight.bold));
-//              })),
+          Wrap(
+              children: List<Widget>.generate(numbers.length, (index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+              child: Center(
+                child: InkWell(
+                  onTap: () {
+                    launchCaller(numbers[index]);
+                  },
+                  child: Text(numbers[index],
+                      style: TextStyle(
+                          color: Color.fromRGBO(13, 73, 239, 1),
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold)),
+                ),
+              ),
+            );
+          })),
 //          SizedBox(
 //            height: 8.0,
 //          ),
@@ -246,15 +255,15 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 //                color: Colors.grey,
 //                fontSize: 12.0,
 //              )),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Text(hotline,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Color.fromRGBO(13, 73, 239, 1),
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold)),
-          ),
+//          SizedBox(
+//            width: MediaQuery.of(context).size.width,
+//            child: Text(hotline,
+//                textAlign: TextAlign.center,
+//                style: TextStyle(
+//                    color: Color.fromRGBO(13, 73, 239, 1),
+//                    fontSize: 12.0,
+//                    fontWeight: FontWeight.bold)),
+//          ),
         ],
       ),
     );
