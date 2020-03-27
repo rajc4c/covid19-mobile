@@ -18,6 +18,8 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
       fontWeight: FontWeight.w700,
       color: OpenSpaceColors.text_color);
 
+  String errorLabel = "कृपया यसलाई खाली नछोड्नुहोस्";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,14 +62,19 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       decoration: InputDecoration(
                           labelStyle: questionLabelStyle,
                           labelText: "प्रयोगकर्ताको लिङ्ग: "),
-                      attribute: "movie_rating",
+                      attribute: "gender",
                       options: [
-                        FormBuilderFieldOption(value: "पुरुष"),
                         FormBuilderFieldOption(
-                          value: "महिला",
+                          label: "पुरुष",
+                          value: "Male",
                         ),
                         FormBuilderFieldOption(
-                          value: "अन्य",
+                          label: "महिला",
+                          value: "Female",
+                        ),
+                        FormBuilderFieldOption(
+                          label: "अन्य",
+                          value: "Other",
                         )
                       ],
                     ),
