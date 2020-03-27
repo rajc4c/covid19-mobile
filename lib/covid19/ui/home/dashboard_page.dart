@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:openspaces/common/utils.dart';
 import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/covid19/bloc/home_bloc.dart';
 import 'package:openspaces/covid19/colors.dart';
+import 'package:openspaces/covid19/modal/global_stat.dart';
 import 'package:openspaces/covid19/modal/homestat.dart';
-import 'package:openspaces/covid19/ui/home/page_faq.dart';
 import 'package:openspaces/formdata/widgets/upload_data_screen.dart';
 import 'package:openspaces/hospitalmap/screens/map_hospital_screen.dart';
 
@@ -169,6 +170,36 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     );
   }
 
+  _globalStatWidget() {
+    return StreamBuilder(
+      stream: widget.homeBloc.globalStatStream,
+      builder: (context, snapshot) {
+        if (snapshot != null && snapshot.data != null && !snapshot.hasError) {
+          GlobalStat gs = snapshot.data;
+          return Column(
+            children: <Widget>[
+              Text("ग्लोबल स्थिति"),
+              SizedBox(
+                height: 8.0,
+              ),
+              Row(
+                children: <Widget>[
+                  _statItems("कोरोनाभाइरस केसहरू", gs.totalConfirmed,
+                      Color.fromRGBO(233, 236, 255, 1)),
+                  _statItems("निको भएको", gs.totalRecovered,
+                      Color.fromRGBO(229, 247, 230, 1)),
+                  _statItems("मृत्यु भएको", gs.totalDeaths,
+                      Color.fromRGBO(255, 235, 236, 1))
+                ],
+              ),
+            ],
+          );
+        } else
+          return Container();
+      },
+    );
+  }
+
   Widget buildPoliticalFilterDropDown() {
     return Container(
       width: MediaQuery.of(context).size.width * 0.5,
@@ -206,8 +237,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
       child: Column(
         children: <Widget>[
           FlatButton.icon(
-              onPressed: () {
-              },
+              onPressed: () {},
               icon: Icon(
                 Icons.call,
                 color: Colors.red,
@@ -263,74 +293,82 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   @override
   Widget build(BuildContext context) {
     _getData();
-    return StreamBuilder<HomeStat>(
-        stream: widget.homeBloc.homeStream,
-        builder: (context, snapshot) {
-          if (snapshot == null || snapshot.data == null) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                snapshot.error.toString(),
-                style: TextStyle(fontSize: 16.0, color: Colors.red),
-              ),
-            );
-          } else {
-            HomeStat homeStat = snapshot.data;
-            return Container(
-              height: MediaQuery.of(context).size.height,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 16.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                      child: _headSelector(),
-                    ),
-                    SizedBox(
-                      height: 16.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          _statItems("परिक्षण भएको", homeStat.tested,
-                              Color.fromRGBO(233, 236, 255, 1)),
-                          _statItems(
-                              "संक्रमण नदेखिएको",
-                              homeStat.tested - homeStat.confirmed,
-                              Color.fromRGBO(229, 247, 230, 1)),
-                          _statItems("संक्रमण देखिएको", homeStat.confirmed,
-                              Color.fromRGBO(255, 235, 236, 1))
-                        ],
+    widget.homeBloc.globalData();
+    return Container(
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+            child: Column(
+          children: <Widget>[
+            _globalStatWidget(),
+            SizedBox(height: 8.0,),
+            StreamBuilder<HomeStat>(
+                stream: widget.homeBloc.homeStream,
+                builder: (context, snapshot) {
+                  if (snapshot == null || snapshot.data == null) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        snapshot.error.toString(),
+                        style: TextStyle(fontSize: 16.0, color: Colors.red),
                       ),
-                    ),
-                    SizedBox(
-                      height: 8.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          _statItems("आइसोलेसनमा", homeStat.isolation,
-                              Color.fromRGBO(233, 236, 255, 1)),
-                          _statItems(
-                              "निको भएको",
-                              homeStat.confirmed -
-                                  homeStat.death -
-                                  homeStat.isolation,
-                              Color.fromRGBO(229, 247, 230, 1)),
-                          _statItems("मृत्यु भएको", homeStat.death,
-                              Color.fromRGBO(255, 235, 236, 1))
-                        ],
-                      ),
-                    ),
+                    );
+                  } else {
+                    HomeStat homeStat = snapshot.data;
+                    return Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 16.0,
+                        ),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(left: 16.0, right: 16.0),
+                          child: _headSelector(),
+                        ),
+                        SizedBox(
+                          height: 16.0,
+                        ),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(left: 16.0, right: 16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              _statItems("परिक्षण भएको", homeStat.tested,
+                                  Color.fromRGBO(233, 236, 255, 1)),
+                              _statItems(
+                                  "संक्रमण नदेखिएको",
+                                  homeStat.tested - homeStat.confirmed,
+                                  Color.fromRGBO(229, 247, 230, 1)),
+                              _statItems("संक्रमण देखिएको", homeStat.confirmed,
+                                  Color.fromRGBO(255, 235, 236, 1))
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(left: 16.0, right: 16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              _statItems("आइसोलेसनमा", homeStat.isolation,
+                                  Color.fromRGBO(233, 236, 255, 1)),
+                              _statItems(
+                                  "निको भएको",
+                                  homeStat.confirmed -
+                                      homeStat.death -
+                                      homeStat.isolation,
+                                  Color.fromRGBO(229, 247, 230, 1)),
+                              _statItems("मृत्यु भएको", homeStat.death,
+                                  Color.fromRGBO(255, 235, 236, 1))
+                            ],
+                          ),
+                        ),
 //                    SizedBox(
 //                      height: 8.0,
 //                    ),
@@ -354,23 +392,23 @@ class _DashboardWidgetState extends State<DashboardWidget> {
 //                        ),
 //                      ),
 //                    ),
-                    SizedBox(
-                      height: 8.0,
-                    ),
-                    navigationItemSelfAssement(),
-                    navigationItemSelfMAP(),
-                    navigationItemSelfFAQ(),
-                    navigationItemViber(),
-                    Divider(
-                      height: 1,
-                    ),
-                    _hotlineWidget(homeStat.hotline, "", homeStat.hotline)
-                  ],
-                ),
-              ),
-            );
-          }
-        });
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        navigationItemSelfAssement(),
+                        navigationItemSelfMAP(),
+                        navigationItemSelfFAQ(),
+                        navigationItemViber(),
+                        Divider(
+                          height: 1,
+                        ),
+                        _hotlineWidget(homeStat.hotline, "", homeStat.hotline)
+                      ],
+                    );
+                  }
+                }),
+          ],
+        )));
   }
 
   Widget navigationItemViber() {
