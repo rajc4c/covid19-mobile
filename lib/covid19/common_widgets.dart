@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 import 'package:openspaces/hospitalmap/repo/point_of_interest.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'api.dart';
 import 'colors.dart';
@@ -202,6 +203,15 @@ showToastMessage({message}) {
       toastLength: Toast.LENGTH_LONG,
       backgroundColor: OpenSpaceColors.white,
       textColor: OpenSpaceColors.text_color);
+}
+
+launchURL(url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    showToastMessage(message: "Could not lauch $url");
+    throw 'Could not launch $url';
+  }
 }
 
 Widget buildAppBar(BuildContext context, String title) {

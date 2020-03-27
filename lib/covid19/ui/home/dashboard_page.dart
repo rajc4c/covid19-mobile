@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/covid19/bloc/home_bloc.dart';
 import 'package:openspaces/covid19/colors.dart';
@@ -7,6 +9,8 @@ import 'package:openspaces/covid19/ui/home/page_faq.dart';
 import 'package:openspaces/formdata/widgets/upload_data_screen.dart';
 import 'package:openspaces/hospitalmap/screens/map_hospital_screen.dart';
 
+import '../../api.dart';
+import '../../common_widgets.dart';
 import 'info_page.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -355,6 +359,10 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                     navigationItemSelfAssement(),
                     navigationItemSelfMAP(),
                     navigationItemSelfFAQ(),
+                    navigationItemViber(),
+                    Divider(
+                      height: 1,
+                    ),
                     _hotlineWidget(homeStat.hotline, "", homeStat.hotline)
                   ],
                 ),
@@ -362,6 +370,24 @@ class _DashboardWidgetState extends State<DashboardWidget> {
             );
           }
         });
+  }
+
+  Widget navigationItemViber() {
+    return GestureDetector(
+      onTap: () {
+        launchURL(viber);
+      },
+      child: Container(
+        width: double.infinity,
+        height: 60.0,
+        decoration: BoxDecoration(
+            boxShadow: [BoxShadow(blurRadius: 5.0, color: Color(0x335169ed))],
+            color: Color.fromRGBO(233, 236, 255, 1)),
+        child: Container(
+            padding: EdgeInsets.all(16),
+            child: SvgPicture.asset("assets/images/viber_logo.svg")),
+      ),
+    );
   }
 
   Widget navigationItems() {
