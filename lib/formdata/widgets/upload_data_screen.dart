@@ -6,6 +6,8 @@ import 'package:openspaces/covid19/common_widgets.dart';
 import 'package:openspaces/formdata/form_repository.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
+import '../ReportSubmissionThankYouScreen.dart';
+
 class UploadDataScreen extends StatefulWidget {
   @override
   _UploadDataScreenState createState() => _UploadDataScreenState();
@@ -100,7 +102,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                           alignLabelWithHint: false,
                           hintText: "",
                           labelText:
-                              "के तपाईँ सेल्फ क्वारेन्टाइनमा बस्नुभएको छ?"),
+                          "के तपाईँ सेल्फ क्वारेन्टाइनमा बस्नुभएको छ?"),
                       attribute: "in_self_quarrantine",
                       validators: [FormBuilderValidators.required()],
                       options: [
@@ -177,7 +179,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                           alignLabelWithHint: false,
                           hintText: "",
                           labelText:
-                              "आराम गर्दा पनि सास छोटो भएजस्तो लाग्नेः "),
+                          "आराम गर्दा पनि सास छोटो भएजस्तो लाग्नेः "),
                       attribute: "fast_breathe",
                       validators: [FormBuilderValidators.required()],
                       options: [
@@ -274,7 +276,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         fillColor: OpenSpaceColors.red,
                         labelStyle: questionLabelStyle,
                         labelText:
-                            "के तपाइँसँग कुनै अन्य स्वास्थ्य समस्याहरू छन्?",
+                        "के तपाइँसँग कुनै अन्य स्वास्थ्य समस्याहरू छन्?",
                       ),
                       validators: [FormBuilderValidators.required()],
                     ),
@@ -323,57 +325,64 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                 child: Center(
                   child: isUploadingForm
                       ? Container(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator())
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator())
                       : InkWell(
-                          onTap: () {
-                            if (_fbKey.currentState.saveAndValidate()) {
-                              setState(() {
-                                isUploadingForm = true;
-                              });
+                    onTap: () {
+                      if (_fbKey.currentState.saveAndValidate()) {
+                        setState(() {
+                          isUploadingForm = true;
+                        });
 
-                              print(_fbKey.currentState.value["contact_no"]);
+                        print(_fbKey.currentState.value["contact_no"]);
 
-                              print(_fbKey.currentState.value);
-                              Map<String, dynamic> formData = {
-                                "device_id": _fbKey
-                                    .currentState.value["contact_no"]
-                                    .toString()
-                              };
+                        print(_fbKey.currentState.value);
+                        Map<String, dynamic> formData = {
+                          "device_id": _fbKey
+                              .currentState.value["contact_no"]
+                              .toString()
+                        };
 
-                              formData.addAll(_fbKey.currentState.value);
+                        formData.addAll(_fbKey.currentState.value);
 
-                              print(formData);
+                        print(formData);
 
-                              formRepository
-                                  .uploadSymtomForm(formData)
-                                  .then((statusCode) {
-                                showToastMessage(
-                                    message: statusCode.toString());
-                                setState(() {
-                                  isUploadingForm = false;
-                                });
-                              }).catchError((error, stack) {
-                                print(stack);
-                                showToastMessage(
-                                    message: "फारम बुझाउन असफल भयो");
-                                setState(() {
-                                  isUploadingForm = false;
-                                });
-                              });
-                            } else {
-                              showToastMessage(message: "फारममा त्रुटिहरू छन्");
-                            }
-                          },
-                          child: Text(
-                            "फारम बुझाउनुहोस्",
-                            style: TextStyle(
-                                color: OpenSpaceColors.red,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700),
-                          ),
-                        ),
+                        formRepository
+                            .uploadSymtomForm(formData)
+                            .then((statusCode) {
+                          if (statusCode == 201) {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) =>
+                                    ReportSubmissionThankYouScreen("")));
+                          }else{
+                            showToastMessage(
+                                message: "फारम बुझाउन असफल भयो");
+                          }
+
+                          setState(() {
+                            isUploadingForm = false;
+                          });
+                        }).catchError((error, stack) {
+                          print(stack);
+                          showToastMessage(
+                              message: "फारम बुझाउन असफल भयो");
+                          setState(() {
+                            isUploadingForm = false;
+                          });
+                        });
+                      } else {
+                        showToastMessage(message: "फारममा त्रुटिहरू छन्");
+                      }
+                    },
+                    child: Text(
+                      "फारम बुझाउनुहोस्",
+                      style: TextStyle(
+                          color: OpenSpaceColors.red,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
                 ),
               )
             ],
