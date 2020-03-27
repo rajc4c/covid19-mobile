@@ -96,8 +96,7 @@ class _HomePageState extends State<HomePage> {
     return Drawer(
       child: Container(
         height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          child: Column(
+        child:  Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -118,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                FlatButton.icon(
                     onPressed: () {},
                     icon: Icon(
-                      Icons.file_upload,
+                      Icons.report,
                       color: Colors.red,
                     ),
                     label: Text(
@@ -128,7 +127,7 @@ class _HomePageState extends State<HomePage> {
           FlatButton.icon(
                     onPressed: () {},
                     icon: Icon(
-                      Icons.info,
+                      Icons.local_hospital,
                       color: Colors.red,
                     ),
                     label: Text(
@@ -139,7 +138,7 @@ class _HomePageState extends State<HomePage> {
               FlatButton.icon(
                     onPressed: () {},
                     icon: Icon(
-                      Icons.web,
+                      Icons.help,
                       color: Colors.red,
                     ),
                     label: Text(
@@ -177,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                       _openCommingSoonPage();
                     },
                     icon: Icon(
-                      Icons.web,
+                      Icons.info,
                       color: Colors.red,
                     ),
                     label: Text(
@@ -191,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                           .push(MaterialPageRoute(builder: (context) => FaqPage()));
                     },
                     icon: Icon(
-                      Icons.web,
+                      Icons.question_answer,
                       color: Colors.red,
                     ),
                     label: Text(
@@ -204,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                       _openCommingSoonPage();
                     },
                     icon: Icon(
-                      Icons.web,
+                      Icons.info_outline,
                       color: Colors.red,
                     ),
                     label: Text(
@@ -212,33 +211,34 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(color: Colors.grey),
                     )),
 
-             FlatButton.icon(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.web,
-                      color: Colors.red,
-                    ),
-                    label: Text(
-                      "Login",
-                      style: TextStyle(color: Colors.grey),
-                    )),
+//             FlatButton.icon(
+//                    onPressed: () {},
+//                    icon: Icon(
+//                      Icons.web,
+//                      color: Colors.red,
+//                    ),
+//                    label: Text(
+//                      "Login",
+//                      style: TextStyle(color: Colors.grey),
+//                    )),
 
-               FlatButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LocaleChangeTest()),
-                      );
-                    },
-                    icon: Icon(
-                      Icons.language,
-                      color: Colors.red,
-                    ),
-                    label: Text(
-                      "Language Change",
-                      style: TextStyle(color: Colors.grey),
-                    )),
+//               FlatButton.icon(
+//                    onPressed: () {
+//                      Navigator.push(
+//                        context,
+//                        MaterialPageRoute(builder: (context) => LocaleChangeTest()),
+//                      );
+//                    },
+//                    icon: Icon(
+//                      Icons.language,
+//                      color: Colors.red,
+//                    ),
+//                    label: Text(
+//                      "Language Change",
+//                      style: TextStyle(color: Colors.grey),
+//                    )),
 
+            Spacer(flex: 1,),
               Divider(
                 height: 1,
                 color: Colors.grey,
@@ -278,7 +278,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-      ),
     );
   }
 
