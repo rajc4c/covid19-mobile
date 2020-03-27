@@ -5,8 +5,10 @@ import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 class AboutUsPage extends StatelessWidget {
   List<String> supporterLogos = [
     "assets/images/pean_logo.jpg",
-    "assets/images/naxa_logo.png",
     "assets/images/c4c_logo.jpg",
+    "assets/images/naxa_logo.png",
+    "assets/images/soch_nepal.png",
+    "assets/images/ihrr.png",
   ];
 
   @override
@@ -32,64 +34,63 @@ class AboutUsPage extends StatelessWidget {
               SizedBox(
                 height: 32.0,
               ),
-              ListTile(
-                leading: Image.asset(supporterLogos[0], height: 56.0, width: 56.0,),
-                title: Text("सुचना तथा तथ्यांक जम्मा गर्ने सहयोगः"),
-                subtitle: Text("PEAN"),
+              Text(
+                "सहयोगः",
+                style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
               ),
-
-              SizedBox(height: 16.0,),
-              Text("प्राविधिक सहयोगः", style: TextStyle(fontSize: 16.0, color: Colors.black, fontWeight: FontWeight.bold),),
-
-              ListTile(
-                onTap: (){
-                  Utils.launchURL("https://codeforcore.com/");
-                },
-                leading: Image.asset(supporterLogos[2], height: 56.0, width: 56.0,),
-                title: Text("Code for Core inovation"),
-//                subtitle: Text("PEAN"),
+              Wrap(
+                spacing: 8,
+                children: <Widget>[
+                  Container(
+                      height: 100,
+                      width: 100,
+                      child: Image.asset("assets/images/pean_logo.jpg")),
+                  Container(
+                      height: 100,
+                      width: 100,
+                      child: Image.asset("assets/images/soch_nepal.jpg")),
+                  Container(
+                      height: 100,
+                      width: 100,
+                      child: Image.asset("assets/images/ihrr.jpg")),
+                ],
               ),
-              ListTile(
-                onTap: () {
-                  Utils.launchURL("http://naxa.com.np/home/");
-                },
-                leading: Image.asset(supporterLogos[1], height: 56.0, width: 56.0,),
-                title: Text("Naxa pvt. ltd."),
-//                subtitle: Text("PEAN"),
+              SizedBox(
+                height: 16.0,
               ),
-
-//              ListTile(
-//                title: Text(""),
-//                subtitle: Column(
-//                  mainAxisAlignment: MainAxisAlignment.start,
-//                  crossAxisAlignment: CrossAxisAlignment.start,
-//                  children: <Widget>[
-//                    Text("NAXA"),
-//                    SizedBox(
-//                      height: 4.0,
-//                    ),
-//                    Text("Code for Core Innovation")
-//                  ],
-//                ),
-//              ),
-//              SizedBox(
-//                height: 16.0,
-//              ),
-//              Container(
-//                height: 150.0,
-//                child: ListView(
-//                  scrollDirection: Axis.horizontal,
-//                  children: List<Widget>.generate(
-//                      supporterLogos.length,
-//                      (index) => Container(
-//                          width: 150.0,
-//                          decoration: BoxDecoration(
-//                              borderRadius: BorderRadius.circular((16.0))),
-//                          child: Card(
-//                            child: Image.asset(supporterLogos[index]),
-//                          ))),
-//                ),
-//              )
+              Text(
+                "प्राविधिक सहयोगः",
+                style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+              Wrap(
+                spacing: 8,
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      Utils.launchURL("https://codeforcore.com/");
+                    },
+                    child: Container(
+                        height: 100,
+                        width: 100,
+                        child: Image.asset("assets/images/c4c_logo.jpg")),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Utils.launchURL("http://naxa.com.np/home/");
+                    },
+                    child: Container(
+                        height: 100,
+                        width: 100,
+                        child: Image.asset("assets/images/naxa_logo.jpg")),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
