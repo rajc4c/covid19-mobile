@@ -94,205 +94,190 @@ class _HomePageState extends State<HomePage> {
 
   _mDrawer() {
     return Drawer(
-      child: ListView(
-        children: <Widget>[
-          SizedBox(
-            height: MediaQuery
-                .of(context)
-                .size
-                .height * 0.05,
-          ),
-          logo(),
-          SizedBox(
-            height: 10,
-          ),
-          Divider(
-            height: 1.0,
-            color: Colors.grey,
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: FlatButton.icon(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.file_upload,
-                  color: Colors.red,
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.05,
+              ),
+              logo(),
+              SizedBox(
+                height: 10,
+              ),
+              Divider(
+                height: 1.0,
+                color: Colors.grey,
+              ),
+               FlatButton.icon(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.file_upload,
+                      color: Colors.red,
+                    ),
+                    label: Text(
+                      "Latest Situation",
+                      style: TextStyle(color: Colors.grey),
+                    )),
+          FlatButton.icon(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.info,
+                      color: Colors.red,
+                    ),
+                    label: Text(
+                      "Medical Facilities",
+                      style: TextStyle(color: Colors.grey),
+                    )),
+
+              FlatButton.icon(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.web,
+                      color: Colors.red,
+                    ),
+                    label: Text(
+                      "Report Symptoms",
+                      style: TextStyle(color: Colors.grey),
+                    )),
+
+             FlatButton.icon(
+                    onPressed: () {
+                      _openCommingSoonPage();
+                    },
+                    icon: Icon(
+                      Icons.web,
+                      color: Colors.red,
+                    ),
+                    label: Text(
+                      "Track me",
+                      style: TextStyle(color: Colors.grey),
+                    )),
+             FlatButton.icon(
+                    onPressed: () {
+                      _openCommingSoonPage();
+                    },
+                    icon: Icon(
+                      Icons.web,
+                      color: Colors.red,
+                    ),
+                    label: Text(
+                      "Emergency Contacts",
+                      style: TextStyle(color: Colors.grey),
+                    )),
+
+              FlatButton.icon(
+                    onPressed: () {
+                      _openCommingSoonPage();
+                    },
+                    icon: Icon(
+                      Icons.web,
+                      color: Colors.red,
+                    ),
+                    label: Text(
+                      "Corona Symptoms",
+                      style: TextStyle(color: Colors.grey),
+                    )),
+
+             FlatButton.icon(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) => FaqPage()));
+                    },
+                    icon: Icon(
+                      Icons.web,
+                      color: Colors.red,
+                    ),
+                    label: Text(
+                      "FAQ",
+                      style: TextStyle(color: Colors.grey),
+                    )),
+
+             FlatButton.icon(
+                    onPressed: () {
+                      _openCommingSoonPage();
+                    },
+                    icon: Icon(
+                      Icons.web,
+                      color: Colors.red,
+                    ),
+                    label: Text(
+                      "About the app",
+                      style: TextStyle(color: Colors.grey),
+                    )),
+
+             FlatButton.icon(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.web,
+                      color: Colors.red,
+                    ),
+                    label: Text(
+                      "Login",
+                      style: TextStyle(color: Colors.grey),
+                    )),
+
+               FlatButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LocaleChangeTest()),
+                      );
+                    },
+                    icon: Icon(
+                      Icons.language,
+                      color: Colors.red,
+                    ),
+                    label: Text(
+                      "Language Change",
+                      style: TextStyle(color: Colors.grey),
+                    )),
+
+              Divider(
+                height: 1,
+                color: Colors.grey,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  "Associated With",
+                  style: TextStyle(color: Colors.grey, height: 1),
                 ),
-                label: Text(
-                  "Latest Situation",
-                  style: TextStyle(color: Colors.grey),
-                )),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: FlatButton.icon(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.info,
-                  color: Colors.red,
+              ),
+              SizedBox(
+                height: 8.0,
+              ),
+              ListTile(
+                leading: Image.asset(
+                  'assets/images/gov_logo.png',
+                  fit: BoxFit.cover,
+                  height: 48.0,
+                  width: 48.0,
                 ),
-                label: Text(
-                  "Medical Facilities",
-                  style: TextStyle(color: Colors.grey),
-                )),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: FlatButton.icon(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.web,
-                  color: Colors.red,
+                title: Text(
+                  "Government of Nepal",
+                  style: TextStyle(color: Colors.blue, fontSize: 14.0),
                 ),
-                label: Text(
-                  "Report Symptoms",
-                  style: TextStyle(color: Colors.grey),
-                )),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: FlatButton.icon(
-                onPressed: () {
-                  _openCommingSoonPage();
-                },
-                icon: Icon(
-                  Icons.web,
-                  color: Colors.red,
+                subtitle: Text(
+                  "Ministry of Health and Population",
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold),
                 ),
-                label: Text(
-                  "Track me",
-                  style: TextStyle(color: Colors.grey),
-                )),
+              ),
+              SizedBox(
+                height: 16.0,
+              )
+            ],
           ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: FlatButton.icon(
-                onPressed: () {
-                  _openCommingSoonPage();
-                },
-                icon: Icon(
-                  Icons.web,
-                  color: Colors.red,
-                ),
-                label: Text(
-                  "Emergency Contacts",
-                  style: TextStyle(color: Colors.grey),
-                )),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: FlatButton.icon(
-                onPressed: () {
-                  _openCommingSoonPage();
-                },
-                icon: Icon(
-                  Icons.web,
-                  color: Colors.red,
-                ),
-                label: Text(
-                  "Corona Symptoms",
-                  style: TextStyle(color: Colors.grey),
-                )),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: FlatButton.icon(
-                onPressed: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => FaqPage()));
-                },
-                icon: Icon(
-                  Icons.web,
-                  color: Colors.red,
-                ),
-                label: Text(
-                  "FAQ",
-                  style: TextStyle(color: Colors.grey),
-                )),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: FlatButton.icon(
-                onPressed: () {
-                  _openCommingSoonPage();
-                },
-                icon: Icon(
-                  Icons.web,
-                  color: Colors.red,
-                ),
-                label: Text(
-                  "About the app",
-                  style: TextStyle(color: Colors.grey),
-                )),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: FlatButton.icon(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.web,
-                  color: Colors.red,
-                ),
-                label: Text(
-                  "Login",
-                  style: TextStyle(color: Colors.grey),
-                )),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: FlatButton.icon(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LocaleChangeTest()),
-                  );
-                },
-                icon: Icon(
-                  Icons.language,
-                  color: Colors.red,
-                ),
-                label: Text(
-                  "Language Change",
-                  style: TextStyle(color: Colors.grey),
-                )),
-          ),
-          Divider(
-            height: 1,
-            color: Colors.grey,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              "Associated With",
-              style: TextStyle(color: Colors.grey, height: 1),
-            ),
-          ),
-          SizedBox(
-            height: 8.0,
-          ),
-          ListTile(
-            leading: Image.asset(
-              'assets/images/gov_logo.png',
-              fit: BoxFit.cover,
-              height: 48.0,
-              width: 48.0,
-            ),
-            title: Text(
-              "Government of Nepal",
-              style: TextStyle(color: Colors.blue, fontSize: 14.0),
-            ),
-            subtitle: Text(
-              "Ministry of Health and Population",
-              style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(
-            height: 16.0,
-          )
-        ],
+        ),
       ),
     );
   }
