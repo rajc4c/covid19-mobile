@@ -10,6 +10,7 @@ class FormRepository {
       'Accept': 'application/json',
     };
 
+    print(jsonEncode(formData));
     return http
         .post(Uri.encodeFull(post_user_report),
             headers: headers, body: jsonEncode(formData))

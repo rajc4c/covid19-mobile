@@ -22,6 +22,9 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      isUploadingForm = false;
+    });
     return Scaffold(
       appBar: covidAppBar(),
       body: SingleChildScrollView(
@@ -264,6 +267,29 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       ],
                     ),
                     FormBuilderTextField(
+                      minLines: 1,
+                      maxLines: 10,
+                      attribute: "symptoms",
+                      decoration: InputDecoration(
+                        fillColor: OpenSpaceColors.red,
+                        labelStyle: questionLabelStyle,
+                        labelText:
+                            "के तपाइँसँग कुनै अन्य स्वास्थ्य समस्याहरू छन्?",
+                      ),
+                      validators: [FormBuilderValidators.required()],
+                    ),
+                    FormBuilderTextField(
+                      minLines: 1,
+                      maxLines: 10,
+                      attribute: "travel_history",
+                      decoration: InputDecoration(
+                        fillColor: OpenSpaceColors.red,
+                        labelStyle: questionLabelStyle,
+                        labelText: "के तपाईंले गएको महिना कतै यात्रा गर्नुभयो?",
+                      ),
+                      validators: [FormBuilderValidators.required()],
+                    ),
+                    FormBuilderTextField(
                       attribute: "contact_no",
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -281,9 +307,8 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         fillColor: OpenSpaceColors.red,
                         labelStyle: questionLabelStyle,
                         labelText: "ठेगाना:",
-                        helperText: "उत्तर अनिवार्य छैन",
                       ),
-                      validators: [],
+                      validators: [FormBuilderValidators.required()],
                     ),
                   ],
                 ),
@@ -308,9 +333,21 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                                 isUploadingForm = true;
                               });
 
+                              print(_fbKey.currentState.value["contact_no"]);
+
                               print(_fbKey.currentState.value);
+                              Map<String, dynamic> formData = {
+                                "device_id": _fbKey
+                                    .currentState.value["contact_no"]
+                                    .toString()
+                              };
+
+                              formData.addAll(_fbKey.currentState.value);
+
+                              print(formData);
+
                               formRepository
-                                  .uploadSymtomForm(_fbKey.currentState.value)
+                                  .uploadSymtomForm(formData)
                                   .then((statusCode) {
                                 showToastMessage(
                                     message: statusCode.toString());
