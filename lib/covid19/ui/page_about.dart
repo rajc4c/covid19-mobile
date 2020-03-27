@@ -17,6 +17,8 @@ class AboutUsPage extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Image.asset("assets/images/np_logo.png"),
               SizedBox(
@@ -36,15 +38,15 @@ class AboutUsPage extends StatelessWidget {
               ),
 
               SizedBox(height: 16.0,),
-              Text("प्राविधिक सहयोगः"),
+              Text("प्राविधिक सहयोगः", style: TextStyle(fontSize: 16.0, color: Colors.black, fontWeight: FontWeight.bold),),
 
               ListTile(
-                leading: Image.asset(supporterLogos[0], height: 56.0, width: 56.0,),
+                leading: Image.asset(supporterLogos[2], height: 56.0, width: 56.0,),
                 title: Text("Code for Core inovation"),
 //                subtitle: Text("PEAN"),
               ),
               ListTile(
-                leading: Image.asset(supporterLogos[0], height: 56.0, width: 56.0,),
+                leading: Image.asset(supporterLogos[1], height: 56.0, width: 56.0,),
                 title: Text("Naxa pvt. ltd."),
 //                subtitle: Text("PEAN"),
               ),
