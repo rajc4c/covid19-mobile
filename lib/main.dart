@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.red,
                     ),
                     label: Text(
-                      "Latest Situation",
+                      "पछिल्लो तथ्यांक",
                       style: TextStyle(color: Colors.grey),
                     )),
           FlatButton.icon(
@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.red,
                     ),
                     label: Text(
-                      "Medical Facilities",
+                      "स्वास्थ्य सेवाहरु",
                       style: TextStyle(color: Colors.grey),
                     )),
 
@@ -143,34 +143,34 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.red,
                     ),
                     label: Text(
-                      "Report Symptoms",
+                      "लक्षण मुल्यांकन",
                       style: TextStyle(color: Colors.grey),
                     )),
-
-             FlatButton.icon(
-                    onPressed: () {
-                      _openCommingSoonPage();
-                    },
-                    icon: Icon(
-                      Icons.web,
-                      color: Colors.red,
-                    ),
-                    label: Text(
-                      "Track me",
-                      style: TextStyle(color: Colors.grey),
-                    )),
-             FlatButton.icon(
-                    onPressed: () {
-                      _openCommingSoonPage();
-                    },
-                    icon: Icon(
-                      Icons.web,
-                      color: Colors.red,
-                    ),
-                    label: Text(
-                      "Emergency Contacts",
-                      style: TextStyle(color: Colors.grey),
-                    )),
+//
+//             FlatButton.icon(
+//                    onPressed: () {
+//                      _openCommingSoonPage();
+//                    },
+//                    icon: Icon(
+//                      Icons.web,
+//                      color: Colors.red,
+//                    ),
+//                    label: Text(
+//                      "Track me",
+//                      style: TextStyle(color: Colors.grey),
+//                    )),
+//             FlatButton.icon(
+//                    onPressed: () {
+//                      _openCommingSoonPage();
+//                    },
+//                    icon: Icon(
+//                      Icons.web,
+//                      color: Colors.red,
+//                    ),
+//                    label: Text(
+//                      "Emergency Contacts",
+//                      style: TextStyle(color: Colors.grey),
+//                    )),
 
               FlatButton.icon(
                     onPressed: () {
@@ -181,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.red,
                     ),
                     label: Text(
-                      "Corona Symptoms",
+                      "कोरोनाका लक्षणहरु",
                       style: TextStyle(color: Colors.grey),
                     )),
 
@@ -195,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.red,
                     ),
                     label: Text(
-                      "FAQ",
+                      "धेरे सोधिने प्रश्नहरु",
                       style: TextStyle(color: Colors.grey),
                     )),
 
@@ -208,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.red,
                     ),
                     label: Text(
-                      "About the app",
+                      "एपको बारेमा",
                       style: TextStyle(color: Colors.grey),
                     )),
 

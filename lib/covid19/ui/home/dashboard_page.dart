@@ -157,7 +157,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
       children: <Widget>[
         Expanded(
           child: Text(
-            "LATEST SITUATION REPORT",
+            "पछिल्लो तथ्यांक",
             style: TextStyle(
                 color: Colors.red, fontSize: 14.0, fontWeight: FontWeight.bold),
           ),
