@@ -86,7 +86,7 @@ class ReportSubmissionThankYouScreen extends StatelessWidget {
         margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
         child: RichText(
           text: TextSpan(
-              text: "रिपोर्ट पेश गरिएको छ",
+              text: "$result",
               style: TextStyle(
                   fontSize: 14.0,
                   color: Colors.grey,
