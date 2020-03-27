@@ -36,7 +36,7 @@ class _HeaderTextState extends State<HeaderText> {
             }
             return RichText(
                 text: TextSpan(
-                    text: 'Medical Facilities'.toUpperCase(),
+                    text: 'स्वास्थ्य सेवाहरु',
                     children: [
                       TextSpan(text: '  '),
                       TextSpan(
@@ -50,25 +50,25 @@ class _HeaderTextState extends State<HeaderText> {
                         fontWeight: FontWeight.bold)));
           }),
         ),
-        Container(
-          child: DropdownButton<String>(
-            items: filterOptions.map((String value) {
-              return DropdownMenuItem<String>(
-                value: _selectedValue,
-                child: Container(
-                  width: 150,
-                  child: Text(
-                    value,
-                    style: TextStyle(color: OpenSpaceColors.blue),
-                  ),
-                ),
-              );
-            }).toList(),
-            onChanged: (selectedValue) {
-              _selectedValue = selectedValue;
-            },
-          ),
-        )
+//        Container(
+//          child: DropdownButton<String>(
+//            items: filterOptions.map((String value) {
+//              return DropdownMenuItem<String>(
+//                value: _selectedValue,
+//                child: Container(
+//                  width: 150,
+//                  child: Text(
+//                    value,
+//                    style: TextStyle(color: OpenSpaceColors.blue),
+//                  ),
+//                ),
+//              );
+//            }).toList(),
+//            onChanged: (selectedValue) {
+//              _selectedValue = selectedValue;
+//            },
+//          ),
+//        )
       ],
     );
   }

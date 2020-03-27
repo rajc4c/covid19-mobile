@@ -322,7 +322,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
           sliver: SliverList(
             delegate: SliverChildListDelegate([
               HeaderText(
-                title: "Medical Facilities",
+                title: "स्वास्थ्य सेवाहरु",
               ),
               SizedBox(
                 height: 10,
