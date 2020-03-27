@@ -8,6 +8,7 @@ import 'package:openspaces/locale/app_localization.dart';
 import 'package:openspaces/locale/locale_test.dart';
 
 import 'covid19/ui/home/dashboard_page.dart';
+import 'covid19/ui/page_about.dart';
 import 'formdata/widgets/upload_data_screen.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -126,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                     )),
           FlatButton.icon(
                     onPressed: () {
-                      MaterialPageRoute(builder: (context) => MapHospitalScreen());
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MapHospitalScreen()));
                     },
                     icon: Icon(
                       Icons.local_hospital,
@@ -139,7 +140,7 @@ class _HomePageState extends State<HomePage> {
 
               FlatButton.icon(
                     onPressed: () {
-                      MaterialPageRoute(builder: (context) => UploadDataScreen());
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => UploadDataScreen()));
                     },
                     icon: Icon(
                       Icons.help,
@@ -175,18 +176,18 @@ class _HomePageState extends State<HomePage> {
 //                      style: TextStyle(color: Colors.grey),
 //                    )),
 
-              FlatButton.icon(
-                    onPressed: () {
-                      _openCommingSoonPage();
-                    },
-                    icon: Icon(
-                      Icons.info,
-                      color: Colors.red,
-                    ),
-                    label: Text(
-                      "कोरोनाका लक्षणहरु",
-                      style: TextStyle(color: Colors.grey),
-                    )),
+//              FlatButton.icon(
+//                    onPressed: () {
+//                      _openCommingSoonPage();
+//                    },
+//                    icon: Icon(
+//                      Icons.info,
+//                      color: Colors.red,
+//                    ),
+//                    label: Text(
+//                      "कोरोनाका लक्षणहरु",
+//                      style: TextStyle(color: Colors.grey),
+//                    )),
 
              FlatButton.icon(
                     onPressed: () {
@@ -204,7 +205,7 @@ class _HomePageState extends State<HomePage> {
 
              FlatButton.icon(
                     onPressed: () {
-                      _openCommingSoonPage();
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUsPage()));
                     },
                     icon: Icon(
                       Icons.info_outline,
