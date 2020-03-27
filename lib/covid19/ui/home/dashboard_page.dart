@@ -5,6 +5,7 @@ import 'package:openspaces/covid19/modal/homestat.dart';
 
 class DashboardPage extends StatelessWidget {
   Function medicalFacilityClicked;
+
   DashboardPage({this.medicalFacilityClicked});
 
   @override
@@ -22,7 +23,9 @@ class DashboardPage extends StatelessWidget {
 
 class DashboardWidget extends StatefulWidget {
   HomeBloc homeBloc;
+
   DashboardWidget({this.homeBloc, this.medicalFacilityClicked});
+
   Function medicalFacilityClicked;
 
   @override
@@ -41,6 +44,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     "Sudurpashchim Pradesh"
   ];
   String selectorItem = "National";
+
   @override
   void dispose() {
     if (widget.homeBloc != null) {
@@ -151,33 +155,36 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         SizedBox(
           width: 16.0,
         ),
-        Container(
-          width: MediaQuery.of(context).size.width * 0.5,
-          decoration:
-              BoxDecoration(border: Border.all(width: 1.0, color: Colors.grey)),
-          child: Center(
-            child: DropdownButton(
-              items: selectorItems
-                  .map<DropdownMenuItem>((string) => DropdownMenuItem<String>(
-                        value: string,
-                        child: Text(
-                          string,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.blue, fontSize: 14.0),
-                        ),
-                      ))
-                  .toList(),
-              value: selectorItem,
-              onChanged: (value) {
-                setState(() {
-                  selectorItem = value;
-                  _getData();
-                });
-              },
-            ),
-          ),
-        )
       ],
+    );
+  }
+
+  Widget buildPoliticalFilterDropDown() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.5,
+      decoration:
+          BoxDecoration(border: Border.all(width: 1.0, color: Colors.grey)),
+      child: Center(
+        child: DropdownButton(
+          items: selectorItems
+              .map<DropdownMenuItem>((string) => DropdownMenuItem<String>(
+                    value: string,
+                    child: Text(
+                      string,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.blue, fontSize: 14.0),
+                    ),
+                  ))
+              .toList(),
+          value: selectorItem,
+          onChanged: (value) {
+            setState(() {
+              selectorItem = value;
+              _getData();
+            });
+          },
+        ),
+      ),
     );
   }
 
@@ -266,25 +273,28 @@ class _DashboardWidgetState extends State<DashboardWidget> {
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
+                    SizedBox(
+                      height: 16.0,
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                       child: _headSelector(),
                     ),
                     SizedBox(
-                      height: 8.0,
+                      height: 16.0,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          _statItems("Tested", homeStat.tested,
+                          _statItems("परिक्षण भएको", homeStat.tested,
                               Color.fromRGBO(233, 236, 255, 1)),
                           _statItems(
-                              "Negative",
+                              "संक्रमण नदेखिएको",
                               homeStat.tested - homeStat.confirmed,
                               Color.fromRGBO(229, 247, 230, 1)),
-                          _statItems("Positive", homeStat.confirmed,
+                          _statItems("संक्रमण देखिएको", homeStat.confirmed,
                               Color.fromRGBO(255, 235, 236, 1))
                         ],
                       ),
@@ -297,15 +307,15 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          _statItems("Isolated", homeStat.isolation,
+                          _statItems("आइसोलेसनमा", homeStat.isolation,
                               Color.fromRGBO(233, 236, 255, 1)),
                           _statItems(
-                              "Recovered",
+                              "निको भएको",
                               homeStat.confirmed -
                                   homeStat.death -
                                   homeStat.isolation,
                               Color.fromRGBO(229, 247, 230, 1)),
-                          _statItems("Deaths", homeStat.death,
+                          _statItems("मृत्यु भएको", homeStat.death,
                               Color.fromRGBO(255, 235, 236, 1))
                         ],
                       ),
@@ -336,66 +346,6 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                     SizedBox(
                       height: 8.0,
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(16.0),
-                      decoration: BoxDecoration(
-                          color: Color.fromRGBO(220, 220, 220, 1)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "MEDICAL FACILITY STATUS",
-                            style: TextStyle(
-                                fontSize: 12.0,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 8.0,
-                          ),
-                          Card(
-                            color: Colors.white,
-                            child: ListTile(
-                              onTap: () {
-                                if (widget.medicalFacilityClicked != null) {
-                                  print("[dashboard][medical clicked]");
-                                  widget.medicalFacilityClicked();
-                                }
-                              },
-                              title: Text(
-                                "Medical Facilities",
-                                style: TextStyle(
-                                    fontSize: 12.0, color: Colors.grey),
-                              ),
-                              subtitle: Text(
-                                "${homeStat.facilityCount}",
-                                style: TextStyle(
-                                    fontSize: 24.0,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              trailing: Icon(Icons.navigate_next),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 16.0,
-                          ),
-                          _dataProgressWidget(
-                              "ICU in use", homeStat.occupiedIcu, homeStat.icu),
-                          SizedBox(
-                            height: 16.0,
-                          ),
-                          _dataProgressWidget("Ventilator in use",
-                              homeStat.occupiedVentilator, homeStat.ventilator),
-                          SizedBox(
-                            height: 16.0,
-                          ),
-                          _dataProgressWidget("Isolation beds in use",
-                              homeStat.occupiedVentilator, homeStat.isolation),
-                        ],
-                      ),
-                    ),
                     _hotlineWidget(homeStat.hotline, "", homeStat.hotline)
                   ],
                 ),
@@ -403,5 +353,63 @@ class _DashboardWidgetState extends State<DashboardWidget> {
             );
           }
         });
+  }
+
+  Widget medicalFacilitiesStatus(homeStat) {
+    Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            "MEDICAL FACILITY STATUS",
+            style: TextStyle(
+                fontSize: 12.0, color: Colors.red, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 8.0,
+          ),
+          Card(
+            color: Colors.white,
+            child: ListTile(
+              onTap: () {
+                if (widget.medicalFacilityClicked != null) {
+                  print("[dashboard][medical clicked]");
+                  widget.medicalFacilityClicked();
+                }
+              },
+              title: Text(
+                "Medical Facilities",
+                style: TextStyle(fontSize: 12.0, color: Colors.grey),
+              ),
+              subtitle: Text(
+                "${homeStat.facilityCount}",
+                style: TextStyle(
+                    fontSize: 24.0,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+              trailing: Icon(Icons.navigate_next),
+            ),
+          ),
+          SizedBox(
+            height: 16.0,
+          ),
+          _dataProgressWidget("ICU in use", homeStat.occupiedIcu, homeStat.icu),
+          SizedBox(
+            height: 16.0,
+          ),
+          _dataProgressWidget("Ventilator in use", homeStat.occupiedVentilator,
+              homeStat.ventilator),
+          SizedBox(
+            height: 16.0,
+          ),
+          _dataProgressWidget("Isolation beds in use",
+              homeStat.occupiedVentilator, homeStat.isolation),
+        ],
+      ),
+    );
   }
 }
