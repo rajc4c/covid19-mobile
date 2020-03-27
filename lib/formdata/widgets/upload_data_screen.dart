@@ -320,71 +320,32 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
               SizedBox(
                 height: 10,
               ),
-              Container(
-                height: 60,
-                padding: EdgeInsets.all(16),
-                color: OpenSpaceColors.button_red,
-                child: Center(
-                  child: isUploadingForm
-                      ? Container(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator())
-                      : InkWell(
-                          onTap: () {
-                            if (_fbKey.currentState.saveAndValidate()) {
-
-                              setState(() {
-                                isUploadingForm = true;
-                              });
-
-                              print(_fbKey.currentState.value["contact_no"]);
-
-                              print(_fbKey.currentState.value);
-                              Map<String, dynamic> formData = {
-                                "device_id": _fbKey
-                                    .currentState.value["contact_no"]
-                                    .toString()
-                              };
-
-                              formData.addAll(_fbKey.currentState.value);
-
-                              print(formData);
-
-                              formRepository
-                                  .uploadSymtomForm(formData)
-                                  .then((String result) {
-                                var message = jsonDecode(result)["message"];
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ReportSubmissionThankYouScreen(
-                                                message)));
-
-                                setState(() {
-                                  isUploadingForm = false;
-                                });
-                              }).catchError((error, stack) {
-                                print(stack);
-                                showToastMessage(
-                                    message: "फारम बुझाउन असफल भयो");
-                                setState(() {
-                                  isUploadingForm = false;
-                                });
-                              });
-                            } else {
-                              showToastMessage(message: "फारममा त्रुटिहरू छन्");
-                            }
-                          },
-                          child: Text(
+              InkWell(
+                onTap: () {
+                  if (_fbKey.currentState.saveAndValidate()) {
+                    uploadForm();
+                  } else {
+                    showToastMessage(message: "फारममा त्रुटिहरू छन्");
+                  }
+                },
+                child: Container(
+                  height: 60,
+                  padding: EdgeInsets.all(16),
+                  color: OpenSpaceColors.button_red,
+                  child: Center(
+                    child: isUploadingForm
+                        ? Container(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator())
+                        : Text(
                             "फारम बुझाउनुहोस्",
                             style: TextStyle(
                                 color: OpenSpaceColors.red,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w700),
                           ),
-                        ),
+                  ),
                 ),
               )
             ],
@@ -395,4 +356,39 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
   }
 
   bool isUploadingForm = false;
+
+  void uploadForm() {
+    setState(() {
+      isUploadingForm = true;
+    });
+
+    print(_fbKey.currentState.value["contact_no"]);
+
+    print(_fbKey.currentState.value);
+    Map<String, dynamic> formData = {
+      "device_id": _fbKey.currentState.value["contact_no"].toString()
+    };
+
+    formData.addAll(_fbKey.currentState.value);
+
+    print(formData);
+
+    formRepository.uploadSymtomForm(formData).then((String result) {
+      var message = jsonDecode(result)["message"];
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ReportSubmissionThankYouScreen(message)));
+
+      setState(() {
+        isUploadingForm = false;
+      });
+    }).catchError((error, stack) {
+      print(stack);
+      showToastMessage(message: "फारम बुझाउन असफल भयो");
+      setState(() {
+        isUploadingForm = false;
+      });
+    });
+  }
 }

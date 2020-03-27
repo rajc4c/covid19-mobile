@@ -7,7 +7,7 @@ import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import '../main.dart';
 
 class ReportSubmissionThankYouScreen extends StatelessWidget {
-  String result;
+  final String result;
 
   ReportSubmissionThankYouScreen(this.result) {
     DateTime now = DateTime.now();
@@ -46,7 +46,6 @@ class ReportSubmissionThankYouScreen extends StatelessWidget {
                   dateAndTimeWidget(formattedDate, formattedTime),
                 ],
               ),
-              doneButton(context)
             ],
           )),
     );
@@ -85,15 +84,29 @@ class ReportSubmissionThankYouScreen extends StatelessWidget {
   reportHasBeenSubmittedTextView(String result) {
     return Container(
         margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
-        child: Text(
-          "Report has been submitted. You have tested $result",
-          style: TextStyle(
-              fontSize: 14.0,
-              color: Colors.grey,
-              fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.normal),
+        child: RichText(
+          text: TextSpan(
+              text: "रिपोर्ट पेश गरिएको छ",
+              style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.grey,
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.normal),
+              children: [
+
+              ]),
         ));
   }
+
+//
+//  Text(
+//  "Report has been submitted. You have tested $result",
+//  style: TextStyle(
+//  fontSize: 14.0,
+//  color: Colors.grey,
+//  fontStyle: FontStyle.normal,
+//  fontWeight: FontWeight.normal),
+//  ));
 
   doneButton(BuildContext context) {
     return Align(
