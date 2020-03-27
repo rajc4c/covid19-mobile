@@ -373,8 +373,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
 
     print(formData);
 
-    formRepository.uploadSymtomForm(formData).then((String result) {
-      var message = jsonDecode(result)["message"];
+    formRepository.uploadSymtomForm(formData).then((String message) {
       Navigator.push(
           context,
           MaterialPageRoute(

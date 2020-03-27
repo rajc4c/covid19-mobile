@@ -86,15 +86,14 @@ class ReportSubmissionThankYouScreen extends StatelessWidget {
         margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
         child: RichText(
           text: TextSpan(
-              text: "$result",
+              text: "$result".trim(),
               style: TextStyle(
-                  fontSize: 14.0,
+                  height: 1,
+                  fontSize: 16.0,
                   color: Colors.grey,
                   fontStyle: FontStyle.normal,
                   fontWeight: FontWeight.normal),
-              children: [
-
-              ]),
+              children: []),
         ));
   }
 

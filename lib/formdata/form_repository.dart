@@ -18,7 +18,7 @@ class FormRepository {
       if (response.statusCode != 201) {
         throw Error();
       }
-      return response.body;
+      return json.decode(utf8.decode(response.bodyBytes))['message'];
     });
   }
 }
