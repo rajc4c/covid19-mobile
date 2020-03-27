@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:openspaces/covid19/colors.dart';
+import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 import '../main.dart';
 
@@ -22,21 +23,24 @@ class ReportSubmissionThankYouScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
+      appBar: covidAppBar(),
       body: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
           color: Colors.white,
           child: Stack(
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Image.asset(
-                    thankYouReportSubmissionGreenTick,
-                    fit: BoxFit.contain,
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    width: MediaQuery.of(context).size.width * 0.2,
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Center(
+                    child: Image.asset(
+                      thankYouReportSubmissionGreenTick,
+                      fit: BoxFit.contain,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: MediaQuery.of(context).size.width * 0.2,
+                    ),
                   ),
                   reportHasBeenSubmittedTextView(result),
                   dateAndTimeWidget(formattedDate, formattedTime),
@@ -78,25 +82,11 @@ class ReportSubmissionThankYouScreen extends StatelessWidget {
     );
   }
 
-  thankYouTextView() {
-    return Container(
-        margin: EdgeInsets.all(16.0),
-        child: Text(
-          "THANK YOU!",
-          style: TextStyle(
-            fontSize: 26.0,
-            color: Colors.blue.shade800,
-            fontStyle: FontStyle.normal,
-            fontWeight: FontWeight.bold,
-          ),
-        ));
-  }
-
   reportHasBeenSubmittedTextView(String result) {
     return Container(
         margin: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
         child: Text(
-          "Report has been submitted. You have tested ",
+          "Report has been submitted. You have tested $result",
           style: TextStyle(
               fontSize: 14.0,
               color: Colors.grey,
@@ -116,9 +106,8 @@ class ReportSubmissionThankYouScreen extends StatelessWidget {
           minWidth: double.infinity,
           color: OpenSpaceColors.headline_blue,
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) =>
-                    HomePage()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
           },
           child: Text(
             "Done".toUpperCase(),

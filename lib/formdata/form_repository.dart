@@ -4,9 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:openspaces/covid19/api.dart';
 
 class FormRepository {
-  Future<int> uploadSymtomForm(formData) {
-    Map<String,String> headers = {
-      'Content-type' : 'application/json',
+  Future<String> uploadSymtomForm(formData) {
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
       'Accept': 'application/json',
     };
 
@@ -15,7 +15,10 @@ class FormRepository {
         .post(Uri.encodeFull(post_user_report),
             headers: headers, body: jsonEncode(formData))
         .then((response) {
-      return response.statusCode;
+      if (response.statusCode != 201) {
+        throw Error();
+      }
+      return response.body;
     });
   }
 }
