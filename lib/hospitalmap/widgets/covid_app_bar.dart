@@ -7,10 +7,10 @@ AppBar covidAppBar() {
     centerTitle: true,
     elevation: 1,
     iconTheme: IconThemeData(color: Colors.black),
-    // title: Image.asset(
-    //   "assets/images/app_bar_logo.png",
-    //   height: 50.0,
-    //   width: 200.0,
-    // ),
+     title: Image.asset(
+       "assets/images/nepal_logo.png",
+       height: 100.0,
+       width: 200.0,
+     ),
   );
 }
