@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:openspaces/common/constants.dart';
+import 'package:openspaces/common/utils.dart';
 import 'package:openspaces/covid19/ui/home/page_fact_check.dart';
 import 'package:openspaces/covid19/ui/home/page_faq.dart';
 import 'package:openspaces/covid19/ui/home/page_safety_guidelines.dart';
@@ -22,7 +24,7 @@ class InfoPage extends StatelessWidget {
                 height: 48.0,
                 child: FlatButton(
                   child: Text(
-                    "FAQ",
+                    "धेरै सोधिने प्रश्नहरु",
                     style: TextStyle(fontSize: 16.0, color: Colors.black),
                   ),
                   onPressed: () {
@@ -40,12 +42,11 @@ class InfoPage extends StatelessWidget {
                 height: 48.0,
                 child: FlatButton(
                   child: Text(
-                    "Situation Report",
+                    "पछिल्लो तथ्यांक",
                     style: TextStyle(fontSize: 16.0, color: Colors.black),
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => FactCheckPage()));
+                      Utils.launchURL(situationReportUrl);
                   },
                 )),
             SizedBox(
@@ -62,10 +63,24 @@ class InfoPage extends StatelessWidget {
                         builder: (context) => SafetyGuidelinesPage()));
                   },
                   child: Text(
-                    "Safety Guidelines",
+                    " आफू र अरुलाई कसरी सुरक्षित राख्ने",
                     style: TextStyle(fontSize: 16.0, color: Colors.black),
                   ),
                 )),
+//            SizedBox(
+//              height: 8.0,
+//            ),
+//            Container(
+//                decoration: BoxDecoration(
+//                    border: Border.all(width: 1.0, color: Colors.black)),
+//                width: MediaQuery.of(context).size.width,
+//                height: 48.0,
+//                child: FlatButton(
+//                  child: Text(
+//                    "प्रेस रिलिजहरु",
+//                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+//                  ),
+//                )),
             SizedBox(
               height: 8.0,
             ),
@@ -75,8 +90,12 @@ class InfoPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 48.0,
                 child: FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => FactCheckPage()));
+                    },
                   child: Text(
-                    "Press Release",
+                    "भ्रम र यथार्थ",
                     style: TextStyle(fontSize: 16.0, color: Colors.black),
                   ),
                 ))

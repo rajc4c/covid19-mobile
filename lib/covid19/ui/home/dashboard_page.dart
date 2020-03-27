@@ -157,7 +157,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
       children: <Widget>[
         Expanded(
           child: Text(
-            "LATEST SITUATION REPORT",
+            "पछिल्लो तथ्यांक",
             style: TextStyle(
                 color: Colors.red, fontSize: 14.0, fontWeight: FontWeight.bold),
           ),
@@ -206,12 +206,13 @@ class _DashboardWidgetState extends State<DashboardWidget> {
       child: Column(
         children: <Widget>[
           FlatButton.icon(
-              onPressed: () {},
+              onPressed: () {
+              },
               icon: Icon(
                 Icons.call,
                 color: Colors.red,
               ),
-              label: Text("COVID-19 Hotline")),
+              label: Text("COVID-19 हटलाइन")),
 //          Row(
 //              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 //              children: List<Widget>.generate(phones.length, (index) {
@@ -330,29 +331,29 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 8.0,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 16.0),
-                        child: RichText(
-                          text: TextSpan(
-                              text: "Last Updated",
-                              style:
-                                  TextStyle(fontSize: 14.0, color: Colors.grey),
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: " 23/03/2020",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12.0))
-                              ]),
-                        ),
-                      ),
-                    ),
+//                    SizedBox(
+//                      height: 8.0,
+//                    ),
+//                    Align(
+//                      alignment: Alignment.bottomRight,
+//                      child: Padding(
+//                        padding: const EdgeInsets.only(right: 16.0),
+//                        child: RichText(
+//                          text: TextSpan(
+//                              text: "Last Updated",
+//                              style:
+//                                  TextStyle(fontSize: 14.0, color: Colors.grey),
+//                              children: <TextSpan>[
+//                                TextSpan(
+//                                    text: " 23/03/2020",
+//                                    style: TextStyle(
+//                                        color: Colors.black,
+//                                        fontWeight: FontWeight.bold,
+//                                        fontSize: 12.0))
+//                              ]),
+//                        ),
+//                      ),
+//                    ),
                     SizedBox(
                       height: 8.0,
                     ),
