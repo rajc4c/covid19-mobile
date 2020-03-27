@@ -158,7 +158,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
       children: <Widget>[
         Expanded(
           child: Text(
-            "पछिल्लो तथ्यांक",
+            "नेपालको पछिल्लो तथ्यांक",
             style: TextStyle(
                 color: Colors.red, fontSize: 14.0, fontWeight: FontWeight.bold),
           ),
@@ -176,28 +176,40 @@ class _DashboardWidgetState extends State<DashboardWidget> {
       builder: (context, snapshot) {
         if (snapshot != null && snapshot.data != null && !snapshot.hasError) {
           GlobalStat gs = snapshot.data;
-          return Column(
-            children: <Widget>[
+          return
+//            Column(
+//            children: <Widget>[
+//              Padding(
+//                padding: const EdgeInsets.only(top: 8.0),
+//                child: Text("कोरोनाभाइरस ग्लोबल स्थिति", style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.red),),
+//              ),
+//              SizedBox(
+//                height: 8.0,
+//              ),
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text("कोरोनाभाइरस ग्लोबल स्थिति", style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.red),),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  _statItems("कुल केसहरू", gs.totalConfirmed,
-                      Color.fromRGBO(233, 236, 255, 1)),
-                  _statItems("निको भएको", gs.totalRecovered,
-                      Color.fromRGBO(229, 247, 230, 1)),
-                  _statItems("मृत्यु भएको", gs.totalDeaths,
-                      Color.fromRGBO(255, 235, 236, 1))
-                ],
-              ),
-            ],
-          );
+                padding: const EdgeInsets.only(top: 8.0, right: 16.0),
+                child: RichText(text: TextSpan( children: <TextSpan>[
+                  TextSpan(text: "विश्वभरिमा: ", style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.black)),
+                  TextSpan(text: "  संक्रमित ${gs.totalConfirmed}", style: TextStyle(fontSize: 12.0, color: Color.fromRGBO(245, 127, 24, 1))),
+                  TextSpan(text: "  निको भएको ${gs.totalRecovered}", style: TextStyle(fontSize: 12.0, color: Color.fromRGBO(34, 139, 34,1 ))),
+                  TextSpan(text: "  मृत्यु भएको ${gs.totalDeaths}", style: TextStyle(fontSize: 12.0, color: Color.fromRGBO(239, 25, 24, 1))),
+
+                ]),),
+              );
+//              Row(
+//                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                children: <Widget>[
+//                 Rich
+//                  _statItems("कुल केसहरू", gs.totalConfirmed,
+//                      Color.fromRGBO(233, 236, 255, 1)),
+//                  _statItems("निको भएको", gs.totalRecovered,
+//                      Color.fromRGBO(229, 247, 230, 1)),
+//                  _statItems("मृत्यु भएको", gs.totalDeaths,
+//                      Color.fromRGBO(255, 235, 236, 1))
+//                ],
+////              ),
+//            ],
+//          );
         } else
           return Container();
       },
@@ -304,7 +316,6 @@ class _DashboardWidgetState extends State<DashboardWidget> {
             child: Column(
           children: <Widget>[
             _globalStatWidget(),
-            SizedBox(height: 8.0,),
             StreamBuilder<HomeStat>(
                 stream: widget.homeBloc.homeStream,
                 builder: (context, snapshot) {
