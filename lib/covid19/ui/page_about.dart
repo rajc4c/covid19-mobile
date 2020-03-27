@@ -30,41 +30,56 @@ class AboutUsPage extends StatelessWidget {
                 height: 32.0,
               ),
               ListTile(
+                leading: Image.asset(supporterLogos[0], height: 56.0, width: 56.0,),
                 title: Text("सुचना तथा तथ्यांक जम्मा गर्ने सहयोगः"),
                 subtitle: Text("PEAN"),
               ),
+
+              SizedBox(height: 16.0,),
+              Text("प्राविधिक सहयोगः"),
+
               ListTile(
-                title: Text("प्राविधिक सहयोगः"),
-                subtitle: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text("NAXA"),
-                    SizedBox(
-                      height: 4.0,
-                    ),
-                    Text("Code for Core Innovation")
-                  ],
-                ),
+                leading: Image.asset(supporterLogos[0], height: 56.0, width: 56.0,),
+                title: Text("Code for Core inovation"),
+//                subtitle: Text("PEAN"),
               ),
-              SizedBox(
-                height: 16.0,
+              ListTile(
+                leading: Image.asset(supporterLogos[0], height: 56.0, width: 56.0,),
+                title: Text("Naxa pvt. ltd."),
+//                subtitle: Text("PEAN"),
               ),
-              Container(
-                height: 150.0,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: List<Widget>.generate(
-                      supporterLogos.length,
-                      (index) => Container(
-                          width: 150.0,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular((16.0))),
-                          child: Card(
-                            child: Image.asset(supporterLogos[index]),
-                          ))),
-                ),
-              )
+//              ListTile(
+//                title: Text(""),
+//                subtitle: Column(
+//                  mainAxisAlignment: MainAxisAlignment.start,
+//                  crossAxisAlignment: CrossAxisAlignment.start,
+//                  children: <Widget>[
+//                    Text("NAXA"),
+//                    SizedBox(
+//                      height: 4.0,
+//                    ),
+//                    Text("Code for Core Innovation")
+//                  ],
+//                ),
+//              ),
+//              SizedBox(
+//                height: 16.0,
+//              ),
+//              Container(
+//                height: 150.0,
+//                child: ListView(
+//                  scrollDirection: Axis.horizontal,
+//                  children: List<Widget>.generate(
+//                      supporterLogos.length,
+//                      (index) => Container(
+//                          width: 150.0,
+//                          decoration: BoxDecoration(
+//                              borderRadius: BorderRadius.circular((16.0))),
+//                          child: Card(
+//                            child: Image.asset(supporterLogos[index]),
+//                          ))),
+//                ),
+//              )
             ],
           ),
         ),
