@@ -125,7 +125,9 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(color: Colors.grey),
                     )),
           FlatButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      MaterialPageRoute(builder: (context) => MapHospitalScreen());
+                    },
                     icon: Icon(
                       Icons.local_hospital,
                       color: Colors.red,
@@ -136,7 +138,9 @@ class _HomePageState extends State<HomePage> {
                     )),
 
               FlatButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      MaterialPageRoute(builder: (context) => UploadDataScreen());
+                    },
                     icon: Icon(
                       Icons.help,
                       color: Colors.red,

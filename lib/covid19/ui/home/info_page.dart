@@ -67,20 +67,20 @@ class InfoPage extends StatelessWidget {
                     style: TextStyle(fontSize: 16.0, color: Colors.black),
                   ),
                 )),
-            SizedBox(
-              height: 8.0,
-            ),
-            Container(
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1.0, color: Colors.black)),
-                width: MediaQuery.of(context).size.width,
-                height: 48.0,
-                child: FlatButton(
-                  child: Text(
-                    "प्रेस रिलिजहरु",
-                    style: TextStyle(fontSize: 16.0, color: Colors.black),
-                  ),
-                )),
+//            SizedBox(
+//              height: 8.0,
+//            ),
+//            Container(
+//                decoration: BoxDecoration(
+//                    border: Border.all(width: 1.0, color: Colors.black)),
+//                width: MediaQuery.of(context).size.width,
+//                height: 48.0,
+//                child: FlatButton(
+//                  child: Text(
+//                    "प्रेस रिलिजहरु",
+//                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+//                  ),
+//                )),
             SizedBox(
               height: 8.0,
             ),

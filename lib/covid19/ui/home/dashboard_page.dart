@@ -331,29 +331,29 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 8.0,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 16.0),
-                        child: RichText(
-                          text: TextSpan(
-                              text: "Last Updated",
-                              style:
-                                  TextStyle(fontSize: 14.0, color: Colors.grey),
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: " 23/03/2020",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12.0))
-                              ]),
-                        ),
-                      ),
-                    ),
+//                    SizedBox(
+//                      height: 8.0,
+//                    ),
+//                    Align(
+//                      alignment: Alignment.bottomRight,
+//                      child: Padding(
+//                        padding: const EdgeInsets.only(right: 16.0),
+//                        child: RichText(
+//                          text: TextSpan(
+//                              text: "Last Updated",
+//                              style:
+//                                  TextStyle(fontSize: 14.0, color: Colors.grey),
+//                              children: <TextSpan>[
+//                                TextSpan(
+//                                    text: " 23/03/2020",
+//                                    style: TextStyle(
+//                                        color: Colors.black,
+//                                        fontWeight: FontWeight.bold,
+//                                        fontSize: 12.0))
+//                              ]),
+//                        ),
+//                      ),
+//                    ),
                     SizedBox(
                       height: 8.0,
                     ),
