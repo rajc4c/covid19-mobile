@@ -192,7 +192,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
           borderRadius: new BorderRadius.circular(4.0),
           borderSide: new BorderSide(),
         ),
-        labelText: 'Search',
+        labelText: 'खोज्नुहोस्',
         suffixIcon: InkWell(
           child: Icon(Icons.close),
           onTap: () {

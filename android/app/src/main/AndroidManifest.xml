@@ -9,8 +9,8 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Hamro Swasthya"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Hamro Swasthya (हाम्रो स्वास्थ्य)"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
