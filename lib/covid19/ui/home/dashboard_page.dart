@@ -178,13 +178,17 @@ class _DashboardWidgetState extends State<DashboardWidget> {
           GlobalStat gs = snapshot.data;
           return Column(
             children: <Widget>[
-              Text("ग्लोबल स्थिति"),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text("कोरोनाभाइरस ग्लोबल स्थिति", style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.red),),
+              ),
               SizedBox(
                 height: 8.0,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _statItems("कोरोनाभाइरस केसहरू", gs.totalConfirmed,
+                  _statItems("कुल केसहरू", gs.totalConfirmed,
                       Color.fromRGBO(233, 236, 255, 1)),
                   _statItems("निको भएको", gs.totalRecovered,
                       Color.fromRGBO(229, 247, 230, 1)),
