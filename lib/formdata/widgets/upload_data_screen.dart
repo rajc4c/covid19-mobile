@@ -411,10 +411,14 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
     print(formData);
 
     formRepository.uploadSymptomFormC4C(formData).then((String message) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ReportSubmissionThankYouScreen(message)));
+      if (message != null && message.isNotEmpty) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ReportSubmissionThankYouScreen(message)));
+      } else {
+        showToastMessage(message: "फारम बुझाउन असफल भयो");
+      }
 
       setState(() {
         isUploadingForm = false;
