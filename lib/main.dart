@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:openspaces/covid19/ui/home/page_comming_soon.dart';
-import 'package:flutter_stetho/flutter_stetho.dart';
-import 'package:openspaces/covid19/ui/home/page_faq.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:openspaces/covid19/ui/home/info_page.dart';
+import 'package:openspaces/covid19/ui/home/page_comming_soon.dart';
+import 'package:openspaces/covid19/ui/home/page_faq.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:openspaces/locale/app_localization.dart';
-import 'package:openspaces/locale/locale_test.dart';
 
 import 'covid19/ui/home/dashboard_page.dart';
 import 'covid19/ui/page_about.dart';
 import 'formdata/widgets/upload_data_screen.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(MyApp());
