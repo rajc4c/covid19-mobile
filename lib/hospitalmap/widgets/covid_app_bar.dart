@@ -28,11 +28,11 @@ Widget logo() {
   return ListTile(
     leading: Image.asset(
       "assets/images/nepal_logo.png",
-      height: 48.0,
-      width: 48.0,
+      height: 38.0,
+      width: 38.0,
     ),
     title: Text(
-      "Hamro Swasthya (हाम्रो स्वास्थ्य)",
+      "हाम्रो स्वास्थ्य",
       style: TextStyle(
           fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
     ),

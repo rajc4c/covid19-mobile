@@ -46,7 +46,7 @@ class LoginResponse {
 
 class Roles {
   int _group;
-  Null _province;
+  String _province;
   int _facility;
   String _groupName;
   String _provinceName;
@@ -54,13 +54,13 @@ class Roles {
 
   Roles(
       {int group,
-        Null province,
+        String province,
         int facility,
         String groupName,
         String provinceName,
         String facilityName}) {
     this._group = group;
-    this._province = province;
+    this._province = province??"";
     this._facility = facility;
     this._groupName = groupName;
     this._provinceName = provinceName;
@@ -69,8 +69,8 @@ class Roles {
 
   int get group => _group;
   set group(int group) => _group = group;
-  Null get province => _province;
-  set province(Null province) => _province = province;
+  String get province => _province;
+  set province(String province) => _province = province;
   int get facility => _facility;
   set facility(int facility) => _facility = facility;
   String get groupName => _groupName;

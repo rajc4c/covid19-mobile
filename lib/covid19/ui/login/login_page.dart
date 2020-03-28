@@ -1,9 +1,12 @@
 //import 'package:connectivity/connectivity.dart';
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:openspaces/common/constants.dart';
 import 'package:openspaces/covid19/preferences.dart';
+import 'package:openspaces/covid19/ui/login/login_response.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:openspaces/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -143,10 +146,15 @@ class LoginPageState extends State<LoginPage> {
 
       var response = await http.post(post_user_login_credential, body: value);
       if(response != null){
-        print('Response body: ${response.body}');
-        preferences.setString(SharedPrefsKey.userLoginResponse, response.body);
+//        print('Response body: ${response.body}');
 
-        print(response.body.toString());
+      var map = jsonDecode(response.body);
+      LoginResponse loginResponse = LoginResponse.fromJson(map);
+
+
+        preferences.setString(SharedPrefsKey.userLoginResponse, jsonEncode(loginResponse));
+
+        print("'Response body: "+preferences.get(SharedPrefsKey.userLoginResponse));
         setState(() {
           isDataSending = false;
           Navigator.of(context)
@@ -156,7 +164,7 @@ class LoginPageState extends State<LoginPage> {
       }
 
 //    } else  {
-//      showToastMessage(message: "कुनै इन्टरनेट जडान छैन, कृपया पछि पुन: प्रयास गर्नुहोस्।");
+//      showToastMessage(message: "कृपया अनलाइन आएर पुनः प्रयास गर्नुहोस्");
 //
 //    }
   }

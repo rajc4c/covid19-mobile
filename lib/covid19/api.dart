@@ -20,6 +20,7 @@ const get_health_facilities = "$base_url/health-facility/";
 const post_user_report = "$base_url/user-report/";
 const post_user_login_credential = "$base_url/api-token-auth/";
 
+
 // secondary api
 const get_global_stat = "$base_url_secondary/count";
 const get_press_release = "$base_url_secondary/np/pressrelease";
