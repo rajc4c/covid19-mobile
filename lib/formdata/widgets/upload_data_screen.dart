@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:openspaces/common/utils.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
 import 'package:openspaces/formdata/form_repository.dart';
@@ -24,11 +25,15 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
 
   String errorLabel = "कृपया यसलाई खाली नछोड्नुहोस्";
   LocationData currentLocation;
+  String deviceId;
 
   @override
   void initState() {
     super.initState();
     cacheLocation();
+    Utils.getDeviceDetails().then((deviceId) {
+      this.deviceId = deviceId;
+    });
   }
 
   @override
@@ -110,8 +115,8 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                           value: 98,
                         ),
                         FormBuilderFieldOption(
-                          value: 101 ,
-                          label: "ज्वरो" ,
+                          value: 101,
+                          label: "ज्वरो",
                         ),
                         FormBuilderFieldOption(
                           value: 102,
@@ -385,7 +390,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
     });
 
     Map<String, dynamic> formData = {
-      "device_id": _fbKey.currentState.value["contact_no"].toString(),
+      "device_id": deviceId,
       "fever": _fbKey.currentState.value["temperature"].toString(),
       "drycough": _fbKey.currentState.value["have_cough"] ? "1" : "0",
       "tiredness": _fbKey.currentState.value["have_fatigue"] ? "1" : "0",
@@ -425,7 +430,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
 
   void uploadFormNAXA() {
     Map<String, dynamic> formData = {
-      "device_id": _fbKey.currentState.value["contact_no"].toString(),
+      "device_id": deviceId,
       "lat": currentLocation != null ? currentLocation.latitude : "",
       "long": currentLocation != null ? currentLocation.longitude : "",
     };
