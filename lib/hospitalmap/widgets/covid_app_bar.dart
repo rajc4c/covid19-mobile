@@ -28,8 +28,8 @@ Widget logo() {
   return ListTile(
     leading: Image.asset(
       "assets/images/nepal_logo.png",
-      height: 38.0,
-      width: 38.0,
+      height: 34.0,
+      width: 34.0,
     ),
     title: Text(
       "हाम्रो स्वास्थ्य",

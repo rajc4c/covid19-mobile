@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
+import '../../../main.dart';
 import '../../api.dart';
 import '../../colors.dart';
   import 'package:location/location.dart';
@@ -310,29 +311,32 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
     print('uploadFormNAXA: '+jsonEncode(value).toString());
 
     Map<String, dynamic> formData = {
-      "device_id": deviceId,
-      "fever": _fbHospitalKey.currentState.value["temperature"].toString(),
-      "drycough": _fbHospitalKey.currentState.value["have_cough"] ? "1" : "0",
-      "tiredness": _fbHospitalKey.currentState.value["have_fatigue"] ? "1" : "0",
-      "breath": _fbHospitalKey.currentState.value["fast_breathe"] ? "1" : "0",
-      "pain": _fbHospitalKey.currentState.value["body_pain"] ? "1" : "0",
-      "sore_throat": _fbHospitalKey.currentState.value["have_throat_pain"] ? "1" : "0",
-      "diarrhoea": _fbHospitalKey.currentState.value["diarrahoe"] ? "1" : "0",
-      "runny_nose": _fbHospitalKey.currentState.value["runny_nose"] ? "1" : "0",
-      "nausea": _fbHospitalKey.currentState.value["vomit"] ? "1" : "0",
-      "name": _fbHospitalKey.currentState.value["name"].toString(),
-      "age": _fbHospitalKey.currentState.value["age"].toString(),
-      "gender": _fbHospitalKey.currentState.value["gender"].toString(),
-      "phone": _fbHospitalKey.currentState.value["contact_no"].toString(),
-      "lat": currentLocation != null ? currentLocation.latitude : "",
-      "lng": currentLocation != null ? currentLocation.longitude : "",
+      "contact_person": _fbHospitalKey.currentState.value.containsKey("contact_person")? _fbHospitalKey.currentState.value["contact_person"].toString():"",
+      "contact_num": _fbHospitalKey.currentState.value.containsKey("contact_num")? _fbHospitalKey.currentState.value["contact_num"] .toString(): "",
+      "num_of_bed": _fbHospitalKey.currentState.value.containsKey("num_of_bed") ? int.parse(_fbHospitalKey.currentState.value["num_of_bed"]) : 0,
+      "num_of_icu_bed": _fbHospitalKey.currentState.value.containsKey("num_of_icu_bed") ? int.parse(_fbHospitalKey.currentState.value["num_of_icu_bed"]) : 0,
+      "occupied_icu_bed": _fbHospitalKey.currentState.value.containsKey("occupied_icu_bed") ? int.parse(_fbHospitalKey.currentState.value["occupied_icu_bed"]) : 0,
+      "num_of_ventilators": _fbHospitalKey.currentState.value.containsKey("num_of_ventilators") ? int.parse(_fbHospitalKey.currentState.value["num_of_ventilators"]) : 0,
+      "occupied_ventilators": _fbHospitalKey.currentState.value.containsKey("occupied_ventilators")? int.parse(_fbHospitalKey.currentState.value["occupied_ventilators"]) : 0,
+      "num_of_isolation_bed": _fbHospitalKey.currentState.value.containsKey("num_of_isolation_bed") ? int.parse(_fbHospitalKey.currentState.value["num_of_isolation_bed"]) : 0,
+      "occupied_isolation_bed": _fbHospitalKey.currentState.value.containsKey("occupied_isolation_bed")? int.parse(_fbHospitalKey.currentState.value["occupied_isolation_bed"]) : 0,
+      "total_tested": _fbHospitalKey.currentState.value.containsKey("total_tested")? int.parse(_fbHospitalKey.currentState.value["total_tested"]) : 0,
+      "total_positive": _fbHospitalKey.currentState.value.containsKey("total_positive")? int.parse(_fbHospitalKey.currentState.value["total_positive"]) : 0,
+      "total_death": _fbHospitalKey.currentState.value.containsKey("total_death") ? int.parse(_fbHospitalKey.currentState.value["total_death"]) : 0,
+      "total_in_isolation": _fbHospitalKey.currentState.value.containsKey("total_in_isolation") ? int.parse(_fbHospitalKey.currentState.value["total_in_isolation"]) : 0,
+      "remarks": _fbHospitalKey.currentState.value.containsKey("remarks") ? _fbHospitalKey.currentState.value["remarks"].toString() : "",
     };
 
-    var response = await http.put(get_health_facilities+widget.facilityId.toString()+"/", body: jsonEncode(value));
+    print('uploadFormNAXA: '+jsonEncode(formData).toString());
+
+
+    var response = await http.put(get_health_facilities+widget.facilityId.toString()+"/", body: jsonEncode(formData));
     setState(() {
       isUploadingForm = false;
     });
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    if(response.statusCode == 200){
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => MyApp()));
+    }
   }
 }
