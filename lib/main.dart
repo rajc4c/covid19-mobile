@@ -14,7 +14,6 @@ import 'hospitalmap/screens/map_hospital_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
-  Stetho.initialize();
   runApp(MyApp());
 }
 
