@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -5,15 +7,19 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
+import 'package:openspaces/common/constants.dart';
 import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
 import 'package:openspaces/covid19/geo.dart';
+import 'package:openspaces/covid19/ui/login/edit_hospital_data_screen.dart';
+import 'package:openspaces/covid19/ui/login/login_response.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
 import 'package:openspaces/hospitalmap/repo/point_of_interest.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:openspaces/hospitalmap/widgets/data_progress_list_item.dart';
 import 'package:openspaces/hospitalmap/widgets/point_of_interest_list_item.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 import 'package:user_location/user_location.dart';
 
@@ -31,14 +37,18 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
   SnappingSheetController _snappingSheetController;
   List<Marker> locationMarkers = [];
 
+  LoginResponse loginResponse = LoginResponse();
+
   @override
   void initState() {
     super.initState();
     _mapController = MapController();
     _snappingSheetController = SnappingSheetController();
+    getUserLoginDetails();
     pointOfInterestBloc.fetchHealthFacilities();
 
     sheetPositionObserver();
+
   }
 
   void sheetPositionObserver() {
@@ -379,6 +389,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
                   count: data.occupiedIsolationBed,
                   total: data.numOfIsolationBed)
               : Container(),
+          canEdit(data.id) ?
           Padding(
             padding: EdgeInsets.all(16),
             child: InkWell(
@@ -389,7 +400,9 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
                 child: Center(
                   child: InkWell(
                     onTap: () {
-                      showInSnackBar("Coming soon");
+//                      showInSnackBar("Coming soon");
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) => UpdateHospitalData(data, loginResponse.token)));
                     },
                     child: Text(
                       "EDIT DATA",
@@ -403,6 +416,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
               ),
             ),
           )
+              : SizedBox(),
         ],
       ),
     );
@@ -427,5 +441,34 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
 
       pointOfInterestBloc.addPointOfInterest(openSpaces);
     });
+  }
+
+  void getUserLoginDetails() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    print("getUserLoginDetails"+preferences.get(SharedPrefsKey.userLoginResponse));
+    try{
+      final map = json.decode(preferences.get(SharedPrefsKey.userLoginResponse));
+      loginResponse = LoginResponse.fromJson(map);
+    }catch(e){
+      print(e);
+    }
+
+//    loginResponse = LoginResponse.fromJson(json.decode(preferences.getString(SharedPrefsKey.userLoginResponse)));
+  }
+
+  bool canEdit(int id) {
+    print(loginResponse.toJson());
+      if(loginResponse != null){
+        bool cadEdit = false;
+        for(int i =0; i< loginResponse.roles.length; i++){
+          if(id == loginResponse.roles[i].facility){
+            cadEdit = true;
+          }
+          break;
+        }
+        return cadEdit;
+    }else{
+        return false;
+      }
   }
 }

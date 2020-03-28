@@ -30,6 +30,7 @@ dependencies:
   map_launcher: ^0.4.3
   carousel_slider: ^1.4.1
   device_info: ^0.4.2+1
+#  connectivity: ^0.4.6+1
 
   flutter_localizations:
     sdk: flutter

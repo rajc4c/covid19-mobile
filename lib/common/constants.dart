@@ -11,4 +11,5 @@ const String situationReportUrl = "https://drive.google.com/drive/folders/1QhLMb
 
 class SharedPrefsKey {
   static final String selectedLanguageCode = "selectedlanguageCode";
+  static final String userLoginResponse = "userLoginResponse";
 }
