@@ -324,7 +324,8 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
               InkWell(
                 onTap: () {
                   if (_fbKey.currentState.saveAndValidate()) {
-                    uploadForm();
+                    uploadFormNAXA();
+                    uploadFormCFC();
                   } else {
                     showToastMessage(message: "फारममा त्रुटिहरू छन्");
                   }
@@ -358,23 +359,30 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
 
   bool isUploadingForm = false;
 
-  void uploadForm() {
+  void uploadFormCFC() {
     setState(() {
       isUploadingForm = true;
     });
 
-    print(_fbKey.currentState.value["contact_no"]);
-
-    print(_fbKey.currentState.value);
+    
     Map<String, dynamic> formData = {
-      "device_id": _fbKey.currentState.value["contact_no"].toString()
+      "device_id": _fbKey.currentState.value["contact_no"].toString(),
+      "fever": _fbKey.currentState.value["temperature"].toString(),
+      "drycough": _fbKey.currentState.value["have_cough"] ? "1" : "0",
+      "tiredness": _fbKey.currentState.value["have_fatigue"] ? "1" : "0",
+      "breath": _fbKey.currentState.value["fast_breathe"] ? "1" : "0",
+      "pain": _fbKey.currentState.value["body_pain"] ? "1" : "0",
+      "sore_throat": _fbKey.currentState.value["have_throat_pain"] ? "1" : "0",
+      "diarrhoea": _fbKey.currentState.value["diarrahoe"] ? "1" : "0",
+      "runny_nose": _fbKey.currentState.value["runny_nose"] ? "1" : "0",
+      "nausea": _fbKey.currentState.value["vomit"] ? "1" : "0",
+      "name": _fbKey.currentState.value["name"].toString(),
+      "age": _fbKey.currentState.value["age"].toString(),
+      "gender": _fbKey.currentState.value["gender"].toString(),
     };
 
-    formData.addAll(_fbKey.currentState.value);
 
-    print(formData);
-
-    formRepository.uploadSymtomForm(formData).then((String message) {
+    formRepository.uploadSymptomFormC4C(formData).then((String message) {
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -389,6 +397,20 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
       setState(() {
         isUploadingForm = false;
       });
+    });
+  }
+
+  void uploadFormNAXA() {
+    Map<String, dynamic> formData = {
+      "device_id": _fbKey.currentState.value["contact_no"].toString()
+    };
+
+    formData.addAll(_fbKey.currentState.value);
+    formRepository
+        .uploadSymtomForm(formData)
+        .then((String message) {})
+        .catchError((error, stack) {
+      print(stack);
     });
   }
 }

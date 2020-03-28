@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:openspaces/covid19/api.dart';
 
@@ -20,6 +21,21 @@ class FormRepository {
       }
       return json.decode(utf8.decode(response.bodyBytes))['message'];
     });
+  }
+
+  Future<String> uploadSymptomFormC4C(_formData) async{
+
+    String uriSymptom = 'https://covid19.mohp.gov.np/covid/api/symptomstore';
+
+    Dio dio = Dio();
+    try {
+      Response response = await dio.post(uriSymptom, data: _formData);
+      print(response);
+      return response.data;
+    } on DioError catch (e) {
+      return e.response.data;
+    }
+
   }
 }
 
