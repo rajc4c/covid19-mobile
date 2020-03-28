@@ -62,6 +62,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "contact_person",
+                      initialValue: widget.pointOfInterest.contactPerson??"",
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
@@ -74,6 +75,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "contact_num",
+                      initialValue: widget.pointOfInterest.contactNum??"",
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -90,7 +92,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "num_of_bed",
-                      initialValue: "0",
+                      initialValue: widget.pointOfInterest.numOfBed.toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -105,7 +107,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "num_of_icu_bed",
-                      initialValue: "0",
+                      initialValue: widget.pointOfInterest.numOfIcuBed.toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -120,7 +122,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "occupied_icu_bed",
-                      initialValue: "0",
+                      initialValue: widget.pointOfInterest.occupiedIcuBed.toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -135,7 +137,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "num_of_ventilators",
-                      initialValue: "0",
+                      initialValue:widget.pointOfInterest.numOfVentilators.toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -150,7 +152,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "occupied_ventilators",
-                      initialValue: "0",
+                      initialValue: widget.pointOfInterest.occupiedVentilators.toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -165,7 +167,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "num_of_isolation_bed",
-                      initialValue: "0",
+                      initialValue: widget.pointOfInterest.numOfIsolationBed.toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -180,7 +182,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "occupied_isolation_bed",
-                      initialValue: "0",
+                      initialValue: widget.pointOfInterest.occupiedIsolationBed.toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -195,7 +197,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "total_tested",
-                      initialValue: "0",
+                      initialValue: widget.pointOfInterest.totalTested.toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -210,7 +212,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "total_positive",
-                      initialValue: "0",
+                      initialValue: widget.pointOfInterest.totalPositive.toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -225,7 +227,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "total_death",
-                      initialValue: "0",
+                      initialValue: widget.pointOfInterest.totalDeath.toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -240,7 +242,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "total_in_isolation",
-                      initialValue: "0",
+                      initialValue: widget.pointOfInterest.totalInIsolation.toString(),
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -255,7 +257,7 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "remarks",
-                      initialValue: "",
+                      initialValue: widget.pointOfInterest.remarks??"",
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
