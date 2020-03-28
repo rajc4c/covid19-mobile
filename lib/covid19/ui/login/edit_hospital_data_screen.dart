@@ -352,6 +352,9 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
     if(response.statusCode == 200){
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => MyApp()));
+    }else{
+      showToastMessage(message: "कृपया अनलाइन आएर पुनः प्रयास गर्नुहोस्");
+
     }
   }
 }
