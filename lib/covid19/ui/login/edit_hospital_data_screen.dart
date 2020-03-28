@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:openspaces/hospitalmap/repo/point_of_interest.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 import '../../../main.dart';
@@ -15,8 +16,9 @@ import '../../common_widgets.dart';
 
 
 class UpdateHospitalData extends StatefulWidget{
-  UpdateHospitalData(this.facilityId);
-  int facilityId;
+  UpdateHospitalData( this.pointOfInterest, this.token );
+  PointOfInterest pointOfInterest;
+  String  token;
 
   @override
   State<StatefulWidget> createState() {
@@ -310,6 +312,14 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
   void uploadFormNAXA(Map<String, dynamic> value) async {
     print('uploadFormNAXA: '+jsonEncode(value).toString());
 
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Token '+widget.token,
+    };
+
+    print("headers"+ headers.toString());
+
     Map<String, dynamic> formData = {
       "contact_person": _fbHospitalKey.currentState.value.containsKey("contact_person")? _fbHospitalKey.currentState.value["contact_person"].toString():"",
       "contact_num": _fbHospitalKey.currentState.value.containsKey("contact_num")? _fbHospitalKey.currentState.value["contact_num"] .toString(): "",
@@ -325,12 +335,15 @@ class UpdateHospitalDataState extends State<UpdateHospitalData> {
       "total_death": _fbHospitalKey.currentState.value.containsKey("total_death") ? int.parse(_fbHospitalKey.currentState.value["total_death"]) : 0,
       "total_in_isolation": _fbHospitalKey.currentState.value.containsKey("total_in_isolation") ? int.parse(_fbHospitalKey.currentState.value["total_in_isolation"]) : 0,
       "remarks": _fbHospitalKey.currentState.value.containsKey("remarks") ? _fbHospitalKey.currentState.value["remarks"].toString() : "",
+      "type": widget.pointOfInterest.type,
     };
 
     print('uploadFormNAXA: '+jsonEncode(formData).toString());
 
 
-    var response = await http.put(get_health_facilities+widget.facilityId.toString()+"/", body: jsonEncode(formData));
+    var response = await http.put(get_health_facilities+widget.pointOfInterest.id.toString()+"/",
+        headers: headers,
+        body: jsonEncode(formData));
     setState(() {
       isUploadingForm = false;
     });

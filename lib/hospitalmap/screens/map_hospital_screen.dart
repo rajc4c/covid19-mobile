@@ -402,7 +402,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
                     onTap: () {
 //                      showInSnackBar("Coming soon");
                       Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) => UpdateHospitalData(data.id)));
+                          .push(MaterialPageRoute(builder: (context) => UpdateHospitalData(data, loginResponse.token)));
                     },
                     child: Text(
                       "EDIT DATA",

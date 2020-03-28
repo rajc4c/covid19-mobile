@@ -138,7 +138,8 @@ class LoginPageState extends State<LoginPage> {
   void postUserLoginCredential(Map<String, dynamic > value) async {
     SharedPreferences preferences =  await SharedPreferences.getInstance();
 //    var connectivityResult = await (Connectivity().checkConnectivity());
-//    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+//    bool _isInternetConnected =  (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi)?true:false;
+//    if (_isInternetConnected) {
 //      print(_fbLoginKey.currentState.value);
       setState(() {
         isDataSending = true;
