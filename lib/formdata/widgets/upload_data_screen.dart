@@ -7,7 +7,7 @@ import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
 import 'package:openspaces/formdata/form_repository.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
-
+import 'package:location/location.dart';
 import '../ReportSubmissionThankYouScreen.dart';
 
 class UploadDataScreen extends StatefulWidget {
@@ -23,6 +23,13 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
       color: OpenSpaceColors.text_color);
 
   String errorLabel = "कृपया यसलाई खाली नछोड्नुहोस्";
+  LocationData currentLocation;
+
+  @override
+  void initState() {
+    super.initState();
+    cacheLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,16 +95,29 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         )
                       ],
                     ),
-                    FormBuilderSlider(
-                      attribute: "temperature",
-                      min: 90,
-                      max: 106,
-                      initialValue: 90,
+                    FormBuilderSegmentedControl(
                       decoration: InputDecoration(
-                          fillColor: OpenSpaceColors.red,
-                          labelStyle: questionLabelStyle,
-                          labelText: "तापक्रम:",
-                          hintText: ""),
+                        labelStyle: questionLabelStyle,
+                        alignLabelWithHint: false,
+                        hintText: "",
+                        labelText: "तापक्रम:",
+                      ),
+                      attribute: "temperature",
+                      validators: [FormBuilderValidators.required()],
+                      options: [
+                        FormBuilderFieldOption(
+                          label: "सामान्य ",
+                          value: 98,
+                        ),
+                        FormBuilderFieldOption(
+                          value: 101 ,
+                          label: "ज्वरो" ,
+                        ),
+                        FormBuilderFieldOption(
+                          value: 102,
+                          label: "उच्च ज्वरो",
+                        ),
+                      ],
                     ),
                     FormBuilderSegmentedControl(
                       decoration: InputDecoration(
@@ -364,7 +384,6 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
       isUploadingForm = true;
     });
 
-    
     Map<String, dynamic> formData = {
       "device_id": _fbKey.currentState.value["contact_no"].toString(),
       "fever": _fbKey.currentState.value["temperature"].toString(),
@@ -379,8 +398,12 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
       "name": _fbKey.currentState.value["name"].toString(),
       "age": _fbKey.currentState.value["age"].toString(),
       "gender": _fbKey.currentState.value["gender"].toString(),
+      "phone": _fbKey.currentState.value["contact_no"].toString(),
+      "lat": currentLocation != null ? currentLocation.latitude : "",
+      "lng": currentLocation != null ? currentLocation.longitude : "",
     };
 
+    print(formData);
 
     formRepository.uploadSymptomFormC4C(formData).then((String message) {
       Navigator.push(
@@ -402,7 +425,9 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
 
   void uploadFormNAXA() {
     Map<String, dynamic> formData = {
-      "device_id": _fbKey.currentState.value["contact_no"].toString()
+      "device_id": _fbKey.currentState.value["contact_no"].toString(),
+      "lat": currentLocation != null ? currentLocation.latitude : "",
+      "long": currentLocation != null ? currentLocation.longitude : "",
     };
 
     formData.addAll(_fbKey.currentState.value);
@@ -411,6 +436,15 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
         .then((String message) {})
         .catchError((error, stack) {
       print(stack);
+    });
+  }
+
+  void cacheLocation() async {
+    var _location = Location();
+    await _location.requestPermission();
+    await _location.requestService();
+    _location.onLocationChanged().listen((LocationData currentLocation) {
+      this.currentLocation = currentLocation;
     });
   }
 }
