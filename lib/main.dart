@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:openspaces/covid19/ui/home/info_page.dart';
+import 'package:openspaces/covid19/ui/login/login_page.dart';
 import 'package:openspaces/covid19/ui/home/page_comming_soon.dart';
 import 'package:openspaces/covid19/ui/home/page_faq.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
@@ -201,6 +202,20 @@ class _HomePageState extends State<HomePage> {
                       "धेरे सोधिने प्रश्नहरु",
                       style: TextStyle(color: Colors.grey),
                     )),
+
+              FlatButton.icon(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                  icon: Icon(
+                    Icons.account_circle,
+                    color: Colors.red,
+                  ),
+                  label: Text(
+                    "लग इन",
+                    style: TextStyle(color: Colors.grey),
+                  )),
 
              FlatButton.icon(
                     onPressed: () {

@@ -18,6 +18,7 @@ const get_amenities = base_url + "api/v1/alternative_near_by_me";
 const get_home_stat = base_url + "/stats";
 const get_health_facilities = "$base_url/health-facility/";
 const post_user_report = "$base_url/user-report/";
+const post_user_login_credential = "$base_url/api-token-auth/";
 
 // secondary api
 const get_global_stat = "$base_url_secondary/count";
