@@ -552,7 +552,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
 
     formRepository.uploadSymtomForm(formData).then((String message) {
       if (message != null && message.isNotEmpty) {
-        Navigator.push(
+        Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => ReportSubmissionThankYouScreen(message)));
