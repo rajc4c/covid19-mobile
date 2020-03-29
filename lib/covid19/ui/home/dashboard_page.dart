@@ -103,6 +103,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
             Text(
               title,
               style: TextStyle(fontSize: 14.0),
+              textAlign: TextAlign.center,
             )
           ],
         ),
