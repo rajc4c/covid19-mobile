@@ -37,7 +37,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
   SnappingSheetController _snappingSheetController;
   List<Marker> locationMarkers = [];
 
-  LoginResponse loginResponse = LoginResponse();
+  LoginResponse loginResponse;
 
   @override
   void initState() {
@@ -48,14 +48,12 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
     pointOfInterestBloc.fetchHealthFacilities();
 
     sheetPositionObserver();
-
   }
 
   void sheetPositionObserver() {
     pointOfInterestBloc.getBottomSheetSnapPosition.where((sheetPosition) {
       return sheetPosition != null;
     }).listen((sheetPosition) {
-      print(sheetPosition.toString());
       _snappingSheetController.snapToPosition(sheetPosition);
     });
   }
@@ -70,6 +68,8 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomPadding: false,
       appBar: covidAppBar(),
       key: _scaffoldKey,
       body: BaseInheritedBlockProvider(
@@ -155,15 +155,12 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
   Widget buildRefreshWidget(context) {
     return GestureDetector(
         onTap: () async {
-      
           showToastMessage(message: "डाटा पुन: लोड गर्द");
           pointOfInterestBloc.fetchHealthFacilities();
         },
         child: buildMapUiIcon(Icon(
           Icons.refresh,
-          
           color: OpenSpaceColors.icon_color_highligted,
-          
         )));
   }
 
@@ -191,7 +188,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
       controller: _controller,
       onTap: () {
         pointOfInterestBloc
-            .updateBottomSheetSnapPosition(SnapPosition(positionFactor: 0.8));
+            .updateBottomSheetSnapPosition(SnapPosition(positionFactor: 1));
       },
       onChanged: ((text) {
         pointOfInterestBloc.addUserSearchText(text);
@@ -269,7 +266,6 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
             );
           },
         ),
-
         MarkerLayerOptions(
             markers: locationMarkers != null ? locationMarkers : []),
         UserLocationOptions(
@@ -389,33 +385,34 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
                   count: data.occupiedIsolationBed,
                   total: data.numOfIsolationBed)
               : Container(),
-          canEdit(data.id) ?
-          Padding(
-            padding: EdgeInsets.all(16),
-            child: InkWell(
-              onTap: () {},
-              child: Container(
-                padding: EdgeInsets.all(16),
-                color: OpenSpaceColors.button_red,
-                child: Center(
+          canEdit(data.id)
+              ? Padding(
+                  padding: EdgeInsets.all(16),
                   child: InkWell(
-                    onTap: () {
+                    onTap: () {},
+                    child: Container(
+                      padding: EdgeInsets.all(16),
+                      color: OpenSpaceColors.button_red,
+                      child: Center(
+                        child: InkWell(
+                          onTap: () {
 //                      showInSnackBar("Coming soon");
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) => UpdateHospitalData(data, loginResponse.token)));
-                    },
-                    child: Text(
-                      "EDIT DATA",
-                      style: TextStyle(
-                          color: OpenSpaceColors.red,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700),
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => UpdateHospitalData(
+                                    data, loginResponse.token)));
+                          },
+                          child: Text(
+                            "EDIT DATA",
+                            style: TextStyle(
+                                color: OpenSpaceColors.red,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
-          )
+                )
               : SizedBox(),
         ],
       ),
@@ -445,30 +442,51 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
 
   void getUserLoginDetails() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    print("getUserLoginDetails"+preferences.get(SharedPrefsKey.userLoginResponse));
-    try{
-      final map = json.decode(preferences.get(SharedPrefsKey.userLoginResponse));
+
+    try {
+      final map =
+          json.decode(preferences.get(SharedPrefsKey.userLoginResponse));
       loginResponse = LoginResponse.fromJson(map);
-    }catch(e){
+    } catch (e) {
       print(e);
     }
 
 //    loginResponse = LoginResponse.fromJson(json.decode(preferences.getString(SharedPrefsKey.userLoginResponse)));
   }
 
+//  void getUserLoginDetails() async {
+//    SharedPreferences preferences = await SharedPreferences.getInstance();
+//
+//    try {
+//      final map =
+//      json.decode(preferences.get(SharedPrefsKey.userLoginResponse));
+//      loginResponse = LoginResponse.fromJson(map);
+//
+//      PointOfInterest pointOfInterest =
+//      await pointOfInterestBloc.getSelectedPointOfInterest.first;
+//      for (int i = 0; i < loginResponse.roles.length; i++) {
+//        if (pointOfInterest.id == loginResponse.roles[i].facility) {
+//          canEdit = true;
+//        }
+//        break;
+//      }
+//    } catch (e) {
+//      print(e);
+//    }
+//  }
+
   bool canEdit(int id) {
-    print(loginResponse.toJson());
-      if(loginResponse != null){
-        bool cadEdit = false;
-        for(int i =0; i< loginResponse.roles.length; i++){
-          if(id == loginResponse.roles[i].facility){
-            cadEdit = true;
-          }
-          break;
+    if (loginResponse != null && loginResponse.roles != null ) {
+      bool cadEdit = false;
+      for (int i = 0; i < loginResponse.roles.length; i++) {
+        if (id == loginResponse.roles[i].facility) {
+          cadEdit = true;
         }
-        return cadEdit;
-    }else{
-        return false;
+        break;
       }
+      return cadEdit;
+    } else {
+      return false;
+    }
   }
 }

@@ -15,6 +15,7 @@ class AboutUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: covidAppBar(),
+      backgroundColor: Colors.white,
       body: Container(
         padding: EdgeInsets.all(16.0),
         height: MediaQuery.of(context).size.height,
@@ -41,20 +42,21 @@ class AboutUsPage extends StatelessWidget {
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
               ),
+              SizedBox(height: 15,),
               Wrap(
-                spacing: 8,
+                spacing: 10,
                 children: <Widget>[
                   Container(
-                      height: 100,
-                      width: 100,
+                      height: 70,
+                      width: 70,
                       child: Image.asset("assets/images/pean_logo.jpg")),
                   Container(
-                      height: 100,
-                      width: 100,
+                      height: 80,
+                      width: 150,
                       child: Image.asset("assets/images/soch_nepal.jpg")),
                   Container(
-                      height: 100,
-                      width: 100,
+                      height: 70,
+                      width: 70,
                       child: Image.asset("assets/images/ihrr.jpg")),
                 ],
               ),
@@ -69,15 +71,15 @@ class AboutUsPage extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               Wrap(
-                spacing: 8,
+                spacing: 10,
                 children: <Widget>[
                   InkWell(
                     onTap: () {
                       Utils.launchURL("https://codeforcore.com/");
                     },
                     child: Container(
-                        height: 100,
-                        width: 100,
+                        height: 145,
+                        width: 90,
                         child: Image.asset("assets/images/c4c_logo.jpg")),
                   ),
                   InkWell(
@@ -85,9 +87,19 @@ class AboutUsPage extends StatelessWidget {
                       Utils.launchURL("http://naxa.com.np/home/");
                     },
                     child: Container(
-                        height: 100,
-                        width: 100,
+                        height: 145,
+                        width: 120,
                         child: Image.asset("assets/images/naxa_logo.jpg")),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Utils.launchURL(
+                          "https://www.facebook.com/itmapsandconsultant/");
+                    },
+                    child: Container(
+                        height: 145,
+                        width: 145,
+                        child: Image.asset("assets/images/it_maps.jpg")),
                   ),
                 ],
               ),
