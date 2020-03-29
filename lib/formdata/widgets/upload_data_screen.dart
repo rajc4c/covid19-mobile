@@ -301,9 +301,10 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       },
                       decoration: InputDecoration(
                           labelStyle: questionLabelStyle,
-                          alignLabelWithHint: false,
+                          hintMaxLines: 2,
+                          hintText: "किगत ३ हप्तामा",
                           labelText:
-                              "के तपाईँ विगत ३ हप्तामा कुनै कोरोनाले ग्रस्त मुलुकबाट फर्कनुभएको हो? हो होइन ?"),
+                              "कुनै कोरोनाले ग्रस्त मुलुकबाट फर्कनुभएको हो? हो होइन ?"),
                       attribute: "has_travel_history",
                       options: [
                         FormBuilderFieldOption(
@@ -362,8 +363,9 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                             decoration: InputDecoration(
                                 labelStyle: questionLabelStyle,
                                 alignLabelWithHint: false,
+                                hintText: "३ हप्तामा कुनै पनि ",
                                 labelText:
-                                    "के तपाईँ विगत ३ हप्तामा कुनै पनि कोरोना संक्रमित वा संक्रमणको आशंका भएको व्यक्तिको सम्पर्कमा आउनुभएकोछ?"),
+                                    "संक्रमणको आशंका भएको व्यक्तिको सम्पर्कमा आउनुभएकोछ?"),
                             attribute: "has_convid_contact",
                             options: [
                               FormBuilderFieldOption(
@@ -401,17 +403,6 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       ),
                       validators: [FormBuilderValidators.required()],
                     ),
-//                    FormBuilderTextField(
-//                      minLines: 1,
-//                      maxLines: 10,
-//                      attribute: "travel_history",
-//                      decoration: InputDecoration(
-//                        fillColor: OpenSpaceColors.red,
-//                        labelStyle: questionLabelStyle,
-//                        labelText: "के तपाईंले गएको महिना कतै यात्रा गर्नुभयो?",
-//                      ),
-//                      validators: [FormBuilderValidators.required()],
-//                    ),
                     FormBuilderTextField(
                       attribute: "contact_no",
                       decoration: InputDecoration(
@@ -528,13 +519,32 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
   }
 
   void uploadFormNAXA() {
+    Map<String, dynamic> travelHistory = {
+      "has_travel_history": _fbKey.currentState.value["has_travel_history"],
+      "country_name": _fbKey.currentState.value["country_name"],
+      "flight_name": _fbKey.currentState.value["flight_name"],
+      "transit_names": _fbKey.currentState.value["transit_names"],
+      "has_convid_contact": _fbKey.currentState.value["has_convid_contact"],
+      "covid_contact_names": _fbKey.currentState.value["covid_contact_names"],
+    };
+
+    _fbKey.currentState.value.remove("has_travel_history");
+    _fbKey.currentState.value.remove("country_name");
+    _fbKey.currentState.value.remove("flight_name");
+    _fbKey.currentState.value.remove("transit_names");
+    _fbKey.currentState.value.remove("has_convid_contact");
+    _fbKey.currentState.value.remove("covid_contact_names");
+
     Map<String, dynamic> formData = {
       "device_id": deviceId,
       "lat": currentLocation != null ? currentLocation.latitude : "",
       "long": currentLocation != null ? currentLocation.longitude : "",
+      "travel_history": jsonEncode(travelHistory).toString(),
     };
 
     formData.addAll(_fbKey.currentState.value);
+
+    print(formData);
 
     formRepository
         .uploadSymtomForm(formData)

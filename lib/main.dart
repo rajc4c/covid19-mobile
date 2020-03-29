@@ -18,7 +18,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   AppLocalizationDelegate _localeOverrideDelegate =
-  AppLocalizationDelegate(Locale('en', 'US'));
+      AppLocalizationDelegate(Locale('en', 'US'));
 
   // This widget is the root of your application.
   @override
@@ -91,65 +91,66 @@ class _HomePageState extends State<HomePage> {
         context, MaterialPageRoute(builder: (context) => CommingSoonPage()));
   }
 
-
-
   _mDrawer() {
     return Drawer(
       child: Container(
         height: MediaQuery.of(context).size.height,
-        child:  Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.05,
-              ),
-              logo(),
-              SizedBox(
-                height: 10,
-              ),
-              Divider(
-                height: 1.0,
-                color: Colors.grey,
-              ),
-               FlatButton.icon(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.report,
-                      color: Colors.red,
-                    ),
-                    label: Text(
-                      "पछिल्लो तथ्यांक",
-                      style: TextStyle(color: Colors.grey),
-                    )),
-          FlatButton.icon(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MapHospitalScreen()));
-                    },
-                    icon: Icon(
-                      Icons.local_hospital,
-                      color: Colors.red,
-                    ),
-                    label: Text(
-                      "स्वास्थ्य सेवाहरु",
-                      style: TextStyle(color: Colors.grey),
-                    )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.05,
+            ),
+            logo(),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              height: 1.0,
+              color: Colors.grey,
+            ),
+            FlatButton.icon(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.report,
+                  color: Colors.red,
+                ),
+                label: Text(
+                  "पछिल्लो तथ्यांक",
+                  style: TextStyle(color: Colors.grey),
+                )),
+            FlatButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MapHospitalScreen()));
+                },
+                icon: Icon(
+                  Icons.local_hospital,
+                  color: Colors.red,
+                ),
+                label: Text(
+                  "स्वास्थ्य सेवाहरु",
+                  style: TextStyle(color: Colors.grey),
+                )),
 
-              FlatButton.icon(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => UploadDataScreen()));
-                    },
-                    icon: Icon(
-                      Icons.help,
-                      color: Colors.red,
-                    ),
-                    label: Text(
-                      "लक्षण मुल्यांकन",
-                      style: TextStyle(color: Colors.grey),
-                    )),
+            FlatButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UploadDataScreen()));
+                },
+                icon: Icon(
+                  Icons.help,
+                  color: Colors.red,
+                ),
+                label: Text(
+                  "लक्षण मुल्यांकन",
+                  style: TextStyle(color: Colors.grey),
+                )),
 //
 //             FlatButton.icon(
 //                    onPressed: () {
@@ -189,46 +190,47 @@ class _HomePageState extends State<HomePage> {
 //                      style: TextStyle(color: Colors.grey),
 //                    )),
 
-             FlatButton.icon(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) => FaqPage()));
-                    },
-                    icon: Icon(
-                      Icons.question_answer,
-                      color: Colors.red,
-                    ),
-                    label: Text(
-                      "धेरे सोधिने प्रश्नहरु",
-                      style: TextStyle(color: Colors.grey),
-                    )),
+            FlatButton.icon(
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => FaqPage()));
+                },
+                icon: Icon(
+                  Icons.question_answer,
+                  color: Colors.red,
+                ),
+                label: Text(
+                  "धेरे सोधिने प्रश्नहरु",
+                  style: TextStyle(color: Colors.grey),
+                )),
 
-              FlatButton.icon(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => LoginPage()));
-                  },
-                  icon: Icon(
-                    Icons.account_circle,
-                    color: Colors.red,
-                  ),
-                  label: Text(
-                    "लग इन",
-                    style: TextStyle(color: Colors.grey),
-                  )),
+            FlatButton.icon(
+                onPressed: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                },
+                icon: Icon(
+                  Icons.account_circle,
+                  color: Colors.red,
+                ),
+                label: Text(
+                  "लग इन",
+                  style: TextStyle(color: Colors.grey),
+                )),
 
-             FlatButton.icon(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => AboutUsPage()));
-                    },
-                    icon: Icon(
-                      Icons.info_outline,
-                      color: Colors.red,
-                    ),
-                    label: Text(
-                      "एपको बारेमा",
-                      style: TextStyle(color: Colors.grey),
-                    )),
+            FlatButton.icon(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AboutUsPage()));
+                },
+                icon: Icon(
+                  Icons.info_outline,
+                  color: Colors.red,
+                ),
+                label: Text(
+                  "एपको बारेमा",
+                  style: TextStyle(color: Colors.grey),
+                )),
 
 //             FlatButton.icon(
 //                    onPressed: () {},
@@ -285,19 +287,19 @@ class _HomePageState extends State<HomePage> {
 //              SizedBox(
 //                height: 16.0,
 //              )
-            ],
-          ),
+          ],
         ),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
-        appBar: covidAppBar(),
-        body: buildPageView(),
-        drawer: _mDrawer(),
+      resizeToAvoidBottomPadding: false,
+      appBar: covidAppBar(),
+      body: buildPageView(),
+      drawer: _mDrawer(),
     );
   }
 
