@@ -42,7 +42,7 @@ class InfoPage extends StatelessWidget {
                 height: 48.0,
                 child: FlatButton(
                   child: Text(
-                    "पछिल्लो तथ्यांक",
+                    "स्थिति प्रतिवेदनहरु",
                     style: TextStyle(fontSize: 16.0, color: Colors.black),
                   ),
                   onPressed: () {
