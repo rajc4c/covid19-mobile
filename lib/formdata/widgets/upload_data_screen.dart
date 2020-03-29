@@ -38,9 +38,6 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      isUploadingForm = false;
-    });
     return Scaffold(
       appBar: covidAppBar(),
       body: SingleChildScrollView(
@@ -296,6 +293,102 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         ),
                       ],
                     ),
+                    FormBuilderSegmentedControl(
+                      validators: [FormBuilderValidators.required()],
+                      onChanged: (value) {
+                        this.hasTravelHistory = value;
+                        setState(() {});
+                      },
+                      decoration: InputDecoration(
+                          labelStyle: questionLabelStyle,
+                          alignLabelWithHint: false,
+                          labelText:
+                              "के तपाईँ विगत ३ हप्तामा कुनै कोरोनाले ग्रस्त मुलुकबाट फर्कनुभएको हो? हो होइन ?"),
+                      attribute: "has_travel_history",
+                      options: [
+                        FormBuilderFieldOption(
+                          label: "हो",
+                          value: true,
+                        ),
+                        FormBuilderFieldOption(
+                          value: false,
+                          label: "होइन",
+                        ),
+                      ],
+                    ),
+                    this.hasTravelHistory
+                        ? FormBuilderTextField(
+                            minLines: 1,
+                            maxLines: 10,
+                            attribute: "country_name",
+                            decoration: InputDecoration(
+                              fillColor: OpenSpaceColors.red,
+                              labelStyle: questionLabelStyle,
+                              labelText: "कुन देशबाट?",
+                            ),
+                          )
+                        : Container(),
+                    this.hasTravelHistory
+                        ? FormBuilderTextField(
+                            minLines: 1,
+                            maxLines: 10,
+                            attribute: "flight_name",
+                            decoration: InputDecoration(
+                              fillColor: OpenSpaceColors.red,
+                              labelStyle: questionLabelStyle,
+                              labelText: "कुन प्लाइटबाट?",
+                            ),
+                          )
+                        : Container(),
+                    this.hasTravelHistory
+                        ? FormBuilderTextField(
+                            minLines: 1,
+                            maxLines: 10,
+                            attribute: "transit_names",
+                            decoration: InputDecoration(
+                              fillColor: OpenSpaceColors.red,
+                              labelStyle: questionLabelStyle,
+                              labelText: "ट्रान्जिट कुनै थियो भने खुलाउनुहोस्?",
+                            ),
+                          )
+                        : Container(),
+                    this.hasTravelHistory
+                        ? FormBuilderSegmentedControl(
+                            validators: [FormBuilderValidators.required()],
+                            onChanged: (value) {
+                              this.hasHasCovidContact = value;
+                              setState(() {});
+                            },
+                            decoration: InputDecoration(
+                                labelStyle: questionLabelStyle,
+                                alignLabelWithHint: false,
+                                labelText:
+                                    "के तपाईँ विगत ३ हप्तामा कुनै पनि कोरोना संक्रमित वा संक्रमणको आशंका भएको व्यक्तिको सम्पर्कमा आउनुभएकोछ?"),
+                            attribute: "has_convid_contact",
+                            options: [
+                              FormBuilderFieldOption(
+                                label: "छ ",
+                                value: true,
+                              ),
+                              FormBuilderFieldOption(
+                                value: false,
+                                label: "छैन",
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    this.hasHasCovidContact
+                        ? FormBuilderTextField(
+                            minLines: 1,
+                            maxLines: 10,
+                            attribute: "covid_contact_names",
+                            decoration: InputDecoration(
+                              fillColor: OpenSpaceColors.red,
+                              labelStyle: questionLabelStyle,
+                              labelText: "छ भने, कहाँ?",
+                            ),
+                          )
+                        : Container(),
                     FormBuilderTextField(
                       minLines: 1,
                       maxLines: 10,
@@ -308,17 +401,17 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       ),
                       validators: [FormBuilderValidators.required()],
                     ),
-                    FormBuilderTextField(
-                      minLines: 1,
-                      maxLines: 10,
-                      attribute: "travel_history",
-                      decoration: InputDecoration(
-                        fillColor: OpenSpaceColors.red,
-                        labelStyle: questionLabelStyle,
-                        labelText: "के तपाईंले गएको महिना कतै यात्रा गर्नुभयो?",
-                      ),
-                      validators: [FormBuilderValidators.required()],
-                    ),
+//                    FormBuilderTextField(
+//                      minLines: 1,
+//                      maxLines: 10,
+//                      attribute: "travel_history",
+//                      decoration: InputDecoration(
+//                        fillColor: OpenSpaceColors.red,
+//                        labelStyle: questionLabelStyle,
+//                        labelText: "के तपाईंले गएको महिना कतै यात्रा गर्नुभयो?",
+//                      ),
+//                      validators: [FormBuilderValidators.required()],
+//                    ),
                     FormBuilderTextField(
                       attribute: "contact_no",
                       decoration: InputDecoration(
@@ -382,6 +475,8 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
     );
   }
 
+  bool hasTravelHistory = false;
+  bool hasHasCovidContact = false;
   bool isUploadingForm = false;
 
   void uploadFormCFC() {
