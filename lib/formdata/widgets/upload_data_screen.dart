@@ -471,9 +471,9 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
   bool isUploadingForm = false;
 
   void uploadFormCFC() {
-    setState(() {
-      isUploadingForm = true;
-    });
+//    setState(() {
+//      isUploadingForm = true;
+//    });
 
     Map<String, dynamic> formData = {
       "device_id": deviceId,
@@ -497,28 +497,32 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
     print(formData);
 
     formRepository.uploadSymptomFormC4C(formData).then((String message) {
-      if (message != null && message.isNotEmpty) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ReportSubmissionThankYouScreen(message)));
-      } else {
-        showToastMessage(message: "फारम बुझाउन असफल भयो");
-      }
-
-      setState(() {
-        isUploadingForm = false;
-      });
+//      if (message != null && message.isNotEmpty) {
+//        Navigator.push(
+//            context,
+//            MaterialPageRoute(
+//                builder: (context) => ReportSubmissionThankYouScreen(message)));
+//      } else {
+//        showToastMessage(message: "फारम बुझाउन असफल भयो");
+//      }
+//
+//      setState(() {
+//        isUploadingForm = false;
+//      });
     }).catchError((error, stack) {
       print(stack);
-      showToastMessage(message: "फारम बुझाउन असफल भयो");
-      setState(() {
-        isUploadingForm = false;
-      });
+//      showToastMessage(message: "फारम बुझाउन असफल भयो");
+//      setState(() {
+//        isUploadingForm = false;
+//      });
     });
   }
 
   void uploadFormNAXA() {
+    setState(() {
+      isUploadingForm = true;
+    });
+
     Map<String, dynamic> travelHistory = {
       "has_travel_history": _fbKey.currentState.value["has_travel_history"],
       "country_name": _fbKey.currentState.value["country_name"],
@@ -546,11 +550,25 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
 
     print(formData);
 
-    formRepository
-        .uploadSymtomForm(formData)
-        .then((String message) {})
-        .catchError((error, stack) {
+    formRepository.uploadSymtomForm(formData).then((String message) {
+      if (message != null && message.isNotEmpty) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ReportSubmissionThankYouScreen(message)));
+      } else {
+        showToastMessage(message: "फारम बुझाउन असफल भयो");
+      }
+
+      setState(() {
+        isUploadingForm = false;
+      });
+    }).catchError((error, stack) {
       print(stack);
+      showToastMessage(message: "फारम बुझाउन असफल भयो");
+      setState(() {
+        isUploadingForm = false;
+      });
     });
   }
 

@@ -44,6 +44,40 @@ class ReportSubmissionThankYouScreen extends StatelessWidget {
                   ),
                   reportHasBeenSubmittedTextView(result),
                   dateAndTimeWidget(formattedDate, formattedTime),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                    child: RichText(
+                      text: TextSpan(
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: OpenSpaceColors.text_color,
+                              letterSpacing: 1),
+                          text: "कुनैपनि जानकारी तथा परामर्शका लागी  ",
+                          children: [
+                            TextSpan(
+                                text: "9851-255-834 ",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(
+                                text: "9851-255-837 ",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(
+                                text: "9851-255-839 ",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(
+                                text: "9851-255-839 ",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(text: "वा हटलाईन नम्बरहरु "),
+                            TextSpan(
+                                text: "1115 ",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(text: "र "),
+                            TextSpan(
+                                text: "1133 ",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextSpan(text: "मा फोन गर्न सक्नुहुनेछ।"),
+                          ]),
+                    ),
+                  )
                 ],
               ),
             ],
@@ -89,8 +123,9 @@ class ReportSubmissionThankYouScreen extends StatelessWidget {
               text: "$result".trim(),
               style: TextStyle(
                   height: 1,
+                  letterSpacing: 1,
                   fontSize: 16.0,
-                  color: Colors.grey,
+                  color: OpenSpaceColors.text_color,
                   fontStyle: FontStyle.normal,
                   fontWeight: FontWeight.normal),
               children: []),
