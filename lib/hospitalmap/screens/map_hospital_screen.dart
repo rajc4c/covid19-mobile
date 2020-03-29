@@ -54,7 +54,6 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
     pointOfInterestBloc.getBottomSheetSnapPosition.where((sheetPosition) {
       return sheetPosition != null;
     }).listen((sheetPosition) {
-      print(sheetPosition.toString());
       _snappingSheetController.snapToPosition(sheetPosition);
     });
   }
@@ -386,7 +385,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
                   count: data.occupiedIsolationBed,
                   total: data.numOfIsolationBed)
               : Container(),
-          canEdit
+          canEdit(data.id)
               ? Padding(
                   padding: EdgeInsets.all(16),
                   child: InkWell(
@@ -448,19 +447,46 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
       final map =
           json.decode(preferences.get(SharedPrefsKey.userLoginResponse));
       loginResponse = LoginResponse.fromJson(map);
-
-      PointOfInterest pointOfInterest =
-          await pointOfInterestBloc.getSelectedPointOfInterest.first;
-      for (int i = 0; i < loginResponse.roles.length; i++) {
-        if (pointOfInterest.id == loginResponse.roles[i].facility) {
-          canEdit = true;
-        }
-        break;
-      }
     } catch (e) {
       print(e);
     }
+
+//    loginResponse = LoginResponse.fromJson(json.decode(preferences.getString(SharedPrefsKey.userLoginResponse)));
   }
 
-  bool canEdit = false;
+//  void getUserLoginDetails() async {
+//    SharedPreferences preferences = await SharedPreferences.getInstance();
+//
+//    try {
+//      final map =
+//      json.decode(preferences.get(SharedPrefsKey.userLoginResponse));
+//      loginResponse = LoginResponse.fromJson(map);
+//
+//      PointOfInterest pointOfInterest =
+//      await pointOfInterestBloc.getSelectedPointOfInterest.first;
+//      for (int i = 0; i < loginResponse.roles.length; i++) {
+//        if (pointOfInterest.id == loginResponse.roles[i].facility) {
+//          canEdit = true;
+//        }
+//        break;
+//      }
+//    } catch (e) {
+//      print(e);
+//    }
+//  }
+
+  bool canEdit(int id) {
+    if (loginResponse != null && loginResponse.roles != null ) {
+      bool cadEdit = false;
+      for (int i = 0; i < loginResponse.roles.length; i++) {
+        if (id == loginResponse.roles[i].facility) {
+          cadEdit = true;
+        }
+        break;
+      }
+      return cadEdit;
+    } else {
+      return false;
+    }
+  }
 }
