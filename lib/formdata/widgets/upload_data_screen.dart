@@ -6,6 +6,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:openspaces/common/utils.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
+import 'package:openspaces/formdata/Country.dart';
 import 'package:openspaces/formdata/form_repository.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:location/location.dart';
@@ -34,6 +35,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
     Utils.getDeviceDetails().then((deviceId) {
       this.deviceId = deviceId;
     });
+    loadCountries();
   }
 
   @override
@@ -317,6 +319,36 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                         ),
                       ],
                     ),
+                    FormBuilderTypeAhead(
+                      decoration: InputDecoration(
+                        labelText: "Country",
+                      ),
+                      attribute: 'country',
+                      onChanged: _onChanged,
+                      itemBuilder: (context, country) {
+                        return ListTile(
+                          title: Text(country),
+                        );
+                      },
+                      controller: TextEditingController(text: ''),
+                      suggestionsCallback: (query) {
+                        if (query.length != 0) {
+                          var lowercaseQuery = query.toLowerCase();
+                          return countries.where((country) {
+                            return country
+                                .toLowerCase()
+                                .contains(lowercaseQuery);
+                          }).toList(growable: false)
+                            ..sort((a, b) => a
+                                .toLowerCase()
+                                .indexOf(lowercaseQuery)
+                                .compareTo(
+                                    b.toLowerCase().indexOf(lowercaseQuery)));
+                        } else {
+                          return co;
+                        }
+                      },
+                    ),
                     this.hasTravelHistory
                         ? FormBuilderTextField(
                             minLines: 1,
@@ -518,6 +550,20 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
     });
   }
 
+  List<String> countries = [];
+
+  Future<String> loadCountries() async {
+    String data = await DefaultAssetBundle.of(context)
+        .loadString("assets/json/country.json");
+
+    final jsonResult = json.decode(data);
+    countries = (jsonResult as List).map((json) {
+      countries.add(Country.fromJson(json).country);
+    }).toList();
+
+    print(countries);
+  }
+
   void uploadFormNAXA() {
     setState(() {
       isUploadingForm = true;
@@ -528,7 +574,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
       "country_name": _fbKey.currentState.value["country_name"],
       "flight_name": _fbKey.currentState.value["flight_name"],
       "transit_names": _fbKey.currentState.value["transit_names"],
-      "has_convid_contact": _fbKey.currentState.value["has_convid_contact"],
+      "has_covid_contact": _fbKey.currentState.value["has_covid_contact"],
       "covid_contact_names": _fbKey.currentState.value["covid_contact_names"],
     };
 
@@ -536,7 +582,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
     _fbKey.currentState.value.remove("country_name");
     _fbKey.currentState.value.remove("flight_name");
     _fbKey.currentState.value.remove("transit_names");
-    _fbKey.currentState.value.remove("has_convid_contact");
+    _fbKey.currentState.value.remove("has_covid_contact");
     _fbKey.currentState.value.remove("covid_contact_names");
 
     Map<String, dynamic> formData = {
