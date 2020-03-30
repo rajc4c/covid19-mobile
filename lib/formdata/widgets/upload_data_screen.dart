@@ -36,7 +36,6 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
     Utils.getDeviceDetails().then((deviceId) {
       this.deviceId = deviceId;
     });
-
   }
 
   @override
@@ -374,7 +373,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                                 hintText: "३ हप्तामा कुनै पनि ",
                                 labelText:
                                     "संक्रमणको आशंका भएको व्यक्तिको सम्पर्कमा आउनुभएकोछ?"),
-                            attribute: "has_convid_contact",
+                            attribute: "has_covid_contact",
                             options: [
                               FormBuilderFieldOption(
                                 label: "छ ",
