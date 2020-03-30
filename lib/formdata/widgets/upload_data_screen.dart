@@ -322,39 +322,18 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       ],
                     ),
                     this.hasTravelHistory
-                        ? FormBuilderTypeAhead(
+                        ? FormBuilderDropdown(
                             decoration: InputDecoration(
                               labelText: "कुन देशबाट?",
                             ),
                             attribute: 'country_name',
-                            itemBuilder: (context, country) {
-                              return ListTile(
-                                title: Text(country),
-                              );
-                            },
-                            controller: TextEditingController(text: ''),
-                            suggestionsCallback: (query) {
-                              if (query.length != 0) {
-                                var lowercaseQuery = query.toLowerCase();
-                                return countries.map((country) {
+                            items: countries
+                                .map((country) {
                                   return country["country"];
-                                }).where((country) {
-                                  return country
-                                      .toLowerCase()
-                                      .contains(lowercaseQuery);
-                                }).toList(growable: false)
-                                  ..sort((a, b) => a
-                                      .toLowerCase()
-                                      .indexOf(lowercaseQuery)
-                                      .compareTo(b
-                                          .toLowerCase()
-                                          .indexOf(lowercaseQuery)));
-                              } else {
-                                return countries.map((country) {
-                                  return country["country"];
-                                }).toList();
-                              }
-                            },
+                                })
+                                .map((country) => DropdownMenuItem(
+                                    value: country, child: Text("$country")))
+                                .toList(),
                           )
                         : Container(),
                     this.hasTravelHistory
@@ -544,18 +523,6 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
 //        isUploadingForm = false;
 //      });
     });
-  }
-
-  Future<List<String>> loadCountries() async {
-    String data = await DefaultAssetBundle.of(context)
-        .loadString("assets/json/country.json");
-
-    final jsonResult = json.decode(data);
-    List<String> countries = (jsonResult as List).map((json) {
-      return Country.fromJson(json).country;
-    }).toList();
-
-    return countries;
   }
 
   void uploadFormNAXA() {
