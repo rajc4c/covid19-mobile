@@ -60,7 +60,8 @@ class _HomePageState extends State<HomePage> {
     final PackageInfo info = await PackageInfo.fromPlatform();
     http.get(get_mobile_version).then((response) {
       if (response.statusCode == 200) {
-        Map<String, dynamic> config = jsonDecode(response.body);
+        Map<String, dynamic> config =
+            jsonDecode(utf8.decode(response.bodyBytes));
         print(config.toString());
 
         int currentVersion = int.parse(info.version.replaceAll(".", ""));
