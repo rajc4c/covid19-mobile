@@ -36,6 +36,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
     Utils.getDeviceDetails().then((deviceId) {
       this.deviceId = deviceId;
     });
+
   }
 
   @override

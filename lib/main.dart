@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,6 +12,7 @@ import 'package:openspaces/locale/app_localization.dart';
 import 'package:package_info/package_info.dart';
 
 import 'common/utils.dart';
+import 'covid19/api.dart';
 import 'covid19/common_widgets.dart';
 import 'covid19/ui/home/dashboard_page.dart';
 import 'covid19/ui/page_about.dart';
@@ -53,17 +56,31 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedBottomNavigationIndex = 0;
 
-  Future<void> _initPackageInfo() async {
+  Future<void> checkForAppUpdate() async {
     final PackageInfo info = await PackageInfo.fromPlatform();
-    updateDialog(context, title: "App Update", message: "", actions: [
-      FlatButton(
-        child: Text('Update to ${info.version}'),
-        onPressed: () {
-          Utils.launchURL("");
-          Navigator.of(context).pop();
-        },
-      ),
-    ]);
+    http.get(get_mobile_version).then((response) {
+      if (response.statusCode == 200) {
+        Map<String, dynamic> config = jsonDecode(response.body);
+        print(config.toString());
+
+        int currentVersion = int.parse(info.version.replaceAll(".", ""));
+        int latestVersion = int.parse(config["version_name"]);
+        if (latestVersion > currentVersion) {
+          updateDialog(context,
+              title: config["app_name"],
+              message: config["version_info"],
+              actions: [
+                FlatButton(
+                  child: Text('Update now'),
+                  onPressed: () {
+                    Utils.launchURL(config["alert_link"]);
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ]);
+        }
+      }
+    });
   }
 
   PageController pageController = PageController(
@@ -102,7 +119,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _initPackageInfo();
+    checkForAppUpdate();
   }
 
   _openCommingSoonPage() {
