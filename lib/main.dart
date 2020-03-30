@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:openspaces/covid19/ui/home/info_page.dart';
@@ -6,11 +9,16 @@ import 'package:openspaces/covid19/ui/home/page_comming_soon.dart';
 import 'package:openspaces/covid19/ui/home/page_faq.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:openspaces/locale/app_localization.dart';
+import 'package:package_info/package_info.dart';
 
+import 'common/utils.dart';
+import 'covid19/api.dart';
+import 'covid19/common_widgets.dart';
 import 'covid19/ui/home/dashboard_page.dart';
 import 'covid19/ui/page_about.dart';
 import 'formdata/widgets/upload_data_screen.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
@@ -48,6 +56,34 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedBottomNavigationIndex = 0;
 
+  Future<void> checkForAppUpdate() async {
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    http.get(get_mobile_version).then((response) {
+      if (response.statusCode == 200) {
+        Map<String, dynamic> config =
+            jsonDecode(utf8.decode(response.bodyBytes));
+        print(config.toString());
+
+        int currentVersion = int.parse(info.version.replaceAll(".", ""));
+        int latestVersion = int.parse(config["version_name"]);
+        if (latestVersion > currentVersion) {
+          updateDialog(context,
+              title: config["app_name"],
+              message: config["version_info"],
+              actions: [
+                FlatButton(
+                  child: Text('Update now'),
+                  onPressed: () {
+                    Utils.launchURL(config["alert_link"]);
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ]);
+        }
+      }
+    });
+  }
+
   PageController pageController = PageController(
     initialPage: 0,
     keepPage: true,
@@ -84,6 +120,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    checkForAppUpdate();
   }
 
   _openCommingSoonPage() {

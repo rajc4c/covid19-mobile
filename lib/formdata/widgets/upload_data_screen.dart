@@ -6,10 +6,12 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:openspaces/common/utils.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
+import 'package:openspaces/formdata/Country.dart';
 import 'package:openspaces/formdata/form_repository.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:location/location.dart';
 import '../ReportSubmissionThankYouScreen.dart';
+import 'countries.dart';
 
 class UploadDataScreen extends StatefulWidget {
   @override
@@ -39,6 +41,8 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       appBar: covidAppBar(),
       body: SingleChildScrollView(
         child: Padding(
@@ -318,15 +322,18 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       ],
                     ),
                     this.hasTravelHistory
-                        ? FormBuilderTextField(
-                            minLines: 1,
-                            maxLines: 10,
-                            attribute: "country_name",
+                        ? FormBuilderDropdown(
                             decoration: InputDecoration(
-                              fillColor: OpenSpaceColors.red,
-                              labelStyle: questionLabelStyle,
                               labelText: "कुन देशबाट?",
                             ),
+                            attribute: 'country_name',
+                            items: countries
+                                .map((country) {
+                                  return country["country"];
+                                })
+                                .map((country) => DropdownMenuItem(
+                                    value: country, child: Text("$country")))
+                                .toList(),
                           )
                         : Container(),
                     this.hasTravelHistory
@@ -366,7 +373,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                                 hintText: "३ हप्तामा कुनै पनि ",
                                 labelText:
                                     "संक्रमणको आशंका भएको व्यक्तिको सम्पर्कमा आउनुभएकोछ?"),
-                            attribute: "has_convid_contact",
+                            attribute: "has_covid_contact",
                             options: [
                               FormBuilderFieldOption(
                                 label: "छ ",
@@ -528,7 +535,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
       "country_name": _fbKey.currentState.value["country_name"],
       "flight_name": _fbKey.currentState.value["flight_name"],
       "transit_names": _fbKey.currentState.value["transit_names"],
-      "has_convid_contact": _fbKey.currentState.value["has_convid_contact"],
+      "has_covid_contact": _fbKey.currentState.value["has_covid_contact"],
       "covid_contact_names": _fbKey.currentState.value["covid_contact_names"],
     };
 
@@ -536,7 +543,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
     _fbKey.currentState.value.remove("country_name");
     _fbKey.currentState.value.remove("flight_name");
     _fbKey.currentState.value.remove("transit_names");
-    _fbKey.currentState.value.remove("has_convid_contact");
+    _fbKey.currentState.value.remove("has_covid_contact");
     _fbKey.currentState.value.remove("covid_contact_names");
 
     Map<String, dynamic> formData = {

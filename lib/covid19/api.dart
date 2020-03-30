@@ -24,5 +24,6 @@ const post_user_login_credential = "$base_url/api-token-auth/";
 // secondary api
 const get_global_stat = "$base_url_secondary/count";
 const get_press_release = "$base_url_secondary/np/pressrelease";
+const get_mobile_version = "$base_url/mobile-version/1/";
 
 const viber = "https://invite.viber.com/?g2=AQAmvXtYaOXJSktBo5ZGUatVwyaa1K7KXkDWLWdMyKJfMs8GbSnY5IplkYNTC3iu&lang=en";
