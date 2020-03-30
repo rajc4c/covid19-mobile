@@ -214,6 +214,20 @@ launchURL(url) async {
   }
 }
 
+Future<void> updateDialog(BuildContext context,
+    {@required title, @required message,@required actions}) {
+  return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: actions
+        );
+      });
+}
+
 launchCaller(String number) async {
   var url = "tel:$number";
   if (await canLaunch(url)) {
