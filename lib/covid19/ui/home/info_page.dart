@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openspaces/common/constants.dart';
 import 'package:openspaces/common/utils.dart';
+import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/ui/home/page_fact_check.dart';
 import 'package:openspaces/covid19/ui/home/page_faq.dart';
 import 'package:openspaces/covid19/ui/home/page_safety_guidelines.dart';
@@ -10,7 +11,8 @@ class InfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: covidAppBar(),
+      appBar: covidAppBarText(title: "उपयोगी जानकारी"),
+      backgroundColor: OpenSpaceColors.defaultBackground,
       body: Padding(
         padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
         child: Column(
@@ -18,16 +20,21 @@ class InfoPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
+              padding: EdgeInsets.only(top: 2.0),
                 decoration: BoxDecoration(
-                    border: Border.all(width: 1.0, color: Colors.black)),
+                    border: Border.all(width: 1.0, color: OpenSpaceColors.white, ),
+                  color: OpenSpaceColors.white,
+                  borderRadius:BorderRadius.all(Radius.circular(8.0))
+                ),
                 width: MediaQuery.of(context).size.width,
-                height: 48.0,
-                child: FlatButton(
-                  child: Text(
+//                height: 48.0,
+                child: ListTile(
+                  title: Text(
                     "धेरै सोधिने प्रश्नहरु",
                     style: TextStyle(fontSize: 16.0, color: Colors.black),
                   ),
-                  onPressed: () {
+                  trailing: Icon(Icons.keyboard_arrow_right, color: Colors.black87,),
+                  onTap: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => FaqPage()));
                   },
@@ -35,18 +42,24 @@ class InfoPage extends StatelessWidget {
             SizedBox(
               height: 8.0,
             ),
+
             Container(
+                padding: EdgeInsets.only(top: 2.0),
                 decoration: BoxDecoration(
-                    border: Border.all(width: 1.0, color: Colors.black)),
+                    border: Border.all(width: 1.0, color: OpenSpaceColors.white, ),
+                    color: OpenSpaceColors.white,
+                    borderRadius:BorderRadius.all(Radius.circular(8.0))
+                ),
                 width: MediaQuery.of(context).size.width,
-                height: 48.0,
-                child: FlatButton(
-                  child: Text(
+//                height: 48.0,
+                child: ListTile(
+                  title: Text(
                     "स्थिति प्रतिवेदनहरु",
                     style: TextStyle(fontSize: 16.0, color: Colors.black),
                   ),
-                  onPressed: () {
-                      Utils.launchURL(situationReportUrl);
+                  trailing: Icon(Icons.keyboard_arrow_right, color: Colors.black87,),
+                  onTap: () {
+                    Utils.launchURL(situationReportUrl);
                   },
                 )),
             SizedBox(
