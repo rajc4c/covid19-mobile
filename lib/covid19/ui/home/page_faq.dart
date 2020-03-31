@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/scheduler/ticker.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
+
+import 'faq_expansion_tile_list_item.dart';
 
 class Faq {
   String title;
@@ -20,10 +23,23 @@ class Faq {
     return faqList;
   }
 }
-class FaqPage extends StatelessWidget {
+class FaqPage extends StatefulWidget  {
+
 
   @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return FaqPageState();
+  }
+
+
+}
+
+class FaqPageState extends State<FaqPage> {
+bool isExpanding = false;
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: OpenSpaceColors.defaultBackground,
       appBar: covidAppBarText(title: "प्राय सोधिने प्रश्नहरू",),
@@ -31,28 +47,21 @@ class FaqPage extends StatelessWidget {
 //        padding: const EdgeInsets.only(left:16.0, right: 16.0),
         padding: const EdgeInsets.only(left:8.0, right: 8.0),
         child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: Faq.faqList.length,
+            shrinkWrap: true,
+            itemCount: Faq.faqList.length,
             itemBuilder: (context, pos) {
-            Faq faq = Faq.faqList[pos];
+              Faq faq = Faq.faqList[pos];
 
-            return  ExpansionTile(
-
-              title: Text("${pos+1}. ${faq.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87, fontSize: 14.0),),
-
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                    child: Text(faq.answers, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black54, fontSize: 12.0, height: 1.5, letterSpacing: 1.5),),
-                  ),
-                  SizedBox(height: 10,)
-                ],
-              );
+              return  ExpansionTileListItemWidget(pos, faq);
 
 
 
-        }),
+            }),
       ),
     );
   }
+
 }
+
+
+
