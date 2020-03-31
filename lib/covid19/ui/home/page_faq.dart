@@ -43,7 +43,7 @@ class FaqPage extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                    child: Text(faq.answers, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black54, fontSize: 12.0),),
+                    child: Text(faq.answers, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black54, fontSize: 12.0, height: 1.5, letterSpacing: 1.5),),
                   ),
                   SizedBox(height: 10,)
                 ],
