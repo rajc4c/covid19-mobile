@@ -39,10 +39,10 @@ Widget logo({double iconSize}) {
   );
 }
 
-AppBar covidAppBarText({String title, bool centerTitle}) {
+AppBar covidAppBarText({String title, bool centerTitle = true}) {
   return AppBar(
     backgroundColor: OpenSpaceColors.white,
-    centerTitle: centerTitle??true,
+    centerTitle: centerTitle,
     elevation: 1,
     iconTheme: IconThemeData(color: Colors.black),
     title: Text(title??"", style: TextStyle(color: OpenSpaceColors.red),),

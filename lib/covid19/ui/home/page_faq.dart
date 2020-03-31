@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
 class Faq {
@@ -24,9 +25,11 @@ class FaqPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: covidAppBar(),
+      backgroundColor: OpenSpaceColors.defaultBackground,
+      appBar: covidAppBarText(title: "प्राय सोधिने प्रश्नहरू",),
       body: Padding(
-        padding: const EdgeInsets.only(left:16.0, right: 16.0),
+//        padding: const EdgeInsets.only(left:16.0, right: 16.0),
+        padding: const EdgeInsets.only(left:8.0, right: 8.0),
         child: ListView.builder(
           shrinkWrap: true,
           itemCount: Faq.faqList.length,
@@ -35,10 +38,13 @@ class FaqPage extends StatelessWidget {
 
             return  ExpansionTile(
 
-              title: Text("${pos+1}. ${faq.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 14.0),),
+              title: Text("${pos+1}. ${faq.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87, fontSize: 14.0),),
 
                 children: <Widget>[
-                  Text(faq.answers, style: TextStyle(fontSize: 14.0),),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: Text(faq.answers, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black54, fontSize: 12.0),),
+                  ),
                   SizedBox(height: 10,)
                 ],
               );
