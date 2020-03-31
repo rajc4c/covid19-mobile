@@ -6,8 +6,8 @@ import '../../colors.dart';
 
 class ExpansionTileListItemWidget extends StatefulWidget{
 
-  int pos;
-  Faq faq;
+  String title;
+  String subtitle;
 
   @override
   State<StatefulWidget> createState() {
@@ -15,7 +15,7 @@ class ExpansionTileListItemWidget extends StatefulWidget{
     return ExpansionTileListItemWidgetState();
   }
 
-  ExpansionTileListItemWidget(this.pos, this.faq);
+  ExpansionTileListItemWidget(this.title, this.subtitle);
 
 }
 
@@ -24,14 +24,15 @@ class ExpansionTileListItemWidgetState extends State<ExpansionTileListItemWidget
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return ExpansionTile(
+    return Padding(padding: EdgeInsets.only(bottom: 16.0),
+    child:  ExpansionTile(
 
-      title: Text("${widget.pos+1}. ${widget.faq.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87, fontSize: 14.0),),
+      title: Text(" ${widget.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87, fontSize: 14.0),),
 
       children: <Widget>[
         Padding(
           padding: EdgeInsets.only(left: 20.0, right: 20.0),
-          child: Text(widget.faq.answers, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black54, fontSize: 12.0, height: 1.5, letterSpacing: 1.5),),
+          child: Text(widget.subtitle, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black54, fontSize: 12.0, height: 1.5, letterSpacing: 1.5),),
         ),
         SizedBox(height: 10,)
       ],
@@ -51,6 +52,8 @@ class ExpansionTileListItemWidgetState extends State<ExpansionTileListItemWidget
         setState(() {isExpanding = expanding;
         });
       },
-    );;
+    ),)
+
+    ;
   }
 }
