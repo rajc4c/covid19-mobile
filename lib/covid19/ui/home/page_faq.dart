@@ -40,7 +40,6 @@ class FaqPage extends StatelessWidget  {
               itemCount: Faq.faqList.length,
               itemBuilder: (context, pos) {
                 Faq faq = Faq.faqList[pos];
-
                 return  ExpansionTileListItemWidget(faq.title, faq.answers);
               }),
         ),

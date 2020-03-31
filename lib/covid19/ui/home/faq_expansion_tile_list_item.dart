@@ -27,7 +27,7 @@ class ExpansionTileListItemWidgetState extends State<ExpansionTileListItemWidget
     return Padding(padding: EdgeInsets.only(bottom: 16.0),
     child:  ExpansionTile(
 
-      title: Text(" ${widget.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87, fontSize: 14.0),),
+      title: Text(widget.title, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87, fontSize: 14.0),),
 
       children: <Widget>[
         Padding(
@@ -52,8 +52,7 @@ class ExpansionTileListItemWidgetState extends State<ExpansionTileListItemWidget
         setState(() {isExpanding = expanding;
         });
       },
-    ),)
-
-    ;
+    ),
+    );
   }
 }
