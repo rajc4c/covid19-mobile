@@ -24,14 +24,14 @@ class InfoPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border.all(width: 1.0, color: OpenSpaceColors.white, ),
                   color: OpenSpaceColors.white,
-                  borderRadius:BorderRadius.all(Radius.circular(8.0))
+                  borderRadius:BorderRadius.all(Radius.circular(4.0))
                 ),
                 width: MediaQuery.of(context).size.width,
 //                height: 48.0,
                 child: ListTile(
                   title: Text(
                     "धेरै सोधिने प्रश्नहरु",
-                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+                    style: TextStyle(fontSize: 14.0, color: Colors.black87, fontWeight: FontWeight.bold ),
                   ),
                   trailing: Icon(Icons.keyboard_arrow_right, color: Colors.black87,),
                   onTap: () {
@@ -48,14 +48,14 @@ class InfoPage extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border.all(width: 1.0, color: OpenSpaceColors.white, ),
                     color: OpenSpaceColors.white,
-                    borderRadius:BorderRadius.all(Radius.circular(8.0))
+                    borderRadius:BorderRadius.all(Radius.circular(4.0))
                 ),
                 width: MediaQuery.of(context).size.width,
 //                height: 48.0,
                 child: ListTile(
                   title: Text(
                     "स्थिति प्रतिवेदनहरु",
-                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+                    style: TextStyle(fontSize: 14.0, color: Colors.black87, fontWeight: FontWeight.bold ),
                   ),
                   trailing: Icon(Icons.keyboard_arrow_right, color: Colors.black87,),
                   onTap: () {
@@ -65,21 +65,28 @@ class InfoPage extends StatelessWidget {
             SizedBox(
               height: 8.0,
             ),
+
             Container(
+                padding: EdgeInsets.only(top: 2.0),
                 decoration: BoxDecoration(
-                    border: Border.all(width: 1.0, color: Colors.black)),
+                    border: Border.all(width: 1.0, color: OpenSpaceColors.white, ),
+                    color: OpenSpaceColors.white,
+                    borderRadius:BorderRadius.all(Radius.circular(4.0))
+                ),
                 width: MediaQuery.of(context).size.width,
-                height: 48.0,
-                child: FlatButton(
-                  onPressed: () {
+//                height: 48.0,
+                child: ListTile(
+                  title: Text(
+                    "आफू र अरुलाई कसरी सुरक्षित राख्ने",
+                    style: TextStyle(fontSize: 14.0, color: Colors.black87, fontWeight: FontWeight.bold ),
+                  ),
+                  trailing: Icon(Icons.keyboard_arrow_right, color: Colors.black87,),
+                  onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => SafetyGuidelinesPage()));
                   },
-                  child: Text(
-                    " आफू र अरुलाई कसरी सुरक्षित राख्ने",
-                    style: TextStyle(fontSize: 16.0, color: Colors.black),
-                  ),
                 )),
+
 //            SizedBox(
 //              height: 8.0,
 //            ),
@@ -97,21 +104,27 @@ class InfoPage extends StatelessWidget {
             SizedBox(
               height: 8.0,
             ),
+
             Container(
+                padding: EdgeInsets.only(top: 2.0),
                 decoration: BoxDecoration(
-                    border: Border.all(width: 1.0, color: Colors.black)),
+                    border: Border.all(width: 1.0, color: OpenSpaceColors.white, ),
+                    color: OpenSpaceColors.white,
+                    borderRadius:BorderRadius.all(Radius.circular(4.0))
+                ),
                 width: MediaQuery.of(context).size.width,
-                height: 48.0,
-                child: FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => FactCheckPage()));
-                    },
-                  child: Text(
+//                height: 48.0,
+                child: ListTile(
+                  title: Text(
                     "भ्रम र यथार्थ",
-                    style: TextStyle(fontSize: 16.0, color: Colors.black),
+                    style: TextStyle(fontSize: 14.0, color: Colors.black87, fontWeight: FontWeight.bold ),
                   ),
-                ))
+                  trailing: Icon(Icons.keyboard_arrow_right, color: Colors.black87,),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => FactCheckPage()));
+                  },
+                )),
           ],
         ),
       ),
