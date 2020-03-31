@@ -39,7 +39,7 @@ class LoginPageState extends State<LoginPage> {
         appBar: covidAppBarText(),
         body: SingleChildScrollView(
             child: Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(20.0),
                 child: Container(
                   height: MediaQuery.of(context).size.height-150.0,
                   width: MediaQuery.of(context).size.width,
@@ -52,7 +52,7 @@ class LoginPageState extends State<LoginPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          SizedBox(height: 48.0,),
+                          SizedBox(height: 38.0,),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +71,7 @@ class LoginPageState extends State<LoginPage> {
                             ],
                           ),
 
-                          SizedBox(height: 48.0,),
+                          SizedBox(height: 38.0,),
 
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,48 +84,51 @@ class LoginPageState extends State<LoginPage> {
                         ],
                       ),
 
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          FormBuilder(
-                              key: _fbLoginKey,
-                              initialValue: {},
-                              autovalidate: false,
-                              child: Column(
-                                children: <Widget>[
-                                  FormBuilderTextField(
-                                    autocorrect: false,
-                                    attribute: "username",
-                                    maxLines: 1,
-                                    decoration: InputDecoration(
-                                        fillColor: OpenSpaceColors.red,
-                                        labelStyle: textLabelStyle,
+                      Container(
+                        padding: EdgeInsets.only(bottom: 150.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            FormBuilder(
+                                key: _fbLoginKey,
+                                initialValue: {},
+                                autovalidate: false,
+                                child: Column(
+                                  children: <Widget>[
+                                    FormBuilderTextField(
+                                      autocorrect: false,
+                                      attribute: "username",
+                                      maxLines: 1,
+                                      decoration: InputDecoration(
+                                          fillColor: OpenSpaceColors.red,
+                                          labelStyle: textLabelStyle,
 //                              labelText: "User Name",
-                                        labelText: "नाम",
-                                        hintText: ""),
-                                    validators: [
-                                      FormBuilderValidators.required()
-                                    ],
-                                  ),
-                                  FormBuilderTextField(
-                                    autocorrect: false,
-                                    attribute: "password",
-                                    maxLines: 1,
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                        fillColor: OpenSpaceColors.red,
-                                        labelStyle: textLabelStyle,
+                                          labelText: "नाम",
+                                          hintText: ""),
+                                      validators: [
+                                        FormBuilderValidators.required()
+                                      ],
+                                    ),
+                                    FormBuilderTextField(
+                                      autocorrect: false,
+                                      attribute: "password",
+                                      maxLines: 1,
+                                      obscureText: true,
+                                      decoration: InputDecoration(
+                                          fillColor: OpenSpaceColors.red,
+                                          labelStyle: textLabelStyle,
 //                              labelText: "Password",
-                                        labelText: "पासवर्ड",
-                                        hintText: ""),
-                                    validators: [
-                                      FormBuilderValidators.required()
-                                    ],
-                                  ),
-                                ],
-                              )),
-                        ],
+                                          labelText: "पासवर्ड",
+                                          hintText: ""),
+                                      validators: [
+                                        FormBuilderValidators.required()
+                                      ],
+                                    ),
+                                  ],
+                                )),
+                          ],
+                        ),
                       ),
 
                       InkWell(
@@ -141,7 +144,8 @@ class LoginPageState extends State<LoginPage> {
                         },
                         child: Container(
                           height: 60,
-                          padding: EdgeInsets.all(16),
+                          margin: EdgeInsets.only(bottom: 16.0),
+                          padding: EdgeInsets.all(20),
                           color: OpenSpaceColors.red,
                           child: Center(
                             child: isDataSending
@@ -158,7 +162,7 @@ class LoginPageState extends State<LoginPage> {
                                   ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ))));
