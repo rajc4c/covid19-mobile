@@ -70,9 +70,17 @@ class MyApp extends StatelessWidget {
       },
     );
 
-    _firebaseMessaging.getToken().then((String token) {
-      assert(token != null);
-      print(token);
+    uploadFirebaseToken(_firebaseMessaging);
+  }
+
+  void uploadFirebaseToken(_firebaseMessaging) async {
+    String deviceId = await Utils.getDeviceDetails();
+    String token = await _firebaseMessaging.getToken();
+    http.post(post_fcm_reg_key,
+        body: {"device_id": deviceId, "registration_id": token}).then((value) {
+      print(value);
+    }).catchError((error, stack) {
+      print(stack);
     });
   }
 
