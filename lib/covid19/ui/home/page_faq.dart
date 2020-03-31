@@ -32,9 +32,19 @@ class FaqPage extends StatelessWidget {
           itemCount: Faq.faqList.length,
             itemBuilder: (context, pos) {
             Faq faq = Faq.faqList[pos];
-                return ListTile(
-                    title: Text("${pos+1}. ${faq.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 14.0),),
-                  subtitle:  Text(faq.answers, style: TextStyle(fontSize: 14.0),));
+
+            return  ExpansionTile(
+
+              title: Text("${pos+1}. ${faq.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 14.0),),
+
+                children: <Widget>[
+                  Text(faq.answers, style: TextStyle(fontSize: 14.0),),
+                  SizedBox(height: 10,)
+                ],
+              );
+
+
+
         }),
       ),
     );
