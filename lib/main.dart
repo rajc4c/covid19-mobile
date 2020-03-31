@@ -119,11 +119,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    checkForAppUpdate();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   //checkForAppUpdate();
+  // }
 
   _openCommingSoonPage() {
     Navigator.push(
