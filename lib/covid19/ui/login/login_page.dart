@@ -36,17 +36,54 @@ class LoginPageState extends State<LoginPage> {
         fontWeight: FontWeight.w700,
         color: OpenSpaceColors.text_color);
     return Scaffold(
-        appBar: covidAppBar(),
+        appBar: covidAppBarText(),
         body: SingleChildScrollView(
             child: Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Container(
-                  height: MediaQuery.of(context).size.height,
+                  height: MediaQuery.of(context).size.height-150.0,
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          SizedBox(height: 48.0,),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                "assets/images/nepal_logo.png",
+                                height: 48.0,
+                                width: 48.0,
+                              ),
+                               SizedBox(width: 16.0,),
+                               Text(
+                                "हाम्रो स्वास्थ्य",
+                                style: TextStyle(
+                                    fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(height: 48.0,),
+
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text("स्वागतम्।", style: Theme.of(context).textTheme.title.copyWith(fontSize: 22.0, color: Colors.black87),),
+                              Text("कृपया लग-इन गर्नुहोस्", style: Theme.of(context).textTheme.title.copyWith(fontSize: 13.0, color: OpenSpaceColors.red),),
+                            ],
+                          )
+                        ],
+                      ),
+
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +102,7 @@ class LoginPageState extends State<LoginPage> {
                                         fillColor: OpenSpaceColors.red,
                                         labelStyle: textLabelStyle,
 //                              labelText: "User Name",
-                                        labelText: "युजरनेम",
+                                        labelText: "नाम",
                                         hintText: ""),
                                     validators: [
                                       FormBuilderValidators.required()
@@ -90,9 +127,7 @@ class LoginPageState extends State<LoginPage> {
                               )),
                         ],
                       ),
-                      SizedBox(
-                        height: 16.0,
-                      ),
+
                       InkWell(
                         onTap: () {
                           if (_fbLoginKey.currentState.saveAndValidate()) {
@@ -107,7 +142,7 @@ class LoginPageState extends State<LoginPage> {
                         child: Container(
                           height: 60,
                           padding: EdgeInsets.all(16),
-                          color: OpenSpaceColors.button_red,
+                          color: OpenSpaceColors.red,
                           child: Center(
                             child: isDataSending
                                 ? Container(
@@ -115,9 +150,9 @@ class LoginPageState extends State<LoginPage> {
                                     width: 20,
                                     child: CircularProgressIndicator())
                                 : Text(
-                                    "लग इन गर्नुहोस्",
+                                    "लग-इन",
                                     style: TextStyle(
-                                        color: OpenSpaceColors.red,
+                                        color: OpenSpaceColors.white,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w700),
                                   ),

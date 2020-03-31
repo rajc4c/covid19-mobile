@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class OpenSpaceColors {
   static final Color red = Color(0xffEF1919);
+  static final Color defaultBackground = Color(0xffEEEEEE);
   static final Color blue = headline_blue;
   static final Color blue_transparent = headline_blue.withOpacity(0.3);
 
