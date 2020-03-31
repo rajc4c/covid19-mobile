@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/scheduler/ticker.dart';
+import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
+
+import 'faq_expansion_tile_list_item.dart';
 
 class Faq {
   String title;
@@ -19,24 +23,32 @@ class Faq {
     return faqList;
   }
 }
-class FaqPage extends StatelessWidget {
+class FaqPage extends StatelessWidget  {
+
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: covidAppBar(),
-      body: Padding(
-        padding: const EdgeInsets.only(left:16.0, right: 16.0),
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: Faq.faqList.length,
-            itemBuilder: (context, pos) {
-            Faq faq = Faq.faqList[pos];
-                return ListTile(
-                    title: Text("${pos+1}. ${faq.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 14.0),),
-                  subtitle:  Text(faq.answers, style: TextStyle(fontSize: 14.0),));
-        }),
-      ),
-    );
+ Widget build(BuildContext context) {
+
+      return Scaffold(
+        backgroundColor: OpenSpaceColors.defaultBackground,
+        appBar: covidAppBarText(title: "प्राय सोधिने प्रश्नहरू",),
+        body: Padding(
+//        padding: const EdgeInsets.only(left:16.0, right: 16.0),
+          padding: const EdgeInsets.only(left:8.0, right: 8.0),
+          child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: Faq.faqList.length,
+              itemBuilder: (context, pos) {
+                Faq faq = Faq.faqList[pos];
+
+                return  ExpansionTileListItemWidget(pos, faq);
+              }),
+        ),
+      );
+    }
   }
-}
+
+
+
+
+
