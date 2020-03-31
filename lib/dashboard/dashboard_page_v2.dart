@@ -51,7 +51,7 @@ class DashBoardPageV2 extends StatelessWidget {
                             children: <Widget>[
                               Text("१२४४५७",
                                   style: TextStyle(
-                                      fontSize: 22, color: Colors.blue)),
+                                      fontSize: 22,fontWeight: FontWeight.bold, color: Color(0xff0d49ef))),
                               Text(
                                 "संक्रमित",
                                 style: TextStyle(fontSize: 11),
@@ -63,7 +63,7 @@ class DashBoardPageV2 extends StatelessWidget {
                             children: <Widget>[
                               Text("१२४४५७",
                                   style: TextStyle(
-                                      fontSize: 22, color: Colors.green)),
+                                      fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xff00ad13))),
                               Text(
                                 "निको भएको",
                                 style: TextStyle(fontSize: 11),
@@ -75,7 +75,7 @@ class DashBoardPageV2 extends StatelessWidget {
                             children: <Widget>[
                               Text("१२४४५७",
                                   style: TextStyle(
-                                      fontSize: 22, color: Colors.red)),
+                                      fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xffef1919))),
                               Text(
                                 "मृत्यु भएको",
                                 style: TextStyle(fontSize: 11),
