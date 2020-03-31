@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -20,15 +21,60 @@ import 'formdata/widgets/upload_data_screen.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
 import 'package:http/http.dart' as http;
 
+Future<dynamic> firebaseBackgroundMessageHandler(Map<String, dynamic> message) {
+  if (message.containsKey('data')) {
+    final dynamic data = message['data'];
+    print("[firebaseBackgroundMessageHandler] ${data.toString()}");
+  }
+
+  if (message.containsKey('notification')) {
+    final dynamic notification = message['notification'];
+    print("[firebaseBackgroundMessageHandler] ${notification.toString()}");
+  }
+
+}
+
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  AppLocalizationDelegate _localeOverrideDelegate =
-      AppLocalizationDelegate(Locale('en', 'US'));
+  final AppLocalizationDelegate _localeOverrideDelegate =
+  AppLocalizationDelegate(Locale('en', 'US'));
 
-  // This widget is the root of your application.
+  MyApp() {
+    configureFirebaseMessaging();
+  }
+
+  void configureFirebaseMessaging() {
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+      },
+      onBackgroundMessage: firebaseBackgroundMessageHandler,
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+      },
+    );
+
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(
+            sound: true, badge: true, alert: true, provisional: true));
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
+
+    _firebaseMessaging.getToken().then((String token) {
+      assert(token != null);
+      print(token);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,7 +107,7 @@ class _HomePageState extends State<HomePage> {
     http.get(get_mobile_version).then((response) {
       if (response.statusCode == 200) {
         Map<String, dynamic> config =
-            jsonDecode(utf8.decode(response.bodyBytes));
+        jsonDecode(utf8.decode(response.bodyBytes));
         print(config.toString());
 
         int currentVersion = int.parse(info.version.replaceAll(".", ""));
@@ -131,13 +177,19 @@ class _HomePageState extends State<HomePage> {
   _mDrawer() {
     return Drawer(
       child: Container(
-        height: MediaQuery.of(context).size.height,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.05,
             ),
             logo(),
             SizedBox(

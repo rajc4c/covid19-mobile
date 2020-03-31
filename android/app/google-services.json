@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1007010261231",
+    "firebase_url": "https://covid19-dev-1125e.firebaseio.com",
+    "project_id": "covid19-dev-1125e",
+    "storage_bucket": "covid19-dev-1125e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007010261231:android:8e8384483967d90b6e931a",
+        "android_client_info": {
+          "package_name": "np.com.naxa.covid19"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1007010261231-r4vpngm2lfsqkaeubpf2jva4j56a83gk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQCgTtP5daNaXgONLclRBoXBiC9fDNcf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1007010261231-r4vpngm2lfsqkaeubpf2jva4j56a83gk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
