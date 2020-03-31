@@ -21,7 +21,6 @@ class ExpansionTileListItemWidget extends StatefulWidget{
 
 class ExpansionTileListItemWidgetState extends State<ExpansionTileListItemWidget> {
   bool isExpanding = false;
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

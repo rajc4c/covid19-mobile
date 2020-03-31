@@ -23,45 +23,32 @@ class Faq {
     return faqList;
   }
 }
-class FaqPage extends StatefulWidget  {
+class FaqPage extends StatelessWidget  {
 
 
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return FaqPageState();
-  }
+ Widget build(BuildContext context) {
 
-
-}
-
-class FaqPageState extends State<FaqPage> {
-bool isExpanding = false;
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      backgroundColor: OpenSpaceColors.defaultBackground,
-      appBar: covidAppBarText(title: "प्राय सोधिने प्रश्नहरू",),
-      body: Padding(
+      return Scaffold(
+        backgroundColor: OpenSpaceColors.defaultBackground,
+        appBar: covidAppBarText(title: "प्राय सोधिने प्रश्नहरू",),
+        body: Padding(
 //        padding: const EdgeInsets.only(left:16.0, right: 16.0),
-        padding: const EdgeInsets.only(left:8.0, right: 8.0),
-        child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: Faq.faqList.length,
-            itemBuilder: (context, pos) {
-              Faq faq = Faq.faqList[pos];
+          padding: const EdgeInsets.only(left:8.0, right: 8.0),
+          child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: Faq.faqList.length,
+              itemBuilder: (context, pos) {
+                Faq faq = Faq.faqList[pos];
 
-              return  ExpansionTileListItemWidget(pos, faq);
-
-
-
-            }),
-      ),
-    );
+                return  ExpansionTileListItemWidget(pos, faq);
+              }),
+        ),
+      );
+    }
   }
 
-}
+
 
 
 
