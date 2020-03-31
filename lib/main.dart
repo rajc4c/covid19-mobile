@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:openspaces/covid19/ui/home/info_page.dart';
 import 'package:openspaces/covid19/ui/login/login_page.dart';
@@ -25,17 +26,52 @@ Future<dynamic> firebaseBackgroundMessageHandler(Map<String, dynamic> message) {
   if (message.containsKey('data')) {
     final dynamic data = message['data'];
     print("[firebaseBackgroundMessageHandler] ${data.toString()}");
+    showNotification("from data");
+
   }
 
   if (message.containsKey('notification')) {
     final dynamic notification = message['notification'];
     print("[firebaseBackgroundMessageHandler] ${notification.toString()}");
+    showNotification("from notification");
   }
 }
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  configLocalNotification();
   runApp(MyApp());
+}
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+void configLocalNotification() {
+  var initializationSettingsAndroid =
+      AndroidInitializationSettings('mipmap/ic_launcher');
+  var initializationSettingsIOS = IOSInitializationSettings();
+  var initializationSettings = InitializationSettings(
+      initializationSettingsAndroid, initializationSettingsIOS);
+  flutterLocalNotificationsPlugin.initialize(initializationSettings);
+}
+
+void showNotification(message) async {
+  var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+    'np.com.naxa.covid19',
+    'News & Notices',
+    'Notification for news & notices',
+    playSound: true,
+    enableVibration: true,
+    importance: Importance.Max,
+    priority: Priority.High,
+  );
+  var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+  var platformChannelSpecifics = NotificationDetails(
+      androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+  await flutterLocalNotificationsPlugin.show(0, message['title'].toString(),
+      message['body'].toString(), platformChannelSpecifics,
+      payload: json.encode(message));
 }
 
 class MyApp extends StatelessWidget {
@@ -47,8 +83,6 @@ class MyApp extends StatelessWidget {
   }
 
   void configureFirebaseMessaging() {
-    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-
     _firebaseMessaging.requestNotificationPermissions(
         const IosNotificationSettings(
             sound: true, badge: true, alert: true, provisional: true));
@@ -60,6 +94,7 @@ class MyApp extends StatelessWidget {
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
+        showNotification(message);
       },
       onBackgroundMessage: firebaseBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
