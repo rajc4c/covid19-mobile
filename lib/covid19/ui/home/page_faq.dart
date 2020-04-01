@@ -25,7 +25,9 @@ class _FaqPage extends State<FaqPage> {
         child: ListView.builder(
           itemCount: prepareData.length,
           itemBuilder: (BuildContext context, int index) {
-            return ExpansionTile(
+            final theme = Theme.of(context).copyWith(dividerColor: Colors.transparent, accentColor: Color(0xff7c7c7c), unselectedWidgetColor:Color(0xff7c7c7c),);
+            return Theme(data: theme,
+            child: ExpansionTile(
               title: Text(
                 prepareData[index].header,
                 style: TextStyle(color: Color(0xff000000)),
@@ -43,7 +45,7 @@ class _FaqPage extends State<FaqPage> {
                 )
               ],
               backgroundColor: Color(0xffeeeeee),
-            );
+            ),);
           },
         ),
       ),
