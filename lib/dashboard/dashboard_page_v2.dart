@@ -83,6 +83,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             Image(
                               image:
                               AssetImage('assets/images/Mask Group 17.png'),
+
                               width: 52,
                               height: 52,
                             ),

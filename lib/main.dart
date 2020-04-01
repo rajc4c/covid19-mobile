@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
 //        ),
         DashBoardPageV2(),
         MapHospitalScreen(),
-        UploadDataScreen(),
+        SymtomsForm(),
         InfoPage()
       ],
     );
@@ -180,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => UploadDataScreen()));
+                          builder: (context) => SymtomsForm()));
                 },
                 icon: Icon(
                   Icons.help,
