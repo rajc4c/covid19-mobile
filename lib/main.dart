@@ -137,6 +137,7 @@ class _HomePageState extends State<HomePage> {
   _mDrawer() {
     return Drawer(
       child: Container(
+        color: OpenSpaceColors.white,
         height: MediaQuery.of(context).size.height,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -153,32 +154,51 @@ class _HomePageState extends State<HomePage> {
               height: 1.0,
               color: Colors.grey,
             ),
-            FlatButton.icon(
-                color: navDrawerId == NavDrawerIds.latestUpdateId?OpenSpaceColors.blue_transparent:OpenSpaceColors.white,
-                onPressed: () {
-                  navDrawerId = NavDrawerIds.latestUpdateId;
-                  setState(() {
-                  });
 
-                },
-                icon: Icon(
-                  Icons.report,
-                  color: navDrawerId == NavDrawerIds.latestUpdateId?OpenSpaceColors.blue:Colors.grey,
-                ),
-                label: Text(
-                  "पछिल्लो तथ्यांक",
-                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                )),
+           Container(
+             decoration: BoxDecoration(
+               borderRadius: BorderRadius.all(Radius.circular(8)),
+               color: navDrawerId == NavDrawerIds.latestUpdateId?OpenSpaceColors.blue_transparent:OpenSpaceColors.white,
+             ),
+             margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+             child:  Row(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               mainAxisAlignment: MainAxisAlignment.start,
+               children: <Widget>[
+                 Expanded(child:
+                 ListTile(
+                   dense: true,
+                   leading:  Icon(
+                     Icons.report,
+                     color: navDrawerId == NavDrawerIds.latestUpdateId?OpenSpaceColors.blue:Colors.grey,
+                   ),
+                   title:  Text(
+                     "पछिल्लो तथ्यांक",
+                     style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+                   ),
+                   onTap: (){
+                     navDrawerId = NavDrawerIds.latestUpdateId;
+                     setState(() {
+                     });
+                   },
+
+                 )
+                 ),
+
+               ],
+             ),
+           ),
+
             FlatButton.icon(
                 color: navDrawerId == NavDrawerIds.healthFacilitiesId?OpenSpaceColors.blue_transparent:OpenSpaceColors.white,
                 onPressed: () {
-                  navDrawerId = NavDrawerIds.healthFacilitiesId;
                   setState(() {
-                  });
-                  Navigator.push(
+                    navDrawerId = NavDrawerIds.healthFacilitiesId;
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => MapHospitalScreen()));
+                  });
                 },
                 icon: Icon(
                   Icons.local_hospital,
