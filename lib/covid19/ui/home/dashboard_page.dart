@@ -552,7 +552,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
     return GestureDetector(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => UploadDataScreen()));
+            MaterialPageRoute(builder: (context) => SymtomsForm()));
       },
       child: Container(
         width: double.infinity,
