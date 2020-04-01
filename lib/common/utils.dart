@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,6 +26,12 @@ class Utils {
       showToastMessage(message: "Could not lauch $url");
       throw 'Could not launch $url';
     }
+  }
+
+  static relativeDate(var dateString){
+    DateTime dateTime = new DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(dateString);
+    String formattedTime = DateFormat('yyyy-MM-dd kk:mm:a').format(dateTime);
+    return formattedTime;
   }
 
   static Future<String> getDeviceDetails() async {

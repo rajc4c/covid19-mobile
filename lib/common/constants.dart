@@ -20,4 +20,5 @@ class NavDrawerIds {
   static final int selfTestId = 3;
   static final int faqId = 4;
   static final int aboutAppId = 5;
+  static final int feedbackFormId = 6;
 }

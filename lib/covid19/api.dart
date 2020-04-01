@@ -1,5 +1,5 @@
-const base_url = "http://139.59.67.104:8021/api/v1";
-//const base_url = "https://covidapi.naxa.com.np/api/v1";
+//const base_url = "http://139.59.67.104:8021/api/v1";
+const base_url = "https://covidapi.naxa.com.np/api/v1";
 const base_url_secondary = "http://covidapi.yubarajpoudel.com";
 const get_open_space = base_url + "api/v1/open_space";
 const get_open_space_geo_json = base_url + "api/v1/open_space_geo_json";
@@ -25,6 +25,9 @@ const get_global_stat = "$base_url_secondary/count";
 const get_press_release = "$base_url_secondary/np/pressrelease";
 const get_mobile_version = "$base_url/mobile-version/1/";
 const post_fcm_reg_key = "$base_url/device/";
+
+
+
 
 const viber =
     "https://invite.viber.com/?g2=AQAmvXtYaOXJSktBo5ZGUatVwyaa1K7KXkDWLWdMyKJfMs8GbSnY5IplkYNTC3iu&lang=en";

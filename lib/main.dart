@@ -1,17 +1,18 @@
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_stetho/flutter_stetho.dart';
+import 'package:http/http.dart' as http;
 import 'package:openspaces/common/constants.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/ui/home/info_page.dart';
-import 'package:openspaces/covid19/ui/login/login_page.dart';
 import 'package:openspaces/covid19/ui/home/page_comming_soon.dart';
 import 'package:openspaces/covid19/ui/home/page_faq.dart';
+import 'package:openspaces/covid19/ui/login/login_page.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:openspaces/locale/app_localization.dart';
 import 'package:package_info/package_info.dart';
@@ -20,12 +21,10 @@ import 'common/flutter_notification.dart';
 import 'common/utils.dart';
 import 'covid19/api.dart';
 import 'covid19/common_widgets.dart';
-import 'covid19/ui/home/dashboard_page.dart';
 import 'covid19/ui/page_about.dart';
 import 'dashboard/dashboard_page_v2.dart';
 import 'formdata/widgets/upload_data_screen.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
-import 'package:http/http.dart' as http;
 
 Future<dynamic> firebaseBackgroundMessageHandler(Map<String, dynamic> message) {
   if (message.containsKey('data')) {
@@ -42,11 +41,25 @@ Future<dynamic> firebaseBackgroundMessageHandler(Map<String, dynamic> message) {
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Stetho.initialize();
+
   runApp(MyApp());
+}
+
+void configureRemoteConfig() async {
+  remoteConfig = await RemoteConfig.instance;
+  final defaults = <String, dynamic>{'feed_back_form': 'https://forms.gle/47DQYpTckw6dugsZ8'};
+  await remoteConfig.setDefaults(defaults);
+  await remoteConfig.fetch(expiration: const Duration(hours: 5)).then((value){
+
+  }).catchError((error,stack){
+    print(stack);
+  });
+  await remoteConfig.activateFetched();
 }
 
 final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 final FlutterNotification _flutterNotification = FlutterNotification();
+RemoteConfig remoteConfig;
 
 class MyApp extends StatelessWidget {
   final AppLocalizationDelegate _localeOverrideDelegate =
@@ -54,6 +67,7 @@ class MyApp extends StatelessWidget {
 
   MyApp() {
     configureFirebaseMessaging();
+    configureRemoteConfig();
   }
 
   void configureFirebaseMessaging() {
@@ -200,137 +214,149 @@ class _HomePageState extends State<HomePage> {
   _mDrawer() {
     return Drawer(
       child: Container(
-        color: OpenSpaceColors.white,
-        height: MediaQuery.of(context).size.height,
-        child:Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
-                ),
-                logo(),
-                SizedBox(
-                  height: 10,
-                ),
-                Divider(
-                  height: 1.0,
-                  color: Colors.grey,
-                ),
-
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: navDrawerId == NavDrawerIds.latestUpdateId?OpenSpaceColors.blue_transparent:OpenSpaceColors.white,
+          color: OpenSpaceColors.white,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.05,
                   ),
-                  margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                  child:  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(child:
-                      ListTile(
-                        dense: true,
-                        leading:  Icon(
-                          Icons.report,
-                          color: navDrawerId == NavDrawerIds.latestUpdateId?OpenSpaceColors.blue:Colors.grey,
-                        ),
-                        title:  Text(
-                          "पछिल्लो तथ्यांक",
-                          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                        ),
-                        onTap: (){
-                          navDrawerId = NavDrawerIds.latestUpdateId;
-                          setState(() {
-                          });
-                        },
-
-                      )
-                      ),
-
-                    ],
+                  logo(),
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: navDrawerId == NavDrawerIds.healthFacilitiesId?OpenSpaceColors.blue_transparent:OpenSpaceColors.white,
+                  Divider(
+                    height: 1.0,
+                    color: Colors.grey,
                   ),
-                  margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                  child:  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(child:
-                      ListTile(
-                        dense: true,
-                        leading:  Icon(
-                          Icons.local_hospital,
-                          color: navDrawerId == NavDrawerIds.healthFacilitiesId?OpenSpaceColors.blue:Colors.grey,
-                        ),
-                        title:  Text(
-                          "स्वास्थ्य सेवाहरु",
-                          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                        ),
-                        onTap: (){
-                          setState(() {
-                            navDrawerId = NavDrawerIds.healthFacilitiesId;
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MapHospitalScreen()));
-                          });
-                        },
 
-                      )
-                      ),
-
-                    ],
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: navDrawerId == NavDrawerIds.latestUpdateId
+                          ? OpenSpaceColors.blue_transparent
+                          : OpenSpaceColors.white,
+                    ),
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                            child: ListTile(
+                          dense: true,
+                          leading: Icon(
+                            Icons.report,
+                            color: navDrawerId == NavDrawerIds.latestUpdateId
+                                ? OpenSpaceColors.blue
+                                : Colors.grey,
+                          ),
+                          title: Text(
+                            "पछिल्लो तथ्यांक",
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onTap: () {
+                            navDrawerId = NavDrawerIds.latestUpdateId;
+                            setState(() {});
+                          },
+                        )),
+                      ],
+                    ),
                   ),
-                ),
 
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: navDrawerId == NavDrawerIds.selfTestId?OpenSpaceColors.blue_transparent:OpenSpaceColors.white,
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: navDrawerId == NavDrawerIds.healthFacilitiesId
+                          ? OpenSpaceColors.blue_transparent
+                          : OpenSpaceColors.white,
+                    ),
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                            child: ListTile(
+                          dense: true,
+                          leading: Icon(
+                            Icons.local_hospital,
+                            color:
+                                navDrawerId == NavDrawerIds.healthFacilitiesId
+                                    ? OpenSpaceColors.blue
+                                    : Colors.grey,
+                          ),
+                          title: Text(
+                            "स्वास्थ्य सेवाहरु",
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              navDrawerId = NavDrawerIds.healthFacilitiesId;
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          MapHospitalScreen()));
+                            });
+                          },
+                        )),
+                      ],
+                    ),
                   ),
-                  margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                  child:  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(child:
-                      ListTile(
-                        dense: true,
-                        leading:  Icon(
-                          Icons.help,
-                          color: navDrawerId == NavDrawerIds.selfTestId?OpenSpaceColors.blue:Colors.grey,
-                        ),
-                        title:  Text(
-                          "लक्षण मुल्यांकन",
-                          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                        ),
-                        onTap: (){
-                          setState(() {
-                            navDrawerId = NavDrawerIds.selfTestId;
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SymtomsForm()));
-                          });
-                        },
 
-                      )
-                      ),
-
-                    ],
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: navDrawerId == NavDrawerIds.selfTestId
+                          ? OpenSpaceColors.blue_transparent
+                          : OpenSpaceColors.white,
+                    ),
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                            child: ListTile(
+                          dense: true,
+                          leading: Icon(
+                            Icons.help,
+                            color: navDrawerId == NavDrawerIds.selfTestId
+                                ? OpenSpaceColors.blue
+                                : Colors.grey,
+                          ),
+                          title: Text(
+                            "लक्षण मुल्यांकन",
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              navDrawerId = NavDrawerIds.selfTestId;
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SymtomsForm()));
+                            });
+                          },
+                        )),
+                      ],
+                    ),
                   ),
-                ),
-
 
 //
 //             FlatButton.icon(
@@ -371,88 +397,131 @@ class _HomePageState extends State<HomePage> {
 //                      style: TextStyle(color: Colors.grey),
 //                    )),
 
-              Container(
-                color: Colors.grey.shade400,
-                height: 1.0,
-              ),
-
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: navDrawerId == NavDrawerIds.faqId?OpenSpaceColors.blue_transparent:OpenSpaceColors.white,
+                  Container(
+                    color: Colors.grey.shade400,
+                    height: 1.0,
                   ),
-                  margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                  child:  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(child:
-                      ListTile(
-                        dense: true,
-                        leading:  Icon(
-                          Icons.question_answer,
-                          color: navDrawerId == NavDrawerIds.faqId?OpenSpaceColors.blue:Colors.grey,
-                        ),
-                        title:  Text(
-                          "धेरे सोधिने प्रश्नहरु",
-                          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                        ),
-                        onTap: (){
-                          setState(() {
-                            navDrawerId = NavDrawerIds.faqId;
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) => FaqPage()));
-                          });
-                        },
 
-                      )
-                      ),
-
-                    ],
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: navDrawerId == NavDrawerIds.faqId
+                          ? OpenSpaceColors.blue_transparent
+                          : OpenSpaceColors.white,
+                    ),
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                            child: ListTile(
+                          dense: true,
+                          leading: Icon(
+                            Icons.question_answer,
+                            color: navDrawerId == NavDrawerIds.faqId
+                                ? OpenSpaceColors.blue
+                                : Colors.grey,
+                          ),
+                          title: Text(
+                            "धेरे सोधिने प्रश्नहरु",
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              navDrawerId = NavDrawerIds.faqId;
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => FaqPage()));
+                            });
+                          },
+                        )),
+                      ],
+                    ),
                   ),
-                ),
 
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8)),
-                    color: navDrawerId == NavDrawerIds.aboutAppId?OpenSpaceColors.blue_transparent:OpenSpaceColors.white,
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: navDrawerId == NavDrawerIds.aboutAppId
+                          ? OpenSpaceColors.blue_transparent
+                          : OpenSpaceColors.white,
+                    ),
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                            child: ListTile(
+                          dense: true,
+                          leading: Icon(
+                            Icons.info_outline,
+                            color: navDrawerId == NavDrawerIds.aboutAppId
+                                ? OpenSpaceColors.blue
+                                : Colors.grey,
+                          ),
+                          title: Text(
+                            "एपको बारेमा",
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              navDrawerId = NavDrawerIds.aboutAppId;
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AboutUsPage()));
+                            });
+                          },
+                        )),
+                      ],
+                    ),
                   ),
-                  margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                  child:  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Expanded(child:
-                      ListTile(
-                        dense: true,
-                        leading:  Icon(
-                          Icons.info_outline,
-                          color: navDrawerId == NavDrawerIds.aboutAppId?OpenSpaceColors.blue:Colors.grey,
-                        ),
-                        title:  Text(
-                          "एपको बारेमा",
-                          style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-                        ),
-                        onTap: (){
-                          setState(() {
-                            navDrawerId = NavDrawerIds.aboutAppId;
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => AboutUsPage()));
-                          });
-                        },
-
-                      )
-                      ),
-
-                    ],
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: navDrawerId == NavDrawerIds.aboutAppId
+                          ? OpenSpaceColors.blue_transparent
+                          : OpenSpaceColors.white,
+                    ),
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                            child: ListTile(
+                          dense: true,
+                          leading: Icon(
+                            Icons.people,
+                            color: navDrawerId == NavDrawerIds.aboutAppId
+                                ? OpenSpaceColors.blue
+                                : Colors.grey,
+                          ),
+                          title: Text(
+                            "एपबारे सुझाव वा समस्या रिपोर्ट गर्नुहोस्",
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              navDrawerId = NavDrawerIds.feedbackFormId;
+                              Utils.launchURL(
+                                  remoteConfig.getString('feed_back_form'));
+                            });
+                          },
+                        )),
+                      ],
+                    ),
                   ),
-                ),
-
-
-
-
-
-
 
 //             FlatButton.icon(
 //                    onPressed: () {},
@@ -509,42 +578,38 @@ class _HomePageState extends State<HomePage> {
 //              SizedBox(
 //                height: 16.0,
 //              )
-              ],
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-                color: OpenSpaceColors.red,
-              ),
-              margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 48.0),
-              child:  Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(child:
-                  FlatButton.icon(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => LoginPage()));
-                      },
-                      icon: Icon(
-                        Icons.account_circle,
-                        color: Colors.white,
-                      ),
-                      label: Text(
-                        "लग इन",
-                        style: TextStyle(color: Colors.white),
-                      )),
-                  ),
-
                 ],
               ),
-            ),
-          ],
-        )
-
-
-      ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                  color: OpenSpaceColors.red,
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 48.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                      child: FlatButton.icon(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => LoginPage()));
+                          },
+                          icon: Icon(
+                            Icons.account_circle,
+                            color: Colors.white,
+                          ),
+                          label: Text(
+                            "लग इन",
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )),
     );
   }
 

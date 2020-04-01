@@ -19,8 +19,10 @@ class DashBoardPageV2 extends StatefulWidget {
 }
 
 class _DashBoardPageV2State extends State<DashBoardPageV2> {
+
   _DashBoardPageV2State() {
     _getData();
+
   }
 
   @override
@@ -43,7 +45,10 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                     child: RichText(
                       text: TextSpan(
                         text: '',
-                        style: DefaultTextStyle.of(context).style,
+
+                        style: DefaultTextStyle
+                            .of(context)
+                            .style,
                         children: <TextSpan>[
                           TextSpan(
                               text: 'कोभिड-१९ ',
@@ -64,8 +69,9 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                     color: Color(0xffeeeeee),
                   ),
                   padding: EdgeInsets.all(20),
-                  constraints: BoxConstraints.expand(
-                      width: double.infinity, height: 282),
+
+                  constraints:
+                  BoxConstraints.expand(width: double.infinity, height: 282),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -85,7 +91,8 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             ),
                             leading: Image(
                               image:
-                                  AssetImage('assets/images/mask_group_17.png'),
+
+                              AssetImage('assets/images/mask_group_17.png'),
                               width: 52,
                               height: 52,
                             ),
@@ -108,8 +115,9 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(10)),
                               color: Colors.white,
                             ),
                             padding: EdgeInsets.only(
@@ -118,8 +126,9 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                                 width: double.infinity, height: 70),
                             child: Row(children: <Widget>[
                               Image(
-                                image: AssetImage(
-                                    'assets/images/mask_group_18.png'),
+
+                                image:
+                                AssetImage('assets/images/mask_group_18.png'),
                                 width: 52,
                                 height: 52,
                               ),
@@ -145,8 +154,10 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           },
                           child: Container(
                             decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(10)),
+
                               color: Colors.white,
                             ),
                             padding: EdgeInsets.only(
@@ -158,7 +169,9 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                                 children: <Widget>[
                                   Image(
                                     image: AssetImage(
+
                                         'assets/images/mask_group_19.png'),
+
                                     width: 52,
                                     height: 52,
                                   ),
@@ -183,8 +196,10 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                     color: Color(0xffe9ecff),
                   ),
                   padding: EdgeInsets.all(20),
-                  constraints: BoxConstraints.expand(
-                      width: double.infinity, height: 213),
+
+                  constraints:
+                  BoxConstraints.expand(width: double.infinity, height: 213),
+
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -218,7 +233,11 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                       RichText(
                         text: TextSpan(
                           text: '',
-                          style: DefaultTextStyle.of(context).style,
+
+                          style: DefaultTextStyle
+                              .of(context)
+                              .style,
+
                           children: <TextSpan>[
                             TextSpan(
                                 text: '9851-255-834',
@@ -230,8 +249,10 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                                     color: Colors.blue)),
                             TextSpan(
                                 text: ' | ',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 12)),
+
+                                style:
+                                TextStyle(color: Colors.black, fontSize: 12)),
+
                             TextSpan(
                                 text: '9851-255-837',
                                 recognizer: TapGestureRecognizer()
@@ -242,8 +263,10 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                                     color: Colors.blue)),
                             TextSpan(
                                 text: ' | ',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 12)),
+
+                                style:
+                                TextStyle(color: Colors.black, fontSize: 12)),
+
                             TextSpan(
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () => launchCaller("9851255839"),
@@ -292,21 +315,29 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
         title: Text(
           "सूचना पठाउने र सहायता माग्ने फारम",
           style: TextStyle(
-              color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+              color: Colors.black,
+              fontSize: 14,
+              fontWeight: FontWeight.bold),
         ),
         leading: Image(
-          image: AssetImage('assets/images/corona.png'),
+          image:
+          AssetImage('assets/images/corona.png'),
           width: 52,
           height: 52,
         ),
-        trailing: Icon(Icons.keyboard_arrow_right, color: Colors.black),
+        trailing: Icon(Icons.keyboard_arrow_right,
+            color: Colors.black),
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => SuspectComplaint()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SuspectComplaint()));
         },
       ),
     );
   }
+
+
 
   Widget worldStats() {
     return StreamBuilder(
@@ -333,7 +364,14 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                       style: TextStyle(
                           color: Colors.red,
                           fontSize: 13,
-                          fontWeight: FontWeight.bold))
+                          fontWeight: FontWeight.bold)),
+
+                  Text(" विश्वभरीमा",
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold)),
+
                 ]),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -451,7 +489,10 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             children: <Widget>[
                               Text(
                                   Utils.numberMap(
-                                      "${homeStat.tested - homeStat.confirmed}"),
+
+                                      "${homeStat.tested -
+                                          homeStat.confirmed}"),
+
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(
@@ -474,7 +515,10 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             children: <Widget>[
                               Text(
                                   Utils.numberMap(
-                                      "${homeStat.confirmed - homeStat.death - homeStat.isolation}"),
+
+                                      "${homeStat.confirmed - homeStat.death -
+                                          homeStat.isolation}"),
+
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(
@@ -524,7 +568,10 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           children: <Widget>[
                             Text(
                                 Utils.numberMap(
-                                    "${homeStat.confirmed - homeStat.death - homeStat.isolation}"),
+
+                                    "${homeStat.confirmed - homeStat.death -
+                                        homeStat.isolation}"),
+
                                 style: TextStyle(
                                     fontSize: 22, color: Colors.black)),
                             Text(
