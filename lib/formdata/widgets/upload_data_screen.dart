@@ -1,4 +1,4 @@
-import 'dart:convert';
+// import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +6,11 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:openspaces/common/utils.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
-import 'package:openspaces/formdata/Country.dart';
+// import 'package:openspaces/formdata/Country.dart';
 import 'package:openspaces/formdata/form_repository.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:location/location.dart';
-import '../ReportSubmissionThankYouScreen.dart';
+// import '../ReportSubmissionThankYouScreen.dart';
 import 'countries.dart';
 
 class UploadDataScreen extends StatefulWidget {
@@ -440,7 +440,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
               InkWell(
                 onTap: () {
                   if (_fbKey.currentState.saveAndValidate()) {
-                    uploadFormNAXA();
+                    // uploadFormNAXA();
                     uploadFormCFC();
                   } else {
                     showToastMessage(message: "फारममा त्रुटिहरू छन्");
@@ -504,18 +504,18 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
     print(formData);
 
     formRepository.uploadSymptomFormC4C(formData).then((String message) {
-//      if (message != null && message.isNotEmpty) {
-//        Navigator.push(
-//            context,
-//            MaterialPageRoute(
-//                builder: (context) => ReportSubmissionThankYouScreen(message)));
-//      } else {
-//        showToastMessage(message: "फारम बुझाउन असफल भयो");
-//      }
-//
-//      setState(() {
-//        isUploadingForm = false;
-//      });
+    //  if (message != null && message.isNotEmpty) {
+    //    Navigator.push(
+    //        context,
+    //        MaterialPageRoute(
+    //            builder: (context) => ReportSubmissionThankYouScreen(message)));
+    //  } else {
+    //    showToastMessage(message: "फारम बुझाउन असफल भयो");
+    //  }
+
+    //  setState(() {
+    //    isUploadingForm = false;
+    //  });
     }).catchError((error, stack) {
       print(stack);
 //      showToastMessage(message: "फारम बुझाउन असफल भयो");
@@ -525,59 +525,60 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
     });
   }
 
-  void uploadFormNAXA() {
-    setState(() {
-      isUploadingForm = true;
-    });
+  // void uploadFormNAXA() {
+  //   setState(() {
+  //     isUploadingForm = true;
+  //   });
 
-    Map<String, dynamic> travelHistory = {
-      "has_travel_history": _fbKey.currentState.value["has_travel_history"],
-      "country_name": _fbKey.currentState.value["country_name"],
-      "flight_name": _fbKey.currentState.value["flight_name"],
-      "transit_names": _fbKey.currentState.value["transit_names"],
-      "has_covid_contact": _fbKey.currentState.value["has_covid_contact"],
-      "covid_contact_names": _fbKey.currentState.value["covid_contact_names"],
-    };
+  //   Map<String, dynamic> travelHistory = {
+  //     "has_travel_history": _fbKey.currentState.value["has_travel_history"],
+  //     "country_name": _fbKey.currentState.value["country_name"],
+  //     "flight_name": _fbKey.currentState.value["flight_name"],
+  //     "transit_names": _fbKey.currentState.value["transit_names"],
+  //     "has_covid_contact": _fbKey.currentState.value["has_covid_contact"],
+  //     "covid_contact_names": _fbKey.currentState.value["covid_contact_names"],
+  //   };
 
-    _fbKey.currentState.value.remove("has_travel_history");
-    _fbKey.currentState.value.remove("country_name");
-    _fbKey.currentState.value.remove("flight_name");
-    _fbKey.currentState.value.remove("transit_names");
-    _fbKey.currentState.value.remove("has_covid_contact");
-    _fbKey.currentState.value.remove("covid_contact_names");
+  //   _fbKey.currentState.value.remove("has_travel_history");
+  //   _fbKey.currentState.value.remove("country_name");
+  //   _fbKey.currentState.value.remove("flight_name");
+  //   _fbKey.currentState.value.remove("transit_names");
+  //   _fbKey.currentState.value.remove("has_covid_contact");
+  //   _fbKey.currentState.value.remove("covid_contact_names");
 
-    Map<String, dynamic> formData = {
-      "device_id": deviceId,
-      "lat": currentLocation != null ? currentLocation.latitude : "",
-      "long": currentLocation != null ? currentLocation.longitude : "",
-      "travel_history": jsonEncode(travelHistory).toString(),
-    };
+  //   Map<String, dynamic> formData = {
+  //     "device_id": deviceId,
+  //     "lat": currentLocation != null ? currentLocation.latitude : "",
+  //     "long": currentLocation != null ? currentLocation.longitude : "",
+  //     "travel_history": jsonEncode(travelHistory).toString(),
+  //   };
 
-    formData.addAll(_fbKey.currentState.value);
+  //   formData.addAll(_fbKey.currentState.value);
 
-    print(formData);
+  //   print(formData);
 
-    formRepository.uploadSymtomForm(formData).then((String message) {
-      if (message != null && message.isNotEmpty) {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ReportSubmissionThankYouScreen(message)));
-      } else {
-        showToastMessage(message: "फारम बुझाउन असफल भयो");
-      }
+  //   formRepository.uploadSymtomForm(formData).then((String message) {
+  //     if (message != null && message.isNotEmpty) {
+  //       Navigator.pushReplacement(
+  //           context,
+  //           MaterialPageRoute(
+  //               builder: (context) => ReportSubmissionThankYouScreen(message)));
+  //     } else {
+  //       showToastMessage(message: "फारम बुझाउन असफल भयो");
+  //     }
 
-      setState(() {
-        isUploadingForm = false;
-      });
-    }).catchError((error, stack) {
-      print(stack);
-      showToastMessage(message: "फारम बुझाउन असफल भयो");
-      setState(() {
-        isUploadingForm = false;
-      });
-    });
-  }
+  //     setState(() {
+  //       isUploadingForm = false;
+  //     });
+  //   }).catchError((error, stack) {
+  //     print(stack);
+  //     showToastMessage(message: "फारम बुझाउन असफल भयो");
+  //     setState(() {
+  //       isUploadingForm = false;
+  //     });
+  //   });
+  // }
+
 
   void cacheLocation() async {
     var _location = Location();

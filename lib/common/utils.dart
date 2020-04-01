@@ -34,6 +34,7 @@ class Utils {
         var build = await deviceInfoPlugin.androidInfo;
         identifier = build.androidId; //UUID for Android
       } else if (Platform.isIOS) {
+        print('this is ios');
         var data = await deviceInfoPlugin.iosInfo;
         identifier = data.identifierForVendor; //UUID for iOS
       }
