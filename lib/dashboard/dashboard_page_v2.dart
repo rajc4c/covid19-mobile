@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:openspaces/common/utils.dart';
 import 'package:openspaces/covid19/api.dart';
 import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/covid19/bloc/home_bloc.dart';
@@ -306,7 +307,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text("${gs.totalConfirmed}",
+                            Text( Utils.numberMap("${gs.totalConfirmed}"),
                                 style: TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
@@ -320,7 +321,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text("${gs.totalRecovered}",
+                            Text(Utils.numberMap("${gs.totalRecovered}"),
                                 style: TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
@@ -334,7 +335,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text("${gs.totalDeaths}",
+                            Text(Utils.numberMap("${gs.totalDeaths}"),
                                 style: TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
