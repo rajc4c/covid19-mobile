@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:openspaces/common/constants.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/ui/home/info_page.dart';
@@ -24,6 +25,7 @@ import 'hospitalmap/screens/map_hospital_screen.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
+  Stetho.initialize();
   runApp(MyApp());
 }
 

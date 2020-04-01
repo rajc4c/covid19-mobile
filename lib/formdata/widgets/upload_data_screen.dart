@@ -457,7 +457,7 @@ class _SymtomsFormState extends State<SymtomsForm> {
               InkWell(
                 onTap: () {
                   if (_fbKey.currentState.saveAndValidate()) {
-                    // uploadFormNAXA();
+                     uploadFormNAXA();
                     uploadFormCFC();
                   } else {
                     showToastMessage(message: "फारममा त्रुटिहरू छन्");

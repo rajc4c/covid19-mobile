@@ -56,6 +56,7 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                       autocorrect: false,
                       attribute: "name",
                       decoration: InputDecoration(
+
                         border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey)),
                           fillColor: OpenSpaceColors.red,
