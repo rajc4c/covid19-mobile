@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:openspaces/common/utils.dart';
 
 class FlutterNotification {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -22,12 +23,22 @@ class FlutterNotification {
 
   void _configLocalNotification() {
     var initializationSettingsAndroid =
-        AndroidInitializationSettings('mipmap/ic_launcher');
+        AndroidInitializationSettings('mipmap/launcher_icon');
     var initializationSettingsIOS = IOSInitializationSettings();
     var initializationSettings = InitializationSettings(
         initializationSettingsAndroid, initializationSettingsIOS);
-    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+     flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelectNotification);
   }
+
+  Future onSelectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+
+    Utils.launchURL(payload);
+  }
+
 
   void showNotification({@required title, @required message, url}) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
@@ -38,6 +49,7 @@ class FlutterNotification {
       enableVibration: true,
       importance: Importance.Max,
       priority: Priority.High,
+
     );
     var iOSPlatformChannelSpecifics = IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
