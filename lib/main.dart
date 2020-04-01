@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:openspaces/common/constants.dart';
+import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/ui/home/info_page.dart';
 import 'package:openspaces/covid19/ui/login/login_page.dart';
 import 'package:openspaces/covid19/ui/home/page_comming_soon.dart';
@@ -56,6 +58,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedBottomNavigationIndex = 0;
+
+  int navDrawerId = 0;
 
   Future<void> checkForAppUpdate() async {
     final PackageInfo info = await PackageInfo.fromPlatform();
@@ -150,17 +154,27 @@ class _HomePageState extends State<HomePage> {
               color: Colors.grey,
             ),
             FlatButton.icon(
-                onPressed: () {},
+                color: navDrawerId == NavDrawerIds.latestUpdateId?OpenSpaceColors.blue_transparent:OpenSpaceColors.white,
+                onPressed: () {
+                  navDrawerId = NavDrawerIds.latestUpdateId;
+                  setState(() {
+                  });
+
+                },
                 icon: Icon(
                   Icons.report,
-                  color: Colors.red,
+                  color: navDrawerId == NavDrawerIds.latestUpdateId?OpenSpaceColors.blue:Colors.grey,
                 ),
                 label: Text(
                   "पछिल्लो तथ्यांक",
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
                 )),
             FlatButton.icon(
+                color: navDrawerId == NavDrawerIds.healthFacilitiesId?OpenSpaceColors.blue_transparent:OpenSpaceColors.white,
                 onPressed: () {
+                  navDrawerId = NavDrawerIds.healthFacilitiesId;
+                  setState(() {
+                  });
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -168,15 +182,19 @@ class _HomePageState extends State<HomePage> {
                 },
                 icon: Icon(
                   Icons.local_hospital,
-                  color: Colors.red,
+                  color: navDrawerId == NavDrawerIds.healthFacilitiesId?OpenSpaceColors.blue:Colors.grey,
                 ),
                 label: Text(
                   "स्वास्थ्य सेवाहरु",
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
                 )),
 
             FlatButton.icon(
+                color: navDrawerId == NavDrawerIds.selfTestId?OpenSpaceColors.blue_transparent:OpenSpaceColors.white,
                 onPressed: () {
+                  navDrawerId = NavDrawerIds.selfTestId;
+                  setState(() {
+                  });
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -184,11 +202,11 @@ class _HomePageState extends State<HomePage> {
                 },
                 icon: Icon(
                   Icons.help,
-                  color: Colors.red,
+                  color: navDrawerId == NavDrawerIds.selfTestId?OpenSpaceColors.blue:Colors.grey,
                 ),
                 label: Text(
                   "लक्षण मुल्यांकन",
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
                 )),
 //
 //             FlatButton.icon(
@@ -230,17 +248,21 @@ class _HomePageState extends State<HomePage> {
 //                    )),
 
             FlatButton.icon(
+                color: navDrawerId == NavDrawerIds.faqId?OpenSpaceColors.blue_transparent:OpenSpaceColors.white,
                 onPressed: () {
+                  navDrawerId = NavDrawerIds.faqId;
+                  setState(() {
+                  });
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) => FaqPage()));
                 },
                 icon: Icon(
                   Icons.question_answer,
-                  color: Colors.red,
+                  color: navDrawerId == NavDrawerIds.faqId?OpenSpaceColors.blue:Colors.grey,
                 ),
                 label: Text(
                   "धेरे सोधिने प्रश्नहरु",
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
                 )),
 
             FlatButton.icon(
@@ -258,17 +280,21 @@ class _HomePageState extends State<HomePage> {
                 )),
 
             FlatButton.icon(
+              color: navDrawerId == NavDrawerIds.aboutAppId?OpenSpaceColors.blue_transparent:OpenSpaceColors.white,
                 onPressed: () {
+                  navDrawerId = NavDrawerIds.aboutAppId;
+                  setState(() {
+                  });
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => AboutUsPage()));
                 },
                 icon: Icon(
                   Icons.info_outline,
-                  color: Colors.red,
+                  color: navDrawerId == NavDrawerIds.aboutAppId?OpenSpaceColors.blue:Colors.grey,
                 ),
                 label: Text(
                   "एपको बारेमा",
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
                 )),
 
 //             FlatButton.icon(
