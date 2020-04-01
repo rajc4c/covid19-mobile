@@ -5,7 +5,6 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:http/http.dart' as http;
 import 'package:openspaces/common/constants.dart';
 import 'package:openspaces/covid19/colors.dart';
@@ -40,7 +39,7 @@ Future<dynamic> firebaseBackgroundMessageHandler(Map<String, dynamic> message) {
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  Stetho.initialize();
+
 
   runApp(MyApp());
 }
