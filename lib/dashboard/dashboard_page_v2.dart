@@ -394,7 +394,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text("${homeStat.tested}",
+                              Text(Utils.numberMap("${homeStat.tested}"),
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(
@@ -415,7 +415,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text("${homeStat.tested - homeStat.confirmed}",
+                              Text(Utils.numberMap("${homeStat.tested - homeStat.confirmed}"),
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(
@@ -437,7 +437,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                  "${homeStat.confirmed - homeStat.death - homeStat.isolation}",
+                                  Utils.numberMap("${homeStat.confirmed - homeStat.death - homeStat.isolation}"),
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(
@@ -464,7 +464,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text("${homeStat.isolation}",
+                            Text(Utils.numberMap("${homeStat.isolation}"),
                                 style: TextStyle(
                                     fontSize: 22, color: Colors.black)),
                             Text(
@@ -486,7 +486,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                                "${homeStat.confirmed - homeStat.death - homeStat.isolation}",
+                                Utils.numberMap("${homeStat.confirmed - homeStat.death - homeStat.isolation}"),
                                 style: TextStyle(
                                     fontSize: 22, color: Colors.black)),
                             Text(
@@ -507,7 +507,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text("${homeStat.death}",
+                            Text(Utils.numberMap("${homeStat.death}"),
                                 style: TextStyle(
                                     fontSize: 22, color: Colors.black)),
                             Text(
