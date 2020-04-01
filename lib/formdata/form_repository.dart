@@ -23,8 +23,7 @@ class FormRepository {
     });
   }
 
-  Future<String> uploadSymptomFormC4C(_formData) async{
-
+  Future<String> uploadSymptomFormC4C(_formData) async {
     String uriSymptom = 'https://covid19.mohp.gov.np/covid/api/symptomstore';
 
     Dio dio = Dio();
@@ -35,7 +34,22 @@ class FormRepository {
     } on DioError catch (e) {
       return e.response.data;
     }
+  }
 
+  Future<String> uploadSuspectFormC4C(_formData) async {
+    print('inside upload suspect form c4c');
+    print(_formData);
+    print('inside upload suspect form c4c');
+    String uriSuspect = 'https://covid-19.c4cprojects.com/api/suspectstore';
+  
+    Dio dio = Dio();
+    try {
+      Response response = await dio.post(uriSuspect, data: _formData);
+      print(response.data);
+      return response.data;
+    } on DioError catch (e) {
+      return e.response.data;
+    }
   }
 }
 
