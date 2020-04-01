@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar_faq.dart';
 
-import 'faq_expansion_tile_list_item.dart';
+import 'expansion_tile_list_item.dart';
 
 class ItemModel {
   bool isExpanded;

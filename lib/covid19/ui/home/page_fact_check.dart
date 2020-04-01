@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 
-import 'faq_expansion_tile_list_item.dart';
+import 'expansion_tile_list_item.dart';
 
 class FactCheck {
   String title;
