@@ -59,7 +59,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                 ),
                 padding: EdgeInsets.all(20),
                 constraints:
-                    BoxConstraints.expand(width: double.infinity, height: 282),
+                BoxConstraints.expand(width: double.infinity, height: 282),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -82,7 +82,8 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           child: Row(children: <Widget>[
                             Image(
                               image:
-                                  AssetImage('assets/images/Mask Group 17.png'),
+                              AssetImage('assets/images/Mask Group 17.png'),
+
                               width: 52,
                               height: 52,
                             ),
@@ -118,7 +119,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           child: Row(children: <Widget>[
                             Image(
                               image:
-                                  AssetImage('assets/images/Mask Group 18.png'),
+                              AssetImage('assets/images/Mask Group 18.png'),
                               width: 52,
                               height: 52,
                             ),
@@ -182,7 +183,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                 ),
                 padding: EdgeInsets.all(20),
                 constraints:
-                    BoxConstraints.expand(width: double.infinity, height: 213),
+                BoxConstraints.expand(width: double.infinity, height: 213),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -229,7 +230,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           TextSpan(
                               text: ' | ',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 12)),
+                              TextStyle(color: Colors.black, fontSize: 12)),
                           TextSpan(
                               text: '9851-255-837',
                               recognizer: TapGestureRecognizer()
@@ -241,7 +242,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           TextSpan(
                               text: ' | ',
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 12)),
+                              TextStyle(color: Colors.black, fontSize: 12)),
                           TextSpan(
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => launchCaller("9851255839"),
@@ -394,7 +395,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           ),
                           padding: EdgeInsets.only(left: 15, top: 6),
                           constraints:
-                              BoxConstraints.expand(width: 105.0, height: 60.0),
+                          BoxConstraints.expand(width: 105.0, height: 60.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -415,7 +416,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           ),
                           padding: EdgeInsets.only(left: 15, top: 6),
                           constraints:
-                              BoxConstraints.expand(width: 105.0, height: 60.0),
+                          BoxConstraints.expand(width: 105.0, height: 60.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -436,7 +437,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           ),
                           padding: EdgeInsets.only(left: 15, top: 6),
                           constraints:
-                              BoxConstraints.expand(width: 105.0, height: 60.0),
+                          BoxConstraints.expand(width: 105.0, height: 60.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
@@ -464,7 +465,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                         ),
                         padding: EdgeInsets.only(left: 15, top: 6),
                         constraints:
-                            BoxConstraints.expand(width: 105.0, height: 60.0),
+                        BoxConstraints.expand(width: 105.0, height: 60.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -485,7 +486,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                         ),
                         padding: EdgeInsets.only(left: 15, top: 6),
                         constraints:
-                            BoxConstraints.expand(width: 105.0, height: 60.0),
+                        BoxConstraints.expand(width: 105.0, height: 60.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -507,7 +508,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                         ),
                         padding: EdgeInsets.only(left: 15, top: 6),
                         constraints:
-                            BoxConstraints.expand(width: 105.0, height: 60.0),
+                        BoxConstraints.expand(width: 105.0, height: 60.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
