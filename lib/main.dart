@@ -308,6 +308,11 @@ class _HomePageState extends State<HomePage> {
 //                      style: TextStyle(color: Colors.grey),
 //                    )),
 
+              Container(
+                color: Colors.grey.shade400,
+                height: 1.0,
+              ),
+
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
