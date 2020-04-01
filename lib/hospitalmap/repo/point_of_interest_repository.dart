@@ -19,7 +19,7 @@ class PointOfInterestRepository extends BaseRepository {
       if (query.isEmpty) {
         return true;
       }
-      return pointOfInterest.name.contains(query);
+      return pointOfInterest.name.toLowerCase().contains(query.toLowerCase());
     }).toList();
   }
 }
