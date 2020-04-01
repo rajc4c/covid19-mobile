@@ -91,8 +91,7 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
             SnappingSheet(
               snappingSheetController: _snappingSheetController,
               snapPositions: const [
-                SnapPosition(positionPixel: 0.0),
-                SnapPosition(positionFactor: 0.3),
+                SnapPosition(positionFactor: 0.4),
                 SnapPosition(positionFactor: 0.8),
               ],
               sheetAbove: Align(
@@ -175,6 +174,8 @@ class _MapHospitalScreenState extends State<MapHospitalScreen>
         onTap: () {
           pointOfInterestBloc
               .updateSelectedPointOfInterest(pointOfInterestItem);
+          pointOfInterestBloc.updateBottomSheetSnapPosition(
+              SnapPosition(positionFactor: 0.4));
         },
         child: PlaceListItem(pointOfInterestItem),
       );

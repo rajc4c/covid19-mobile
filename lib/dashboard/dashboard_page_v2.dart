@@ -9,6 +9,7 @@ import 'package:openspaces/covid19/common_widgets.dart';
 import 'package:openspaces/covid19/modal/global_stat.dart';
 import 'package:openspaces/covid19/modal/homestat.dart';
 import 'package:openspaces/covid19/ui/home/info_page.dart';
+import 'package:openspaces/formdata/widgets/suspect_complaint.dart';
 import 'package:openspaces/formdata/widgets/upload_data_screen.dart';
 import 'package:openspaces/hospitalmap/screens/map_hospital_screen.dart';
 
@@ -18,11 +19,8 @@ class DashBoardPageV2 extends StatefulWidget {
 }
 
 class _DashBoardPageV2State extends State<DashBoardPageV2> {
-  _DashBoardPageV2State() {}
-
-  _getData() {
-    homeBloc.globalData();
-    homeBloc.getHomeData(province: "");
+  _DashBoardPageV2State() {
+    _getData();
   }
 
   @override
@@ -87,7 +85,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             ),
                             leading: Image(
                               image:
-                                  AssetImage('assets/images/Mask Group 17.png'),
+                                  AssetImage('assets/images/mask_group_17.png'),
                               width: 52,
                               height: 52,
                             ),
@@ -121,7 +119,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             child: Row(children: <Widget>[
                               Image(
                                 image: AssetImage(
-                                    'assets/images/Mask Group 18.png'),
+                                    'assets/images/mask_group_18.png'),
                                 width: 52,
                                 height: 52,
                               ),
@@ -160,7 +158,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                                 children: <Widget>[
                                   Image(
                                     image: AssetImage(
-                                        'assets/images/Mask Group 19.png'),
+                                        'assets/images/mask_group_19.png'),
                                     width: 52,
                                     height: 52,
                                   ),
@@ -279,6 +277,33 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  navItem() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Colors.white,
+      ),
+      padding: EdgeInsets.only(top: 15, bottom: 15),
+      child: ListTile(
+        title: Text(
+          "सूचना पठाउने र सहायता माग्ने फारम",
+          style: TextStyle(
+              color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+        leading: Image(
+          image: AssetImage('assets/images/corona.png'),
+          width: 52,
+          height: 52,
+        ),
+        trailing: Icon(Icons.keyboard_arrow_right, color: Colors.black),
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SuspectComplaint()));
+        },
       ),
     );
   }
@@ -536,5 +561,10 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
             ),
           );
         });
+  }
+
+  void _getData() {
+    homeBloc.globalData();
+    homeBloc.getHomeData(province: "");
   }
 }

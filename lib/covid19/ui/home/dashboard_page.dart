@@ -7,6 +7,7 @@ import 'package:openspaces/covid19/bloc/home_bloc.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/modal/global_stat.dart';
 import 'package:openspaces/covid19/modal/homestat.dart';
+import 'package:openspaces/formdata/widgets/suspect_complaint.dart';
 import 'package:openspaces/formdata/widgets/upload_data_screen.dart';
 import 'package:openspaces/hospitalmap/screens/map_hospital_screen.dart';
 
@@ -422,6 +423,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                           height: 8.0,
                         ),
                         navigationItemSelfAssement(),
+                        navItemSuspectcomplaint(),
                         navigationItemSelfMAP(),
                         navigationItemSelfFAQ(),
                         navigationItemViber(),
@@ -535,6 +537,42 @@ class _DashboardWidgetState extends State<DashboardWidget> {
             Spacer(),
             Text(
               'नक्शा',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black87,
+                  fontSize: 18.0),
+            ),
+            Spacer(),
+          ],
+        ),
+      ),
+    );
+  }
+  Widget navItemSuspectcomplaint() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => SuspectComplaint()));
+      },
+      child: Container(
+        width: double.infinity,
+        height: 180.0,
+        decoration: BoxDecoration(
+            boxShadow: [BoxShadow(blurRadius: 5.0, color: Color(0x335169ed))],
+            borderRadius: BorderRadius.circular(10.0),
+            color:  Color.fromRGBO(233, 236, 255, 1)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Spacer(),
+            Container(
+                height: 60.0,
+                width: 60.0,
+                child: Image.asset('assets/images/corona.png')),
+            Spacer(),
+            Text(
+              'Suspect Complain Form',
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontWeight: FontWeight.w500,
