@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:openspaces/covid19/api.dart';
 import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/covid19/bloc/home_bloc.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
 import 'package:openspaces/covid19/modal/global_stat.dart';
 import 'package:openspaces/covid19/modal/homestat.dart';
+import 'package:openspaces/covid19/ui/home/info_page.dart';
+import 'package:openspaces/formdata/widgets/upload_data_screen.dart';
+import 'package:openspaces/hospitalmap/screens/map_hospital_screen.dart';
 
 class DashBoardPageV2 extends StatefulWidget {
   @override
@@ -59,89 +63,115 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UploadDataScreen()));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.white,
+                          ),
+                          padding: EdgeInsets.only(
+                              left: 18, top: 15, right: 10, bottom: 15),
+                          constraints: BoxConstraints.expand(
+                              width: double.infinity, height: 70),
+                          child: Row(children: <Widget>[
+                            Image(
+                              image:
+                                  AssetImage('assets/images/Mask Group 17.png'),
+                              width: 52,
+                              height: 52,
+                            ),
+                            Text(
+                              "कोभिड-१९ को लक्षणहरु आफै मुल्यांकन गर्नुहोस्",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Spacer(),
+                            Icon(Icons.keyboard_arrow_right,
+                                color: Colors.black)
+                          ]),
                         ),
-                        padding: EdgeInsets.only(
-                            left: 18, top: 15, right: 10, bottom: 15),
-                        constraints: BoxConstraints.expand(
-                            width: double.infinity, height: 70),
-                        child: Row(children: <Widget>[
-                          Image(
-                            image:
-                                AssetImage('assets/images/Mask Group 17.png'),
-                            width: 52,
-                            height: 52,
-                          ),
-                          Text(
-                            "कोभिड-१९ को लक्षणहरु आफै मुल्यांकन गर्नुहोस्",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Spacer(),
-                          Icon(Icons.keyboard_arrow_right, color: Colors.black)
-                        ]),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MapHospitalScreen()));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.white,
+                          ),
+                          padding: EdgeInsets.only(
+                              left: 18, top: 15, right: 10, bottom: 15),
+                          constraints: BoxConstraints.expand(
+                              width: double.infinity, height: 70),
+                          child: Row(children: <Widget>[
+                            Image(
+                              image:
+                                  AssetImage('assets/images/Mask Group 18.png'),
+                              width: 52,
+                              height: 52,
+                            ),
+                            Text(
+                              "नक्सा हेर्नुहोस्",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Spacer(),
+                            Icon(Icons.keyboard_arrow_right,
+                                color: Colors.black)
+                          ]),
                         ),
-                        padding: EdgeInsets.only(
-                            left: 18, top: 15, right: 10, bottom: 15),
-                        constraints: BoxConstraints.expand(
-                            width: double.infinity, height: 70),
-                        child: Row(children: <Widget>[
-                          Image(
-                            image:
-                                AssetImage('assets/images/Mask Group 18.png'),
-                            width: 52,
-                            height: 52,
-                          ),
-                          Text(
-                            "नक्सा हेर्नुहोस्",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Spacer(),
-                          Icon(Icons.keyboard_arrow_right, color: Colors.black)
-                        ]),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Colors.white,
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => InfoPage()));
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Colors.white,
+                          ),
+                          padding: EdgeInsets.only(
+                              left: 18, top: 15, right: 10, bottom: 15),
+                          constraints: BoxConstraints.expand(
+                              width: double.infinity, height: 70),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Image(
+                                  image: AssetImage(
+                                      'assets/images/Mask Group 19.png'),
+                                  width: 52,
+                                  height: 52,
+                                ),
+                                Text(
+                                  "उपयोगी जानकारी",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Spacer(),
+                                Icon(Icons.keyboard_arrow_right,
+                                    color: Colors.black),
+                              ]),
                         ),
-                        padding: EdgeInsets.only(
-                            left: 18, top: 15, right: 10, bottom: 15),
-                        constraints: BoxConstraints.expand(
-                            width: double.infinity, height: 70),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Image(
-                                image: AssetImage(
-                                    'assets/images/Mask Group 19.png'),
-                                width: 52,
-                                height: 52,
-                              ),
-                              Text(
-                                "उपयोगी जानकारी",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Spacer(),
-                              Icon(Icons.keyboard_arrow_right,
-                                  color: Colors.black),
-                            ]),
                       )
                     ]),
               ),
@@ -156,10 +186,15 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Image(
-                      image: AssetImage('assets/images/Viber.png'),
-                      width: 61.17,
-                      height: 28.71,
+                    InkWell(
+                      onTap: () {
+                        launchURL(viber);
+                      },
+                      child: Image(
+                        image: AssetImage('assets/images/Viber.png'),
+                        width: 61.17,
+                        height: 28.71,
+                      ),
                     ),
                     Text("MOHP Nepal COVID-19",
                         style: TextStyle(
@@ -185,6 +220,8 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                         children: <TextSpan>[
                           TextSpan(
                               text: '9851-255-834',
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => launchCaller("9851255834"),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
@@ -194,7 +231,9 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                               style:
                                   TextStyle(color: Colors.black, fontSize: 12)),
                           TextSpan(
-                              text: '9851-255-834',
+                              text: '9851-255-837',
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => launchCaller("9851255837"),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
@@ -204,7 +243,9 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                               style:
                                   TextStyle(color: Colors.black, fontSize: 12)),
                           TextSpan(
-                              text: '9851-255-834',
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => launchCaller("9851255839"),
+                              text: '9851-255-839',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
@@ -216,11 +257,16 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                     SizedBox(
                       height: 15,
                     ),
-                    Text("1115",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            color: Colors.blue)),
+                    InkWell(
+                      onTap: () {
+                        launchCaller("1115");
+                      },
+                      child: Text("1115",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: Colors.blue)),
+                    ),
                     Text("(6am-10pm)")
                   ],
                 ),
