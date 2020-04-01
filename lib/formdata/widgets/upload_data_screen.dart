@@ -3,22 +3,22 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:location/location.dart';
 import 'package:openspaces/common/utils.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
-import 'package:openspaces/formdata/Country.dart';
 import 'package:openspaces/formdata/form_repository.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
-import 'package:location/location.dart';
+
 import '../ReportSubmissionThankYouScreen.dart';
 import 'countries.dart';
 
-class UploadDataScreen extends StatefulWidget {
+class SymtomsForm extends StatefulWidget {
   @override
-  _UploadDataScreenState createState() => _UploadDataScreenState();
+  _SymtomsFormState createState() => _SymtomsFormState();
 }
 
-class _UploadDataScreenState extends State<UploadDataScreen> {
+class _SymtomsFormState extends State<SymtomsForm> {
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
   var questionLabelStyle = TextStyle(
       fontSize: 16,
@@ -56,16 +56,52 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                 autovalidate: false,
                 child: Column(
                   children: <Widget>[
-                    FormBuilderTextField(
-                      autocorrect: false,
-                      attribute: "name",
-                      decoration: InputDecoration(
-                          fillColor: OpenSpaceColors.red,
-                          labelStyle: questionLabelStyle,
-                          labelText: "नामः",
-                          hintText: ""),
-                      validators: [FormBuilderValidators.required()],
+                    FormBuilderCheckbox(
+                      attribute: 'accept_terms',
+                      label: Text(
+                          "म यस फारम मार्फत आफ्ना शारीरिक लक्षणहरु, यात्राका विवरण तथा आफ्नो नाम, सम्पर्क नम्बर, उमेर, लिंग र ठेगाना सगैँ GPS स्थल आफ्नो स्वेक्षाले पठाई नेपाल सरकारलाई कोरोना संक्रमणको जोखिम न्यूनिकरण गर्नमा मद्दत गर्दछु।"),
+                      onChanged: (value) {
+                        hasConsentForPersonalDetails = value;
+                        setState(() {});
+                      },
                     ),
+                    this.hasConsentForPersonalDetails
+                        ? FormBuilderTextField(
+                            autocorrect: false,
+                            attribute: "name",
+                            decoration: InputDecoration(
+                                fillColor: OpenSpaceColors.red,
+                                labelStyle: questionLabelStyle,
+                                labelText: "नामः",
+                                hintText: ""),
+                            validators: [FormBuilderValidators.required()],
+                          )
+                        : Container(),
+                    this.hasConsentForPersonalDetails
+                        ? FormBuilderTextField(
+                            attribute: "contact_no",
+                            decoration: InputDecoration(
+                                fillColor: OpenSpaceColors.red,
+                                labelStyle: questionLabelStyle,
+                                labelText: "सम्पर्क नम्बर:",
+                                hintText: ""),
+                            validators: [
+                              FormBuilderValidators.required(),
+                              FormBuilderValidators.numeric()
+                            ],
+                          )
+                        : Container(),
+                    this.hasConsentForPersonalDetails
+                        ? FormBuilderTextField(
+                            attribute: "address",
+                            decoration: InputDecoration(
+                              fillColor: OpenSpaceColors.red,
+                              labelStyle: questionLabelStyle,
+                              labelText: "ठेगाना:",
+                            ),
+                            validators: [FormBuilderValidators.required()],
+                          )
+                        : Container(),
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "age",
@@ -76,7 +112,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                           hintText: ""),
                       validators: [
                         FormBuilderValidators.numeric(),
-                        FormBuilderValidators.max(100),
+                        FormBuilderValidators.max(120),
                         FormBuilderValidators.required()
                       ],
                     ),
@@ -410,27 +446,6 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                       ),
                       validators: [FormBuilderValidators.required()],
                     ),
-                    FormBuilderTextField(
-                      attribute: "contact_no",
-                      decoration: InputDecoration(
-                          fillColor: OpenSpaceColors.red,
-                          labelStyle: questionLabelStyle,
-                          labelText: "सम्पर्क नम्बर:",
-                          hintText: ""),
-                      validators: [
-                        FormBuilderValidators.required(),
-                        FormBuilderValidators.numeric()
-                      ],
-                    ),
-                    FormBuilderTextField(
-                      attribute: "address",
-                      decoration: InputDecoration(
-                        fillColor: OpenSpaceColors.red,
-                        labelStyle: questionLabelStyle,
-                        labelText: "ठेगाना:",
-                      ),
-                      validators: [FormBuilderValidators.required()],
-                    ),
                   ],
                 ),
               ),
@@ -441,7 +456,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
                 onTap: () {
                   if (_fbKey.currentState.saveAndValidate()) {
                     uploadFormNAXA();
-                    uploadFormCFC();
+//                    uploadFormCFC();
                   } else {
                     showToastMessage(message: "फारममा त्रुटिहरू छन्");
                   }
@@ -476,6 +491,7 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
   bool hasTravelHistory = false;
   bool hasHasCovidContact = false;
   bool isUploadingForm = false;
+  bool hasConsentForPersonalDetails = false;
 
   void uploadFormCFC() {
 //    setState(() {
@@ -545,38 +561,50 @@ class _UploadDataScreenState extends State<UploadDataScreen> {
     _fbKey.currentState.value.remove("transit_names");
     _fbKey.currentState.value.remove("has_covid_contact");
     _fbKey.currentState.value.remove("covid_contact_names");
+    _fbKey.currentState.value.remove("accept_terms");
 
     Map<String, dynamic> formData = {
       "device_id": deviceId,
-      "lat": currentLocation != null ? currentLocation.latitude : "",
-      "long": currentLocation != null ? currentLocation.longitude : "",
+      "lat": currentLocation != null && this.hasConsentForPersonalDetails
+          ? currentLocation.latitude
+          : "27",
+      "long": currentLocation != null && this.hasConsentForPersonalDetails
+          ? currentLocation.longitude
+          : "85",
       "travel_history": jsonEncode(travelHistory).toString(),
     };
+
+    formData.putIfAbsent("name", () => "");
+    formData.putIfAbsent("contact_no", () => "");
+    formData.putIfAbsent("address", () => "");
 
     formData.addAll(_fbKey.currentState.value);
 
     print(formData);
-
-    formRepository.uploadSymtomForm(formData).then((String message) {
-      if (message != null && message.isNotEmpty) {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ReportSubmissionThankYouScreen(message)));
-      } else {
-        showToastMessage(message: "फारम बुझाउन असफल भयो");
-      }
-
-      setState(() {
-        isUploadingForm = false;
-      });
-    }).catchError((error, stack) {
-      print(stack);
-      showToastMessage(message: "फारम बुझाउन असफल भयो");
-      setState(() {
-        isUploadingForm = false;
-      });
+    setState(() {
+      isUploadingForm = false;
     });
+
+//    formRepository.uploadSymtomForm(formData).then((String message) {
+//      if (message != null && message.isNotEmpty) {
+//        Navigator.pushReplacement(
+//            context,
+//            MaterialPageRoute(
+//                builder: (context) => ReportSubmissionThankYouScreen(message)));
+//      } else {
+//        showToastMessage(message: "फारम बुझाउन असफल भयो");
+//      }
+//
+//      setState(() {
+//        isUploadingForm = false;
+//      });
+//    }).catchError((error, stack) {
+//      print(stack);
+//      showToastMessage(message: "फारम बुझाउन असफल भयो");
+//      setState(() {
+//        isUploadingForm = false;
+//      });
+//    });
   }
 
   void cacheLocation() async {

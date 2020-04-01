@@ -68,7 +68,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => UploadDataScreen()));
+                                  builder: (context) => SymtomsForm()));
                         },
                         child: Container(
                           decoration: BoxDecoration(
