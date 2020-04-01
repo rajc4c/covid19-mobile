@@ -456,7 +456,7 @@ class _SymtomsFormState extends State<SymtomsForm> {
                 onTap: () {
                   if (_fbKey.currentState.saveAndValidate()) {
                     uploadFormNAXA();
-//                    uploadFormCFC();
+                    uploadFormCFC();
                   } else {
                     showToastMessage(message: "फारममा त्रुटिहरू छन्");
                   }
@@ -509,12 +509,20 @@ class _SymtomsFormState extends State<SymtomsForm> {
       "diarrhoea": _fbKey.currentState.value["diarrahoe"] ? "1" : "0",
       "runny_nose": _fbKey.currentState.value["runny_nose"] ? "1" : "0",
       "nausea": _fbKey.currentState.value["vomit"] ? "1" : "0",
-      "name": _fbKey.currentState.value["name"].toString(),
+      "name": this.hasConsentForPersonalDetails
+          ? _fbKey.currentState.value["name"].toString()
+          : "",
       "age": _fbKey.currentState.value["age"].toString(),
       "gender": _fbKey.currentState.value["gender"].toString(),
-      "phone": _fbKey.currentState.value["contact_no"].toString(),
-      "lat": currentLocation != null ? currentLocation.latitude : "",
-      "lng": currentLocation != null ? currentLocation.longitude : "",
+      "phone": this.hasConsentForPersonalDetails
+          ? _fbKey.currentState.value["contact_no"].toString()
+          : "",
+      "lat": currentLocation != null && this.hasConsentForPersonalDetails
+          ? currentLocation.latitude
+          : "",
+      "lng": currentLocation != null && this.hasConsentForPersonalDetails
+          ? currentLocation.longitude
+          : "",
     };
 
     print(formData);
@@ -581,30 +589,27 @@ class _SymtomsFormState extends State<SymtomsForm> {
     formData.addAll(_fbKey.currentState.value);
 
     print(formData);
-    setState(() {
-      isUploadingForm = false;
-    });
 
-//    formRepository.uploadSymtomForm(formData).then((String message) {
-//      if (message != null && message.isNotEmpty) {
-//        Navigator.pushReplacement(
-//            context,
-//            MaterialPageRoute(
-//                builder: (context) => ReportSubmissionThankYouScreen(message)));
-//      } else {
-//        showToastMessage(message: "फारम बुझाउन असफल भयो");
-//      }
-//
-//      setState(() {
-//        isUploadingForm = false;
-//      });
-//    }).catchError((error, stack) {
-//      print(stack);
-//      showToastMessage(message: "फारम बुझाउन असफल भयो");
-//      setState(() {
-//        isUploadingForm = false;
-//      });
-//    });
+    formRepository.uploadSymtomForm(formData).then((String message) {
+      if (message != null && message.isNotEmpty) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ReportSubmissionThankYouScreen(message)));
+      } else {
+        showToastMessage(message: "फारम बुझाउन असफल भयो");
+      }
+
+      setState(() {
+        isUploadingForm = false;
+      });
+    }).catchError((error, stack) {
+      print(stack);
+      showToastMessage(message: "फारम बुझाउन असफल भयो");
+      setState(() {
+        isUploadingForm = false;
+      });
+    });
   }
 
   void cacheLocation() async {
