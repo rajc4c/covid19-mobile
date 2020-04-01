@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:openspaces/common/constants.dart';
+import 'package:openspaces/common/utils.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/common_widgets.dart';
 import 'package:openspaces/hospitalmap/bloc/point_of_interest_bloc.dart';
@@ -40,7 +41,7 @@ class _HeaderTextState extends State<HeaderText> {
                     children: [
                       TextSpan(text: '  '),
                       TextSpan(
-                          text: snapshot.data.toString(),
+                          text: Utils.numberMap(snapshot.data.toString()),
                           style: TextStyle(
                               color: OpenSpaceColors.black, fontSize: 18)),
                     ],
