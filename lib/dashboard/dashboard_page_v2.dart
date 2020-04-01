@@ -63,42 +63,39 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => UploadDataScreen()));
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Colors.white,
+
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Colors.white,
+                        ),
+                        padding: EdgeInsets.only(
+                            top: 15, bottom: 15),
+                        child: ListTile(
+                          title: Text(
+                            "कोभिड-१९ को लक्षणहरु आफै मुल्यांकन गर्नुहोस्",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
                           ),
-                          padding: EdgeInsets.only(
-                              left: 18, top: 15, right: 10, bottom: 15),
-                          constraints: BoxConstraints.expand(
-                              width: double.infinity, height: 70),
-                          child: Row(children: <Widget>[
-                            Image(
-                              image:
-                                  AssetImage('assets/images/Mask Group 17.png'),
-                              width: 52,
-                              height: 52,
-                            ),
-                            Text(
-                              "कोभिड-१९ को लक्षणहरु आफै मुल्यांकन गर्नुहोस्",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Spacer(),
-                            Icon(Icons.keyboard_arrow_right,
-                                color: Colors.black)
-                          ]),
+                          leading: Image(
+                            image:
+                            AssetImage('assets/images/Mask Group 17.png'),
+                            width: 52,
+                            height: 52,
+                          ),
+                          trailing: Icon(Icons.keyboard_arrow_right,
+                              color: Colors.black),
+                          onTap: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UploadDataScreen()));
+                          },
                         ),
                       ),
+
                       InkWell(
                         onTap: () {
                           Navigator.push(
