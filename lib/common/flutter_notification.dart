@@ -42,7 +42,7 @@ class FlutterNotification {
 
   void showNotification({@required title, @required message, url}) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'np.com.naxa.covid19',
+      'np.com.mohp.covid19',
       'News & Notices',
       'Notification for news & notices',
       playSound: true,

@@ -8,6 +8,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1007010261231:android:8708b5645e6f77e86e931a",
+        "android_client_info": {
+          "package_name": "np.com.mohp.covid19"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1007010261231-r4vpngm2lfsqkaeubpf2jva4j56a83gk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQCgTtP5daNaXgONLclRBoXBiC9fDNcf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1007010261231-r4vpngm2lfsqkaeubpf2jva4j56a83gk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1007010261231:android:8e8384483967d90b6e931a",
         "android_client_info": {
           "package_name": "np.com.naxa.covid19"
