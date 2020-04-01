@@ -24,17 +24,27 @@ AppBar covidAppBar() {
       title: logo());
 }
 
-Widget logo() {
+Widget logo({double iconSize}) {
   return ListTile(
     leading: Image.asset(
       "assets/images/nepal_logo.png",
-      height: 34.0,
-      width: 34.0,
+      height: iconSize??34.0,
+      width: iconSize??34.0,
     ),
     title: Text(
       "हाम्रो स्वास्थ्य",
       style: TextStyle(
           fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
     ),
+  );
+}
+
+AppBar covidAppBarText({String title, bool centerTitle = true}) {
+  return AppBar(
+    backgroundColor: OpenSpaceColors.white,
+    centerTitle: centerTitle,
+    elevation: 1,
+    iconTheme: IconThemeData(color: Colors.black),
+    title: Text(title??"", style: TextStyle(color: OpenSpaceColors.red),),
   );
 }

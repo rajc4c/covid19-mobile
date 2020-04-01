@@ -16,6 +16,7 @@ import 'covid19/api.dart';
 import 'covid19/common_widgets.dart';
 import 'covid19/ui/home/dashboard_page.dart';
 import 'covid19/ui/page_about.dart';
+import 'dashboard/dashboard_page_v2.dart';
 import 'formdata/widgets/upload_data_screen.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
 import 'package:http/http.dart' as http;
@@ -103,25 +104,26 @@ class _HomePageState extends State<HomePage> {
         pageChanged(index);
       },
       children: <Widget>[
-        DashboardPage(
-          medicalFacilityClicked: () {
-            print("[home][medical facilities clicked]");
-            pageController.animateToPage(1,
-                duration: Duration(milliseconds: 300), curve: Curves.ease);
-          },
-        ),
+//        DashboardPage(
+//          medicalFacilityClicked: () {
+//            print("[home][medical facilities clicked]");
+//            pageController.animateToPage(1,
+//                duration: Duration(milliseconds: 300), curve: Curves.ease);
+//          },
+//        ),
+        DashBoardPageV2(),
         MapHospitalScreen(),
-        UploadDataScreen(),
+        SymtomsForm(),
         InfoPage()
       ],
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    checkForAppUpdate();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   //checkForAppUpdate();
+  // }
 
   _openCommingSoonPage() {
     Navigator.push(
@@ -178,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => UploadDataScreen()));
+                          builder: (context) => SymtomsForm()));
                 },
                 icon: Icon(
                   Icons.help,

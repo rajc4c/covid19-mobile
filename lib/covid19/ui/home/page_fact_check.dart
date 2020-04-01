@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
+
+import 'faq_expansion_tile_list_item.dart';
 
 class FactCheck {
   String title;
@@ -43,17 +46,17 @@ class FactCheckPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: covidAppBar(),
+      appBar: covidAppBarText(title: "भ्रम र यथार्थ"),
+      backgroundColor: OpenSpaceColors.defaultBackground,
       body: Padding(
-        padding: const EdgeInsets.only(left:16.0, right: 16.0),
+        padding: const EdgeInsets.only(left:8.0, right: 8.0, top: 16.0),
         child: ListView.builder(
           shrinkWrap: true,
           itemCount: FactCheck.factCheckList.length,
             itemBuilder: (context, pos) {
               FactCheck factCheck = FactCheck.factCheckList[pos];
-                return ListTile(
-                    title: Text("${factCheck.title}", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 14.0),),
-                  subtitle:  Text(factCheck.answers, style: TextStyle(fontSize: 14.0),));
+
+                return   ExpansionTileListItemWidget(factCheck.title, factCheck.answers);
         }),
       ),
     );

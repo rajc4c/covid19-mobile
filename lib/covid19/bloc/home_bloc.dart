@@ -5,11 +5,12 @@ import 'package:openspaces/covid19/api.dart';
 import 'package:openspaces/covid19/base_inherited_bloc_provider.dart';
 import 'package:openspaces/covid19/modal/global_stat.dart';
 import 'package:openspaces/covid19/modal/homestat.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:http/http.dart' as http;
 
 class HomeBloc extends BaseBloc {
-  StreamController<HomeStat> _streamController = StreamController();
-  StreamController<GlobalStat> _globalStreamController = StreamController();
+  BehaviorSubject<HomeStat> _streamController = BehaviorSubject();
+  BehaviorSubject<GlobalStat> _globalStreamController = BehaviorSubject();
 
   Stream<HomeStat> get homeStream => _streamController.stream;
   Stream<GlobalStat> get globalStatStream => _globalStreamController.stream;
@@ -68,4 +69,7 @@ class HomeBloc extends BaseBloc {
     _streamController.close();
     _globalStreamController.close();
   }
+
 }
+
+final HomeBloc homeBloc = HomeBloc();
