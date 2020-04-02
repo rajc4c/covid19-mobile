@@ -100,6 +100,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             },
                           ),
                         ),
+                        navItem(),
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -176,7 +177,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                                 ]),
                           ),
                         ),
-                        navItem(),
+
                       ]),
                 ),
                 Container(
