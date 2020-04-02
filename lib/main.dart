@@ -58,7 +58,6 @@ void configureRemoteConfig() async {
   await remoteConfig.activateFetched();
 }
 
-final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 final FlutterNotification _flutterNotification = FlutterNotification();
 RemoteConfig remoteConfig;
 
@@ -67,47 +66,7 @@ class MyApp extends StatelessWidget {
       AppLocalizationDelegate(Locale('en', 'US'));
 
   MyApp() {
-    configureFirebaseMessaging();
     configureRemoteConfig();
-  }
-
-  void configureFirebaseMessaging() {
-    _firebaseMessaging.requestNotificationPermissions(
-        const IosNotificationSettings(
-            sound: true, badge: true, alert: true, provisional: true));
-    _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {
-      print("Settings registered: $settings");
-    });
-
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
-        var data = message['data'];
-        _flutterNotification.showNotification(
-            title: data['title'], message: data['message']);
-      },
-      onBackgroundMessage: firebaseBackgroundMessageHandler,
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-      },
-    );
-
-    uploadFirebaseToken(_firebaseMessaging);
-  }
-
-  void uploadFirebaseToken(_firebaseMessaging) async {
-    String deviceId = await Utils.getDeviceDetails();
-    String token = await _firebaseMessaging.getToken();
-    http.post(post_fcm_reg_key,
-        body: {"device_id": deviceId, "registration_id": token}).then((value) {
-      print(value);
-    }).catchError((error, stack) {
-      print(stack);
-    });
   }
 
   @override
@@ -186,13 +145,6 @@ class _HomePageState extends State<HomePage> {
         pageChanged(index);
       },
       children: <Widget>[
-//        DashboardPage(
-//          medicalFacilityClicked: () {
-//            print("[home][medical facilities clicked]");
-//            pageController.animateToPage(1,
-//                duration: Duration(milliseconds: 300), curve: Curves.ease);
-//          },
-//        ),
         DashBoardPageV2(),
         MapHospitalScreen(),
         SymtomsForm(),
@@ -201,11 +153,89 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   //checkForAppUpdate();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    checkForAppUpdate();
+    configureFirebaseMessaging();
+  }
+
+  void configureFirebaseMessaging() {
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(
+            sound: true, badge: true, alert: true, provisional: true));
+
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
+
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        var data = message['data'];
+        _showItemDialog(message);
+        _flutterNotification.showNotification(title: "hi", message: "hello");
+      },
+      onBackgroundMessage: firebaseBackgroundMessageHandler,
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        _navigateToItemDetail(message);
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        _navigateToItemDetail(message);
+      },
+    );
+
+    uploadFirebaseToken(_firebaseMessaging);
+  }
+
+  void uploadFirebaseToken(_firebaseMessaging) async {
+    String deviceId = await Utils.getDeviceDetails();
+    String token = await _firebaseMessaging.getToken();
+    http.post(post_fcm_reg_key,
+        body: {"device_id": deviceId, "registration_id": token}).then((value) {
+      print(value);
+    }).catchError((error, stack) {
+      print(stack);
+    });
+  }
+
+  Widget _buildDialog(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: OpenSpaceColors.listItemBackground,
+      content: Text("Item has been updated"),
+      actions: <Widget>[
+        FlatButton(
+          child: const Text('CLOSE'),
+          onPressed: () {
+            Navigator.pop(context, false);
+          },
+        ),
+        FlatButton(
+          child: const Text('SHOW'),
+          onPressed: () {
+            Navigator.pop(context, true);
+          },
+        ),
+      ],
+    );
+  }
+
+  void _showItemDialog(Map<String, dynamic> message) {
+    showDialog<bool>(context: context, builder: (_) => _buildDialog(context))
+        .then((bool shouldNavigate) {
+      if (shouldNavigate == true) {
+        _navigateToItemDetail(message);
+      }
+    });
+  }
+
+  void _navigateToItemDetail(message) {
+    print("_navigateToItemDetail");
+  }
 
   _openCommingSoonPage() {
     Navigator.push(

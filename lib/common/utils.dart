@@ -28,8 +28,9 @@ class Utils {
     }
   }
 
-  static relativeDate(var dateString){
-    DateTime dateTime = new DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(dateString);
+  static relativeDate(var dateString) {
+    DateTime dateTime =
+        new DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").parse(dateString);
     String formattedTime = DateFormat('yyyy-MM-dd kk:mm:a').format(dateTime);
     return formattedTime;
   }
@@ -55,11 +56,25 @@ class Utils {
 
   static String numberMap(String number) {
     String mappedNumber = "";
-    Map map = {"0": "०", "1": '१', "2": '२', "3": '३', "4": '४', "5": '५', "6": '६', "7": '७', "8": '८', "9": '९'};
+    Map map = {
+      "0": "०",
+      "1": '१',
+      "2": '२',
+      "3": '३',
+      "4": '४',
+      "5": '५',
+      "6": '६',
+      "7": '७',
+      "8": '८',
+      "9": '९'
+    };
 
-    for(int i=0; i< number.length; i++){
-      String no = map[number[i]];
-      mappedNumber = mappedNumber+no;
+    for (int i = 0; i < number.length; i++) {
+      bool isNumber = "0123456789".contains(number[i]);
+      if (isNumber) {
+        String no = map[number[i]];
+        mappedNumber = mappedNumber + no;
+      }
     }
     return mappedNumber;
   }
