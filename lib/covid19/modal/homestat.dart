@@ -66,6 +66,7 @@ class HomeStat {
   }
 
   String getFormattedDate() {
+
     final outputFormat = new DateFormat(' d MMM y |').add_jm();
     final inputFormat = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     DateTime updatedDateTime = inputFormat.parse(updateDate);
@@ -74,3 +75,18 @@ class HomeStat {
     return text;
   }
 }
+
+final months = {
+  "Jan": "",
+  "Feb": "",
+  "Mar": "",
+  "Apr": "",
+  "May": "",
+  "Jun": "",
+  "Jul": "",
+  "Aug": "",
+  "Sep": "",
+  "Oct": "",
+  "Nov": "",
+  "Dec": "",
+};
