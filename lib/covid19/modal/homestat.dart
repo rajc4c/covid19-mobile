@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class HomeStat {
   int tested;
   int confirmed;
@@ -11,20 +13,23 @@ class HomeStat {
   int occupiedIsolationBed;
   int facilityCount;
   String hotline;
+  String updateDate;
 
-  HomeStat(
-      {this.tested,
-      this.confirmed,
-      this.isolation,
-      this.death,
-      this.icu,
-      this.occupiedIcu,
-      this.ventilator,
-      this.occupiedVentilator,
-      this.isolationBed,
-      this.occupiedIsolationBed,
-      this.facilityCount,
-      this.hotline});
+  HomeStat({
+    this.tested,
+    this.confirmed,
+    this.isolation,
+    this.death,
+    this.icu,
+    this.occupiedIcu,
+    this.ventilator,
+    this.occupiedVentilator,
+    this.isolationBed,
+    this.occupiedIsolationBed,
+    this.facilityCount,
+    this.hotline,
+    this.updateDate,
+  });
 
   HomeStat.fromJson(Map<String, dynamic> json) {
     tested = json['tested'];
@@ -39,6 +44,7 @@ class HomeStat {
     occupiedIsolationBed = json['occupied_isolation_bed'];
     facilityCount = json['facility_count'];
     hotline = json['hotline'];
+    updateDate = json['update_date'];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +61,16 @@ class HomeStat {
     data['occupied_isolation_bed'] = this.occupiedIsolationBed;
     data['facility_count'] = this.facilityCount;
     data['hotline'] = this.hotline;
+    data['update_date'] = this.updateDate;
     return data;
+  }
+
+  String getFormattedDate() {
+    final outputFormat = new DateFormat(' d MMM y |').add_jm();
+    final inputFormat = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    DateTime updatedDateTime = inputFormat.parse(updateDate);
+    String text = outputFormat.format(updatedDateTime);
+
+    return text;
   }
 }
