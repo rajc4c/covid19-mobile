@@ -365,10 +365,11 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           color: Colors.red,
                           fontSize: 13,
                           fontWeight: FontWeight.bold)),
+                          Spacer(),
 
-                  Text(" विश्वभरीमा",
+                  Text("८ः०० | १ अप्रिल २०२०",
                       style: TextStyle(
-                          color: Colors.red,
+                          color: Colors.grey,
                           fontSize: 13,
                           fontWeight: FontWeight.bold)),
 
@@ -447,7 +448,14 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                         style: TextStyle(
                             color: Colors.red,
                             fontSize: 13,
-                            fontWeight: FontWeight.bold))
+                            fontWeight: FontWeight.bold)),
+                            Spacer(),
+
+                  Text("८ः०० | १ अप्रिल २०२०",
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold)),
                   ],
                 ),
                 Padding(
