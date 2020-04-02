@@ -12,31 +12,13 @@ class FlutterNotification {
     _configLocalNotification();
   }
 
-  String getNotificationContent(Map<String, dynamic> json) {
-    var data = json['data'];
-    String type = data["type"];
-    String title = data["title"];
-    String message = data['message'];
-
-
-  }
-
   void _configLocalNotification() {
     var initializationSettingsAndroid =
         AndroidInitializationSettings('mipmap/launcher_icon');
     var initializationSettingsIOS = IOSInitializationSettings();
     var initializationSettings = InitializationSettings(
         initializationSettingsAndroid, initializationSettingsIOS);
-     flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: onSelectNotification);
-  }
-
-  Future onSelectNotification(String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload);
-    }
-
-    Utils.launchURL(payload);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
 
@@ -49,7 +31,6 @@ class FlutterNotification {
       enableVibration: true,
       importance: Importance.Max,
       priority: Priority.High,
-
     );
     var iOSPlatformChannelSpecifics = IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(

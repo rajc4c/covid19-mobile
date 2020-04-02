@@ -64,9 +64,8 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                     color: Color(0xffeeeeee),
                   ),
                   padding: EdgeInsets.all(20),
-                  constraints:
-                  BoxConstraints.expand(width: double.infinity, height: 370),
-
+                  constraints: BoxConstraints.expand(
+                      width: double.infinity, height: 370),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -177,7 +176,6 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                                 ]),
                           ),
                         ),
-
                       ]),
                 ),
                 Container(
@@ -339,7 +337,6 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           fontWeight: FontWeight.bold)),
                   Spacer(),
                   Text("स्रोतः विश्व स्वास्थ्य संगठन",
-
                       style: TextStyle(
                           color: Colors.grey,
                           fontSize: 13,
@@ -445,7 +442,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(Utils.numberMap("${homeStat.tested}"),
+                              Text(Utils.numberMap("${homeStat.tested ?? 0}"),
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(
@@ -468,7 +465,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             children: <Widget>[
                               Text(
                                   Utils.numberMap(
-                                      "${homeStat.tested - homeStat.confirmed}"),
+                                      "${homeStat.tested ?? 0 - homeStat.confirmed ?? 0}"),
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(
@@ -489,9 +486,8 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-
-                              Text(Utils.numberMap("${homeStat.confirmed}"),
-
+                              Text(
+                                  Utils.numberMap("${homeStat.confirmed ?? 0}"),
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(
@@ -518,7 +514,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(Utils.numberMap("${homeStat.isolation}"),
+                            Text(Utils.numberMap("${homeStat.isolation ?? 0}"),
                                 style: TextStyle(
                                     fontSize: 22, color: Colors.black)),
                             Text(
@@ -541,7 +537,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           children: <Widget>[
                             Text(
                                 Utils.numberMap(
-                                    "${homeStat.confirmed - homeStat.death - homeStat.isolation}"),
+                                    "${homeStat.confirmed ?? 0 - homeStat.death ?? 0 - homeStat.isolation ?? 0}"),
                                 style: TextStyle(
                                     fontSize: 22, color: Colors.black)),
                             Text(
@@ -562,7 +558,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(Utils.numberMap("${homeStat.death}"),
+                            Text(Utils.numberMap("${homeStat.death ?? 0}"),
                                 style: TextStyle(
                                     fontSize: 22, color: Colors.black)),
                             Text(

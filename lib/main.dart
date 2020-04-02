@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:openspaces/common/constants.dart';
+import 'package:openspaces/common/custom_dialog.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/ui/home/info_page.dart';
 import 'package:openspaces/covid19/ui/home/page_comming_soon.dart';
@@ -58,7 +59,6 @@ void configureRemoteConfig() async {
   await remoteConfig.activateFetched();
 }
 
-final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 final FlutterNotification _flutterNotification = FlutterNotification();
 RemoteConfig remoteConfig;
 
@@ -67,47 +67,7 @@ class MyApp extends StatelessWidget {
       AppLocalizationDelegate(Locale('en', 'US'));
 
   MyApp() {
-    configureFirebaseMessaging();
     configureRemoteConfig();
-  }
-
-  void configureFirebaseMessaging() {
-    _firebaseMessaging.requestNotificationPermissions(
-        const IosNotificationSettings(
-            sound: true, badge: true, alert: true, provisional: true));
-    _firebaseMessaging.onIosSettingsRegistered
-        .listen((IosNotificationSettings settings) {
-      print("Settings registered: $settings");
-    });
-
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
-        var data = message['data'];
-        _flutterNotification.showNotification(
-            title: data['title'], message: data['message']);
-      },
-      onBackgroundMessage: firebaseBackgroundMessageHandler,
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-      },
-    );
-
-    uploadFirebaseToken(_firebaseMessaging);
-  }
-
-  void uploadFirebaseToken(_firebaseMessaging) async {
-    String deviceId = await Utils.getDeviceDetails();
-    String token = await _firebaseMessaging.getToken();
-    http.post(post_fcm_reg_key,
-        body: {"device_id": deviceId, "registration_id": token}).then((value) {
-      print(value);
-    }).catchError((error, stack) {
-      print(stack);
-    });
   }
 
   @override
@@ -186,13 +146,6 @@ class _HomePageState extends State<HomePage> {
         pageChanged(index);
       },
       children: <Widget>[
-//        DashboardPage(
-//          medicalFacilityClicked: () {
-//            print("[home][medical facilities clicked]");
-//            pageController.animateToPage(1,
-//                duration: Duration(milliseconds: 300), curve: Curves.ease);
-//          },
-//        ),
         DashBoardPageV2(),
         MapHospitalScreen(),
         SymtomsForm(),
@@ -201,11 +154,82 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   //checkForAppUpdate();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    checkForAppUpdate();
+    configureFirebaseMessaging();
+  }
+
+  void configureFirebaseMessaging() {
+    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(
+            sound: true, badge: true, alert: true, provisional: true));
+
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
+
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        var data = message['data'];
+        _showItemDialog(message);
+        _flutterNotification.showNotification(
+            title: data["title"], message: data['message']);
+      },
+      onBackgroundMessage: firebaseBackgroundMessageHandler,
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        _navigateToItemDetail(message);
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        _navigateToItemDetail(message);
+      },
+    );
+
+    uploadFirebaseToken(_firebaseMessaging);
+  }
+
+  void uploadFirebaseToken(_firebaseMessaging) async {
+    String deviceId = await Utils.getDeviceDetails();
+    String token = await _firebaseMessaging.getToken();
+    http.post(post_fcm_reg_key,
+        body: {"device_id": deviceId, "registration_id": token}).then((value) {
+      print(value);
+    }).catchError((error, stack) {
+      print(stack);
+    });
+  }
+
+  Widget _buildDialog(BuildContext context, title, message) {
+    return CustomDialog(
+      buttonText: "OK",
+      description: message ?? "",
+      title: title ?? "",
+    );
+  }
+
+  void _showItemDialog(Map<String, dynamic> message) {
+    print(["_showItemDialog ${message.toString()}"]);
+    showDialog<bool>(
+            context: context,
+            builder: (_) => _buildDialog(
+                context, message['data']['title'], message['data']['message']))
+        .then((bool shouldNavigate) {
+      _navigateToItemDetail(message);
+    });
+  }
+
+  void _navigateToItemDetail(message) {
+    String url = message['data']["url"];
+    if (url != null && url.isNotEmpty) {
+      Utils.launchURL(url);
+    }
+  }
 
   _openCommingSoonPage() {
     Navigator.push(
@@ -266,6 +290,8 @@ class _HomePageState extends State<HomePage> {
                           ),
                           onTap: () {
                             navDrawerId = NavDrawerIds.latestUpdateId;
+                            Navigator.pop(context);
+
                             setState(() {});
                           },
                         )),
@@ -305,6 +331,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             setState(() {
                               navDrawerId = NavDrawerIds.healthFacilitiesId;
+                              Navigator.pop(context);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -348,6 +375,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             setState(() {
                               navDrawerId = NavDrawerIds.selfTestId;
+                              Navigator.pop(context);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -391,6 +419,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             setState(() {
                               navDrawerId = NavDrawerIds.suspectComplaintFormId;
+                              Navigator.pop(context);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -478,6 +507,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             setState(() {
                               navDrawerId = NavDrawerIds.faqId;
+                              Navigator.pop(context);
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => FaqPage()));
                             });
@@ -518,6 +548,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             setState(() {
                               navDrawerId = NavDrawerIds.aboutAppId;
+                              Navigator.pop(context);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -559,6 +590,8 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             setState(() {
                               navDrawerId = NavDrawerIds.feedbackFormId;
+                              Navigator.pop(context);
+
                               Utils.launchURL(
                                   remoteConfig.getString('feed_back_form'));
                             });
@@ -638,6 +671,8 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                       child: FlatButton.icon(
                           onPressed: () {
+                            Navigator.pop(context);
+
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => LoginPage()));
                           },
