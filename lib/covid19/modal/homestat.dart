@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:openspaces/common/utils.dart';
 
 class HomeStat {
   int tested;
@@ -67,6 +68,7 @@ class HomeStat {
 
   String getFormattedDate() {
 
+    String nepaliDate = "";
     final outputFormat = new DateFormat(' d MMM y |').add_jm();
     final inputFormat = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     DateTime updatedDateTime = inputFormat.parse(updateDate);
@@ -74,13 +76,33 @@ class HomeStat {
 
     List<String> dateList = [];
     dateList = text.split(" | ");
-    String yearRaw = dateList[0].trim();
-    String time = dateList[1].trim();
-    
+    String rawYyear = dateList[0].trim();
+    String rawTime = dateList[1].trim();
 
-    print("Date : "+text);
+    List<String> yearList = [];
+    yearList = rawYyear.split(" ");
 
-    return text;
+    String splitedDay = Utils.numberMap(yearList[0].trim());
+    String splitedMonth = months[yearList[1].trim()];
+    String splitedYear = Utils.numberMap(yearList[2].trim());
+
+
+    List<String> timeList = [];
+    timeList = rawTime.split(" ");
+
+    String rawHrsMin = timeList[0].trim();
+    String rawAmPm = timeList[1].trim();
+
+    List<String> hrsMinList = [];
+    hrsMinList = rawHrsMin.split(":");
+
+    String splittedHours = Utils.numberMap(hrsMinList[0].trim());
+    String splittedMins = Utils.numberMap(hrsMinList[1].trim());
+
+
+    nepaliDate = splitedDay+" "+splitedMonth+" "+splitedYear+" | "+splittedHours+":"+splittedMins+" "+rawAmPm;
+
+    return nepaliDate;
   }
 }
 
