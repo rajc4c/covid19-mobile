@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:http/http.dart' as http;
 import 'package:openspaces/common/constants.dart';
+import 'package:openspaces/common/custom_dialog.dart';
 import 'package:openspaces/covid19/colors.dart';
 import 'package:openspaces/covid19/ui/home/info_page.dart';
 import 'package:openspaces/covid19/ui/home/page_comming_soon.dart';
@@ -205,24 +206,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildDialog(BuildContext context, title, message) {
-    return AlertDialog(
-      backgroundColor: OpenSpaceColors.listItemBackground,
-      content: Text(message ?? ""),
-      title: Text(title ?? ""),
-      actions: <Widget>[
-        FlatButton(
-          child: const Text('CLOSE'),
-          onPressed: () {
-            Navigator.pop(context, false);
-          },
-        ),
-        FlatButton(
-          child: const Text('OK'),
-          onPressed: () {
-            Navigator.pop(context, true);
-          },
-        ),
-      ],
+    return CustomDialog(
+      buttonText: "OK",
+      description: message ?? "",
+      title: title ?? "",
     );
   }
 
@@ -233,9 +220,7 @@ class _HomePageState extends State<HomePage> {
             builder: (_) => _buildDialog(
                 context, message['data']['title'], message['data']['message']))
         .then((bool shouldNavigate) {
-      if (shouldNavigate == true) {
-        _navigateToItemDetail(message);
-      }
+      _navigateToItemDetail(message);
     });
   }
 

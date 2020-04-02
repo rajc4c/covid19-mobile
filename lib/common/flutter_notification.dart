@@ -21,13 +21,6 @@ class FlutterNotification {
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  Future onSelectNotification(String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload);
-    }
-
-    Utils.launchURL(payload);
-  }
 
   void showNotification({@required title, @required message, url}) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
