@@ -335,9 +335,10 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           color: Colors.red,
                           fontSize: 13,
                           fontWeight: FontWeight.bold)),
-                  Text(" विश्वभरीमा",
+                  Spacer(),
+                  Text("स्रोतः विश्व स्वास्थ्य संगठन",
                       style: TextStyle(
-                          color: Colors.red,
+                          color: Colors.grey,
                           fontSize: 13,
                           fontWeight: FontWeight.bold)),
                 ]),
@@ -405,6 +406,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
           }
 
           HomeStat homeStat = snapshot.data;
+
           return Padding(
             padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
             child: Column(
@@ -415,7 +417,13 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                         style: TextStyle(
                             color: Colors.red,
                             fontSize: 13,
-                            fontWeight: FontWeight.bold))
+                            fontWeight: FontWeight.bold)),
+                    Spacer(),
+                    Text(" ${homeStat.getFormattedDate()}",
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold)),
                   ],
                 ),
                 Padding(

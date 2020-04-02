@@ -176,7 +176,8 @@ class _HomePageState extends State<HomePage> {
         print("onMessage: $message");
         var data = message['data'];
         _showItemDialog(message);
-        _flutterNotification.showNotification(title: "hi", message: "hello");
+        _flutterNotification.showNotification(
+            title: data["title"], message: data['message']);
       },
       onBackgroundMessage: firebaseBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
@@ -203,10 +204,11 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Widget _buildDialog(BuildContext context) {
+  Widget _buildDialog(BuildContext context, title, message) {
     return AlertDialog(
       backgroundColor: OpenSpaceColors.listItemBackground,
-      content: Text("Item has been updated"),
+      content: Text(message ?? ""),
+      title: Text(title ?? ""),
       actions: <Widget>[
         FlatButton(
           child: const Text('CLOSE'),
@@ -215,7 +217,7 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         FlatButton(
-          child: const Text('SHOW'),
+          child: const Text('OK'),
           onPressed: () {
             Navigator.pop(context, true);
           },
@@ -225,7 +227,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _showItemDialog(Map<String, dynamic> message) {
-    showDialog<bool>(context: context, builder: (_) => _buildDialog(context))
+    print(["_showItemDialog ${message.toString()}"]);
+    showDialog<bool>(
+            context: context,
+            builder: (_) => _buildDialog(
+                context, message['data']['title'], message['data']['message']))
         .then((bool shouldNavigate) {
       if (shouldNavigate == true) {
         _navigateToItemDetail(message);
@@ -234,7 +240,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _navigateToItemDetail(message) {
-    print("_navigateToItemDetail");
+    String url = message['data']["url"];
+    if (url != null && url.isNotEmpty) {
+      Utils.launchURL(url);
+    }
   }
 
   _openCommingSoonPage() {
