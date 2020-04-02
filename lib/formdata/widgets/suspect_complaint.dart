@@ -75,8 +75,6 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                       attribute: "age",
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-//                        border: OutlineInputBorder(
-//                        borderSide: BorderSide(color: Colors.grey)),
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
                           labelText: "उमेर (अन्दाजी):",
@@ -91,8 +89,6 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                     FormBuilderTextField(
                       attribute: "address",
                       decoration: InputDecoration(
-//                        border: OutlineInputBorder(
-//                        borderSide: BorderSide(color: Colors.grey)),
                         fillColor: OpenSpaceColors.red,
                         labelStyle: questionLabelStyle,
                         labelText: "ठेगाना:",
@@ -104,8 +100,6 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                       attribute: "contact_no",
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
-//                        border: OutlineInputBorder(
-//                        borderSide: BorderSide(color: Colors.grey)),
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
                           labelText:
@@ -117,19 +111,6 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                       ],
                     ),
                     spaceBetn(),
-//                    FormBuilderTextField(
-//                      attribute: "country",
-//                      decoration: InputDecoration(
-////                        border: OutlineInputBorder(
-////                        borderSide: BorderSide(color: Colors.grey)),
-//                          fillColor: OpenSpaceColors.red,
-//                          labelStyle: questionLabelStyle,
-//                          labelText: "कुन देशबाट नेपाल फर्किएको ?",
-//                          hintText: ""),
-//                      validators: [
-//                        FormBuilderValidators.required()
-//                      ],
-//                    ),
 
                     FormBuilderDropdown(
                       decoration: InputDecoration(
@@ -149,8 +130,6 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                     FormBuilderTextField(
                       attribute: "transit",
                       decoration: InputDecoration(
-//                        border: OutlineInputBorder(
-//                        borderSide: BorderSide(color: Colors.grey)),
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
                           labelText: "कुन देशमा ट्रान्सिट परेको? (सम्भव भएसम्म)",
@@ -170,8 +149,8 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
               InkWell(
                 onTap: () {
                   if (_fbKey.currentState.saveAndValidate()) {
-                    // uploadFormNAXA();
                     uploadSuspectForm();
+                    uploadFormNAXA();
                   } else {
                     showToastMessage(message: "फारममा त्रुटिहरू छन्");
                   }
@@ -218,16 +197,16 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
       "lng": currentLocation != null ? currentLocation.longitude : "",
     };
 
-    print(formData);
+    print(jsonEncode(formData));
 
     formRepository.uploadSuspectFormC4C(formData).then((String message) {
     if (message != null && message.isNotEmpty) {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ReportSubmissionThankYouScreen(message)));
+//        Navigator.pushReplacement(
+//            context,
+//            MaterialPageRoute(
+//                builder: (context) => ReportSubmissionThankYouScreen(message)));
       } else {
-        showToastMessage(message: "फारम बुझाउन असफल भयो");
+//        showToastMessage(message: "फारम बुझाउन असफल भयो");
       }
 
       setState(() {
@@ -235,7 +214,7 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
       });
     }).catchError((error, stack) {
       print(stack);
-      showToastMessage(message: "फारम बुझाउन असफल भयो");
+//      showToastMessage(message: "फारम बुझाउन असफल भयो");
       setState(() {
         isUploadingForm = false;
       });
@@ -257,4 +236,48 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
       height: 12.0,
     );
   }
+
+  void uploadFormNAXA() {
+    setState(() {
+      isUploadingForm = true;
+    });
+
+    Map<String, dynamic> formData = {
+      "id": deviceId,
+      "name": _fbKey.currentState.value["name"].toString(),
+      "address": _fbKey.currentState.value["address"].toString(),
+      "age": _fbKey.currentState.value["age"].toString(),
+      "phone": _fbKey.currentState.value["contact_no"].toString(),
+      "country": _fbKey.currentState.value["country"].toString(),
+      "transit": _fbKey.currentState.value["transit"].toString(),
+      "lat": currentLocation != null ? currentLocation.latitude : "",
+      "lng": currentLocation != null ? currentLocation.longitude : "",
+    };
+
+    print(formData);
+
+    formRepository.uploadSuspectForm(formData).then((String message) {
+      if (message == "201" && message.isNotEmpty) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ReportSubmissionThankYouScreen(message)));
+      } else {
+        showToastMessage(message: "फारम बुझाउन असफल भयो");
+      }
+
+      setState(() {
+        isUploadingForm = false;
+      });
+    }).catchError((error, stack) {
+      print(stack);
+      showToastMessage(message: "फारम बुझाउन असफल भयो");
+      setState(() {
+        isUploadingForm = false;
+      });
+    });
+    
+  }
+
+
 }

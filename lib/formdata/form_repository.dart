@@ -23,6 +23,27 @@ class FormRepository {
     });
   }
 
+  Future<String> uploadSuspectForm(formData) {
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    print(jsonEncode(formData));
+    return http
+        .post(Uri.encodeFull(post_suspect_user_report),
+        headers: headers, body: jsonEncode(formData))
+        .then((response) {
+      if (response.statusCode != 201) {
+        throw Error();
+      }
+      print("uploadSuspectForm : "+response.statusCode.toString());
+      print("uploadSuspectForm : "+response.body.toString());
+//      return json.decode(utf8.decode(response.bodyBytes))['message'];
+      return response.statusCode.toString();
+    });
+  }
+
   Future<String> uploadSymptomFormC4C(_formData) async {
     String uriSymptom = 'https://covid19.mohp.gov.np/covid/api/symptomstore';
 
