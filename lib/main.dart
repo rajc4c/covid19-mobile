@@ -22,6 +22,7 @@ import 'covid19/api.dart';
 import 'covid19/common_widgets.dart';
 import 'covid19/ui/page_about.dart';
 import 'dashboard/dashboard_page_v2.dart';
+import 'formdata/widgets/suspect_complaint.dart';
 import 'formdata/widgets/upload_data_screen.dart';
 import 'hospitalmap/screens/map_hospital_screen.dart';
 
@@ -357,6 +358,48 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
 
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      color: navDrawerId == NavDrawerIds.suspectComplaintFormId
+                          ? OpenSpaceColors.blue_transparent
+                          : OpenSpaceColors.white,
+                    ),
+                    margin:
+                    EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                            child: ListTile(
+                              dense: true,
+                              leading: Icon(
+                                Icons.message,
+                                color: navDrawerId == NavDrawerIds.suspectComplaintFormId
+                                    ? OpenSpaceColors.blue
+                                    : Colors.grey,
+                              ),
+                              title: Text(
+                                "सूचना पठाउने र सहायता माग्ने फारम",
+                                style: TextStyle(
+                                    color: Colors.black87,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  navDrawerId = NavDrawerIds.suspectComplaintFormId;
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SuspectComplaint()));
+                                });
+                              },
+                            )),
+                      ],
+                    ),
+                  ),
+
 //
 //             FlatButton.icon(
 //                    onPressed: () {
@@ -485,7 +528,7 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
-                      color: navDrawerId == NavDrawerIds.aboutAppId
+                      color: navDrawerId == NavDrawerIds.feedbackFormId
                           ? OpenSpaceColors.blue_transparent
                           : OpenSpaceColors.white,
                     ),
@@ -500,7 +543,7 @@ class _HomePageState extends State<HomePage> {
                           dense: true,
                           leading: Icon(
                             Icons.people,
-                            color: navDrawerId == NavDrawerIds.aboutAppId
+                            color: navDrawerId == NavDrawerIds.feedbackFormId
                                 ? OpenSpaceColors.blue
                                 : Colors.grey,
                           ),

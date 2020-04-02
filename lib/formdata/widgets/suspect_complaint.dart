@@ -10,6 +10,7 @@ import 'package:openspaces/formdata/form_repository.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:location/location.dart';
 import '../ReportSubmissionThankYouScreen.dart';
+import 'countries.dart';
 
 class SuspectComplaint extends StatefulWidget {
   @override
@@ -44,7 +45,8 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               FormBuilder(
                 key: _fbKey,
@@ -52,13 +54,15 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                 autovalidate: false,
                 child: Column(
                   children: <Widget>[
+
+
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "name",
                       decoration: InputDecoration(
 
-                        border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
+//                        border: OutlineInputBorder(
+//                        borderSide: BorderSide(color: Colors.grey)),
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
                           labelText: "संकास्पद व्यक्तिको नाम:",
@@ -69,9 +73,10 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "age",
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
+//                        border: OutlineInputBorder(
+//                        borderSide: BorderSide(color: Colors.grey)),
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
                           labelText: "उमेर (अन्दाजी):",
@@ -86,8 +91,8 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                     FormBuilderTextField(
                       attribute: "address",
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
+//                        border: OutlineInputBorder(
+//                        borderSide: BorderSide(color: Colors.grey)),
                         fillColor: OpenSpaceColors.red,
                         labelStyle: questionLabelStyle,
                         labelText: "ठेगाना:",
@@ -97,9 +102,10 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                     spaceBetn(),
                     FormBuilderTextField(
                       attribute: "contact_no",
+                      keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
+//                        border: OutlineInputBorder(
+//                        borderSide: BorderSide(color: Colors.grey)),
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
                           labelText:
@@ -111,26 +117,40 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                       ],
                     ),
                     spaceBetn(),
-                    FormBuilderTextField(
-                      attribute: "country",
+//                    FormBuilderTextField(
+//                      attribute: "country",
+//                      decoration: InputDecoration(
+////                        border: OutlineInputBorder(
+////                        borderSide: BorderSide(color: Colors.grey)),
+//                          fillColor: OpenSpaceColors.red,
+//                          labelStyle: questionLabelStyle,
+//                          labelText: "कुन देशबाट नेपाल फर्किएको ?",
+//                          hintText: ""),
+//                      validators: [
+//                        FormBuilderValidators.required()
+//                      ],
+//                    ),
+
+                    FormBuilderDropdown(
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
-                          fillColor: OpenSpaceColors.red,
-                          labelStyle: questionLabelStyle,
-                          labelText: "कुन देशबाट नेपाल फर्किएको ?",
-                          hintText: ""),
-                      validators: [
-                        FormBuilderValidators.required()
-                      ],
+                        labelText: "कुन देशबाट नेपाल फर्किएको ?",
+                      ),
+                      attribute: 'country',
+                      items: countries
+                          .map((country) {
+                        return country["country"];
+                      })
+                          .map((country) => DropdownMenuItem(
+                          value: country, child: Text("$country")))
+                          .toList(),
                     ),
                   
                     spaceBetn(),
                     FormBuilderTextField(
                       attribute: "transit",
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
+//                        border: OutlineInputBorder(
+//                        borderSide: BorderSide(color: Colors.grey)),
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
                           labelText: "कुन देशमा ट्रान्सिट परेको? (सम्भव भएसम्म)",
@@ -142,9 +162,11 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+
+//              SizedBox(
+//                height: 10,
+//              ),
+
               InkWell(
                 onTap: () {
                   if (_fbKey.currentState.saveAndValidate()) {

@@ -71,7 +71,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                   padding: EdgeInsets.all(20),
 
                   constraints:
-                  BoxConstraints.expand(width: double.infinity, height: 282),
+                  BoxConstraints.expand(width: double.infinity, height: 370),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -187,7 +187,8 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                                       color: Colors.black),
                                 ]),
                           ),
-                        )
+                        ),
+                        navItem(),
                       ]),
                 ),
                 Container(
