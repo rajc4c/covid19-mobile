@@ -3,7 +3,7 @@
 ![Platform](https://img.shields.io/badge/platform-Android-green)
 [![Codemagic build status](https://api.codemagic.io/apps/5e7a3de4d8ea2e12b4054e95/5e7a3de4d8ea2e12b4054e94/status_badge.svg)](https://codemagic.io/apps/5e7a3de4d8ea2e12b4054e95/5e7a3de4d8ea2e12b4054e94/latest_build)
 
-Find open spaces near you easily, in times of disater
+
 
 ## Table Of Contents
  - [Setting up your development environment](#setting-up-your-development-environment)
