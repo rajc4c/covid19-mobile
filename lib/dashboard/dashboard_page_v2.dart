@@ -336,6 +336,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           fontWeight: FontWeight.bold)),
                   Spacer(),
                   Text("स्रोतः विश्व स्वास्थ्य संगठन",
+
                       style: TextStyle(
                           color: Colors.grey,
                           fontSize: 13,
@@ -485,9 +486,9 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(
-                                  Utils.numberMap(
-                                      "${homeStat.confirmed - homeStat.death - homeStat.isolation}"),
+
+                              Text(Utils.numberMap("${homeStat.confirmed}"),
+
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(

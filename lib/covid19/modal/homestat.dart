@@ -72,21 +72,29 @@ class HomeStat {
     DateTime updatedDateTime = inputFormat.parse(updateDate);
     String text = outputFormat.format(updatedDateTime);
 
+    List<String> dateList = [];
+    dateList = text.split(" | ");
+    String yearRaw = dateList[0].trim();
+    String time = dateList[1].trim();
+    
+
+    print("Date : "+text);
+
     return text;
   }
 }
 
-final months = {
-  "Jan": "",
-  "Feb": "",
-  "Mar": "",
-  "Apr": "",
-  "May": "",
-  "Jun": "",
-  "Jul": "",
-  "Aug": "",
-  "Sep": "",
-  "Oct": "",
-  "Nov": "",
-  "Dec": "",
+final Map<String, String> months = {
+  "Jan": "जनवरी",
+  "Feb": "फेब्रुअरी",
+  "Mar": "मार्च",
+  "Apr": "अप्रिल",
+  "May": "मे",
+  "Jun": "जून",
+  "Jul": "जुलाई",
+  "Aug": "अगस्ट",
+  "Sep": "सेप्टेम्बर",
+  "Oct": "अक्टुबर",
+  "Nov": "नोभेम्बर",
+  "Dec": "डिसेम्बर",
 };
