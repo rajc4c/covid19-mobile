@@ -267,7 +267,7 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => ReportSubmissionThankYouScreen(message)));
+                builder: (context) => ReportSubmissionThankYouScreen("")));
       } else {
         showToastMessage(message: "फारम बुझाउन असफल भयो");
       }
