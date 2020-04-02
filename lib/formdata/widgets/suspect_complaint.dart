@@ -10,6 +10,7 @@ import 'package:openspaces/formdata/form_repository.dart';
 import 'package:openspaces/hospitalmap/widgets/covid_app_bar.dart';
 import 'package:location/location.dart';
 import '../ReportSubmissionThankYouScreen.dart';
+import 'countries.dart';
 
 class SuspectComplaint extends StatefulWidget {
   @override
@@ -44,7 +45,8 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               FormBuilder(
                 key: _fbKey,
@@ -57,8 +59,8 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                       attribute: "name",
                       decoration: InputDecoration(
 
-                        border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
+//                        border: OutlineInputBorder(
+//                        borderSide: BorderSide(color: Colors.grey)),
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
                           labelText: "संकास्पद व्यक्तिको नाम:",
@@ -69,9 +71,8 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "age",
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
                           labelText: "उमेर (अन्दाजी):",
@@ -86,8 +87,6 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                     FormBuilderTextField(
                       attribute: "address",
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
                         fillColor: OpenSpaceColors.red,
                         labelStyle: questionLabelStyle,
                         labelText: "ठेगाना:",
@@ -98,8 +97,17 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                     FormBuilderTextField(
                       attribute: "contact_no",
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
+                        fillColor: OpenSpaceColors.red,
+                        labelStyle: questionLabelStyle,
+                        labelText: "सम्पर्क नम्बर:",
+                      ),
+                      validators: [FormBuilderValidators.required()],
+                    ),
+                    spaceBetn(),
+                    FormBuilderTextField(
+                      attribute: "contact_no",
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
                           labelText:
@@ -111,45 +119,46 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                       ],
                     ),
                     spaceBetn(),
-                    FormBuilderTextField(
-                      attribute: "country",
+                    FormBuilderDropdown(
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
-                          fillColor: OpenSpaceColors.red,
-                          labelStyle: questionLabelStyle,
-                          labelText: "कुन देशबाट नेपाल फर्किएको ?",
-                          hintText: ""),
-                      validators: [
-                        FormBuilderValidators.required()
-                      ],
+                        labelText: "कुन देशबाट नेपाल फर्किएको ?",
+                      ),
+                      attribute: 'country',
+                      items: countries
+                          .map((country) {
+                            return country["country"];
+                          })
+                          .map((country) => DropdownMenuItem(
+                              value: country, child: Text("$country")))
+                          .toList(),
                     ),
-                  
                     spaceBetn(),
                     FormBuilderTextField(
                       attribute: "transit",
                       decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
-                          labelText: "कुन देशमा ट्रान्सिट परेको? (सम्भव भएसम्म)",
+                          labelText:
+                              "कुन देशमा ट्रान्सिट परेको? (सम्भव भएसम्म)",
                           hintText: ""),
                       validators: [
                         // FormBuilderValidators.required()
                       ],
                     ),
+                    spaceBetn(),
                   ],
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+
+//              SizedBox(
+//                height: 10,
+//              ),
+
               InkWell(
                 onTap: () {
                   if (_fbKey.currentState.saveAndValidate()) {
-                    // uploadFormNAXA();
                     uploadSuspectForm();
+                    uploadFormNAXA();
                   } else {
                     showToastMessage(message: "फारममा त्रुटिहरू छन्");
                   }
@@ -196,14 +205,69 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
       "lng": currentLocation != null ? currentLocation.longitude : "",
     };
 
-    print(formData);
+    print(jsonEncode(formData));
 
     formRepository.uploadSuspectFormC4C(formData).then((String message) {
-    if (message != null && message.isNotEmpty) {
+      if (message != null && message.isNotEmpty) {
+//        Navigator.pushReplacement(
+//            context,
+//            MaterialPageRoute(
+//                builder: (context) => ReportSubmissionThankYouScreen(message)));
+      } else {
+//        showToastMessage(message: "फारम बुझाउन असफल भयो");
+      }
+
+      setState(() {
+        isUploadingForm = false;
+      });
+    }).catchError((error, stack) {
+      print(stack);
+//      showToastMessage(message: "फारम बुझाउन असफल भयो");
+      setState(() {
+        isUploadingForm = false;
+      });
+    });
+  }
+
+  void cacheLocation() async {
+    var _location = Location();
+    await _location.requestPermission();
+    await _location.requestService();
+    _location.onLocationChanged().listen((LocationData currentLocation) {
+      this.currentLocation = currentLocation;
+    });
+  }
+
+  Widget spaceBetn() {
+    return SizedBox(
+      height: 12.0,
+    );
+  }
+
+  void uploadFormNAXA() {
+    setState(() {
+      isUploadingForm = true;
+    });
+
+    Map<String, dynamic> formData = {
+      "id": deviceId,
+      "name": _fbKey.currentState.value["name"].toString(),
+      "address": _fbKey.currentState.value["address"].toString(),
+      "age": _fbKey.currentState.value["age"].toString(),
+      "phone": _fbKey.currentState.value["contact_no"].toString(),
+      "country": _fbKey.currentState.value["country"].toString(),
+      "transit": _fbKey.currentState.value["transit"].toString(),
+      "contact_no": _fbKey.currentState.value["contact_no"].toString(),
+    };
+
+    print(formData);
+
+    formRepository.uploadSuspectForm(formData).then((String message) {
+      if (message == "201" && message.isNotEmpty) {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => ReportSubmissionThankYouScreen(message)));
+                builder: (context) => ReportSubmissionThankYouScreen("")));
       } else {
         showToastMessage(message: "फारम बुझाउन असफल भयो");
       }
@@ -218,21 +282,5 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
         isUploadingForm = false;
       });
     });
-  }
-
- 
-  void cacheLocation() async {
-    var _location = Location();
-    await _location.requestPermission();
-    await _location.requestService();
-    _location.onLocationChanged().listen((LocationData currentLocation) {
-      this.currentLocation = currentLocation;
-    });
-  }
-
-  Widget spaceBetn(){
-    return SizedBox(
-      height: 12.0,
-    );
   }
 }

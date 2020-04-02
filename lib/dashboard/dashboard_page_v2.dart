@@ -64,8 +64,9 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                     color: Color(0xffeeeeee),
                   ),
                   padding: EdgeInsets.all(20),
-                  constraints: BoxConstraints.expand(
-                      width: double.infinity, height: 282),
+                  constraints:
+                  BoxConstraints.expand(width: double.infinity, height: 370),
+
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -99,6 +100,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             },
                           ),
                         ),
+                        navItem(),
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -174,7 +176,8 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                                       color: Colors.black),
                                 ]),
                           ),
-                        )
+                        ),
+
                       ]),
                 ),
                 Container(
