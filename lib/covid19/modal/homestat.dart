@@ -91,7 +91,7 @@ class HomeStat {
     timeList = rawTime.split(" ");
 
     String rawHrsMin = timeList[0].trim();
-    String rawAmPm = timeList[1].trim();
+    String rawAmPm = amPmMap[timeList[1].trim()];
 
     List<String> hrsMinList = [];
     hrsMinList = rawHrsMin.split(":");
@@ -119,4 +119,8 @@ final Map<String, String> months = {
   "Oct": "अक्टुबर",
   "Nov": "नोभेम्बर",
   "Dec": "डिसेम्बर",
+};
+final Map<String, String> amPmMap = {
+  "AM": "बिहानी",
+  "PM": "बेलुकी",
 };
