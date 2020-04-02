@@ -446,7 +446,7 @@ class _SymtomsFormState extends State<SymtomsForm> {
                         labelText:
                             "के तपाइँसँग कुनै अन्य स्वास्थ्य समस्याहरू छन्?",
                       ),
-                      validators: [FormBuilderValidators.required()],
+                      validators: [],
                     ),
                   ],
                 ),
@@ -457,7 +457,7 @@ class _SymtomsFormState extends State<SymtomsForm> {
               InkWell(
                 onTap: () {
                   if (_fbKey.currentState.saveAndValidate()) {
-                     uploadFormNAXA();
+                    uploadFormNAXA();
                     uploadFormCFC();
                   } else {
                     showToastMessage(message: "फारममा त्रुटिहरू छन्");
@@ -530,18 +530,18 @@ class _SymtomsFormState extends State<SymtomsForm> {
     print(formData);
 
     formRepository.uploadSymptomFormC4C(formData).then((String message) {
-    //  if (message != null && message.isNotEmpty) {
-    //    Navigator.push(
-    //        context,
-    //        MaterialPageRoute(
-    //            builder: (context) => ReportSubmissionThankYouScreen(message)));
-    //  } else {
-    //    showToastMessage(message: "फारम बुझाउन असफल भयो");
-    //  }
+      //  if (message != null && message.isNotEmpty) {
+      //    Navigator.push(
+      //        context,
+      //        MaterialPageRoute(
+      //            builder: (context) => ReportSubmissionThankYouScreen(message)));
+      //  } else {
+      //    showToastMessage(message: "फारम बुझाउन असफल भयो");
+      //  }
 
-    //  setState(() {
-    //    isUploadingForm = false;
-    //  });
+      //  setState(() {
+      //    isUploadingForm = false;
+      //  });
     }).catchError((error, stack) {
       print(stack);
 //      showToastMessage(message: "फारम बुझाउन असफल भयो");
@@ -613,7 +613,6 @@ class _SymtomsFormState extends State<SymtomsForm> {
       });
     });
   }
-
 
   void cacheLocation() async {
     var _location = Location();
