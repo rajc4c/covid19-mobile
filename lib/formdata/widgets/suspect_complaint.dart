@@ -54,8 +54,6 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                 autovalidate: false,
                 child: Column(
                   children: <Widget>[
-
-
                     FormBuilderTextField(
                       autocorrect: false,
                       attribute: "name",
@@ -98,6 +96,16 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                     spaceBetn(),
                     FormBuilderTextField(
                       attribute: "contact_no",
+                      decoration: InputDecoration(
+                        fillColor: OpenSpaceColors.red,
+                        labelStyle: questionLabelStyle,
+                        labelText: "सम्पर्क नम्बर:",
+                      ),
+                      validators: [FormBuilderValidators.required()],
+                    ),
+                    spaceBetn(),
+                    FormBuilderTextField(
+                      attribute: "contact_no",
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
@@ -111,7 +119,6 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                       ],
                     ),
                     spaceBetn(),
-
                     FormBuilderDropdown(
                       decoration: InputDecoration(
                         labelText: "कुन देशबाट नेपाल फर्किएको ?",
@@ -119,25 +126,26 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
                       attribute: 'country',
                       items: countries
                           .map((country) {
-                        return country["country"];
-                      })
+                            return country["country"];
+                          })
                           .map((country) => DropdownMenuItem(
-                          value: country, child: Text("$country")))
+                              value: country, child: Text("$country")))
                           .toList(),
                     ),
-                  
                     spaceBetn(),
                     FormBuilderTextField(
                       attribute: "transit",
                       decoration: InputDecoration(
                           fillColor: OpenSpaceColors.red,
                           labelStyle: questionLabelStyle,
-                          labelText: "कुन देशमा ट्रान्सिट परेको? (सम्भव भएसम्म)",
+                          labelText:
+                              "कुन देशमा ट्रान्सिट परेको? (सम्भव भएसम्म)",
                           hintText: ""),
                       validators: [
                         // FormBuilderValidators.required()
                       ],
                     ),
+                    spaceBetn(),
                   ],
                 ),
               ),
@@ -200,7 +208,7 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
     print(jsonEncode(formData));
 
     formRepository.uploadSuspectFormC4C(formData).then((String message) {
-    if (message != null && message.isNotEmpty) {
+      if (message != null && message.isNotEmpty) {
 //        Navigator.pushReplacement(
 //            context,
 //            MaterialPageRoute(
@@ -221,7 +229,6 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
     });
   }
 
- 
   void cacheLocation() async {
     var _location = Location();
     await _location.requestPermission();
@@ -231,7 +238,7 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
     });
   }
 
-  Widget spaceBetn(){
+  Widget spaceBetn() {
     return SizedBox(
       height: 12.0,
     );
@@ -250,8 +257,7 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
       "phone": _fbKey.currentState.value["contact_no"].toString(),
       "country": _fbKey.currentState.value["country"].toString(),
       "transit": _fbKey.currentState.value["transit"].toString(),
-      "lat": currentLocation != null ? currentLocation.latitude : "",
-      "lng": currentLocation != null ? currentLocation.longitude : "",
+      "contact_no": _fbKey.currentState.value["contact_no"].toString(),
     };
 
     print(formData);
@@ -276,8 +282,5 @@ class _SuspectComplaintState extends State<SuspectComplaint> {
         isUploadingForm = false;
       });
     });
-
   }
-
-
 }

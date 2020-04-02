@@ -5,6 +5,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:http/http.dart' as http;
 import 'package:openspaces/common/constants.dart';
 import 'package:openspaces/covid19/colors.dart';
@@ -40,18 +41,20 @@ Future<dynamic> firebaseBackgroundMessageHandler(Map<String, dynamic> message) {
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-
+  Stetho.initialize();
   runApp(MyApp());
 }
 
 void configureRemoteConfig() async {
   remoteConfig = await RemoteConfig.instance;
-  final defaults = <String, dynamic>{'feed_back_form': 'https://forms.gle/47DQYpTckw6dugsZ8'};
+  final defaults = <String, dynamic>{
+    'feed_back_form': 'https://forms.gle/47DQYpTckw6dugsZ8'
+  };
   await remoteConfig.setDefaults(defaults);
-  await remoteConfig.fetch(expiration: const Duration(hours: 5)).then((value){
-
-  }).catchError((error,stack){
+  await remoteConfig
+      .fetch(expiration: const Duration(hours: 5))
+      .then((value) {})
+      .catchError((error, stack) {
     print(stack);
   });
   await remoteConfig.activateFetched();
@@ -366,36 +369,38 @@ class _HomePageState extends State<HomePage> {
                           : OpenSpaceColors.white,
                     ),
                     margin:
-                    EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Expanded(
                             child: ListTile(
-                              dense: true,
-                              leading: Icon(
-                                Icons.message,
-                                color: navDrawerId == NavDrawerIds.suspectComplaintFormId
-                                    ? OpenSpaceColors.blue
-                                    : Colors.grey,
-                              ),
-                              title: Text(
-                                "सूचना पठाउने र सहायता माग्ने फारम",
-                                style: TextStyle(
-                                    color: Colors.black87,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  navDrawerId = NavDrawerIds.suspectComplaintFormId;
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => SuspectComplaint()));
-                                });
-                              },
-                            )),
+                          dense: true,
+                          leading: Icon(
+                            Icons.message,
+                            color: navDrawerId ==
+                                    NavDrawerIds.suspectComplaintFormId
+                                ? OpenSpaceColors.blue
+                                : Colors.grey,
+                          ),
+                          title: Text(
+                            "सूचना पठाउने र सहायता माग्ने फारम",
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              navDrawerId = NavDrawerIds.suspectComplaintFormId;
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SuspectComplaint()));
+                            });
+                          },
+                        )),
                       ],
                     ),
                   ),
