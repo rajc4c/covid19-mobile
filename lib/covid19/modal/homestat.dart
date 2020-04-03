@@ -105,7 +105,7 @@ class HomeStat {
 
     nepaliDate = splitedDay+" "+splitedMonth+" "+splitedYear+" | "+splittedHours+":"+splittedMins+" "+rawAmPm;
 
-    return nepaliDate;
+    return nepaliDate.split("|")[0];
   }
 }
 
