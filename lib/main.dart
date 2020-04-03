@@ -290,6 +290,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           onTap: () {
                             navDrawerId = NavDrawerIds.latestUpdateId;
+                            navDrawerId = 0;
                             Navigator.pop(context);
 
                             setState(() {});
@@ -331,6 +332,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             setState(() {
                               navDrawerId = NavDrawerIds.healthFacilitiesId;
+                              navDrawerId = 0;
                               Navigator.pop(context);
                               Navigator.push(
                                   context,
@@ -375,6 +377,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             setState(() {
                               navDrawerId = NavDrawerIds.selfTestId;
+                              navDrawerId = 0;
                               Navigator.pop(context);
                               Navigator.push(
                                   context,
@@ -419,6 +422,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             setState(() {
                               navDrawerId = NavDrawerIds.suspectComplaintFormId;
+                              navDrawerId = 0;
                               Navigator.pop(context);
                               Navigator.push(
                                   context,
@@ -507,6 +511,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             setState(() {
                               navDrawerId = NavDrawerIds.faqId;
+                              navDrawerId = 0;
                               Navigator.pop(context);
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => FaqPage()));
@@ -548,6 +553,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             setState(() {
                               navDrawerId = NavDrawerIds.aboutAppId;
+                              navDrawerId = 0;
                               Navigator.pop(context);
                               Navigator.push(
                                   context,
@@ -590,6 +596,7 @@ class _HomePageState extends State<HomePage> {
                           onTap: () {
                             setState(() {
                               navDrawerId = NavDrawerIds.feedbackFormId;
+                              navDrawerId = 0;
                               Navigator.pop(context);
 
                               Utils.launchURL(
@@ -672,7 +679,7 @@ class _HomePageState extends State<HomePage> {
                       child: FlatButton.icon(
                           onPressed: () {
                             Navigator.pop(context);
-
+                            navDrawerId = 0;
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => LoginPage()));
                           },
