@@ -269,7 +269,7 @@ Widget buildNoData(BuildContext context, {errorMessage = "No data found"}) {
 }
 
 Widget buildProgressAndNoData(context, snapshot,
-    {errorMessage = "No data found"}) {
+    {errorMessage = "---"}) {
   bool isLoadingData =
       snapshot.connectionState.index == ConnectionState.waiting.index;
 //  isLoadingData = !snapshot.hasData();

@@ -5,6 +5,7 @@ class HomeStat {
   int tested;
   int confirmed;
   int isolation;
+  int recovered;
   int death;
   int icu;
   int occupiedIcu;
@@ -36,6 +37,7 @@ class HomeStat {
     tested = json['tested'];
     confirmed = json['confirmed'];
     isolation = json['isolation'];
+    recovered = json['total_recovered'];
     death = json['death'];
     icu = json['icu'];
     occupiedIcu = json['occupied_icu'];
@@ -53,6 +55,7 @@ class HomeStat {
     data['tested'] = this.tested;
     data['confirmed'] = this.confirmed;
     data['isolation'] = this.isolation;
+    data['total_recovered'] = this.recovered;
     data['death'] = this.death;
     data['icu'] = this.icu;
     data['occupied_icu'] = this.occupiedIcu;

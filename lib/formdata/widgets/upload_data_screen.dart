@@ -38,6 +38,10 @@ class _SymtomsFormState extends State<SymtomsForm> {
     Utils.getDeviceDetails().then((deviceId) {
       this.deviceId = deviceId;
     });
+    hasConsentForPersonalDetails = true;
+    setState(() {
+
+    });
   }
 
   @override
@@ -59,6 +63,7 @@ class _SymtomsFormState extends State<SymtomsForm> {
                 child: Column(
                   children: <Widget>[
                     FormBuilderCheckbox(
+                      initialValue: true,
                       attribute: 'accept_terms',
                       label: Text(
                           "म यस फारम मार्फत आफ्ना शारीरिक लक्षणहरु, यात्राका विवरण तथा आफ्नो नाम, सम्पर्क नम्बर, उमेर, लिंग र ठेगाना सगैँ GPS स्थल आफ्नो स्वेक्षाले पठाई नेपाल सरकारलाई कोरोना संक्रमणको जोखिम न्यूनिकरण गर्नमा मद्दत गर्दछु।"),
