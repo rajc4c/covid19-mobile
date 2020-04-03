@@ -465,7 +465,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             children: <Widget>[
                               Text(
                                   Utils.numberMap(
-                                      "${homeStat.tested ?? 0 - homeStat.confirmed ?? 0}"),
+                                      "${homeStat.tested - homeStat.confirmed}"),
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(
@@ -478,7 +478,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                       Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Color(0xffffebec),
+                            color: Color(0xffe9ecff),
                           ),
                           padding: EdgeInsets.only(left: 15, top: 6),
                           constraints:
@@ -487,16 +487,16 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                  Utils.numberMap("${homeStat.confirmed ?? 0}"),
+                                  Utils.numberMap("${homeStat.isolation ?? 0}"),
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(
-                                "संक्रमण देखिएको",
+                                "आइसोलेसनमा",
                                 style: TextStyle(fontSize: 11),
                                 textAlign: TextAlign.left,
                               )
                             ],
-                          ))
+                          )),
                     ],
                   ),
                 ),
@@ -506,7 +506,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                     Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Color(0xffe9ecff),
+                          color: Color(0xffffebec),
                         ),
                         padding: EdgeInsets.only(left: 15, top: 6),
                         constraints:
@@ -514,11 +514,11 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(Utils.numberMap("${homeStat.isolation ?? 0}"),
+                            Text(Utils.numberMap("${homeStat.confirmed ?? 0}"),
                                 style: TextStyle(
                                     fontSize: 22, color: Colors.black)),
                             Text(
-                              "आइसोलेसनमा",
+                              "संक्रमण देखिएको",
                               style: TextStyle(fontSize: 11),
                               textAlign: TextAlign.left,
                             )
@@ -535,9 +535,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
-                                Utils.numberMap(
-                                    "${homeStat.confirmed ?? 0 - homeStat.death ?? 0 - homeStat.isolation ?? 0}"),
+                            Text(Utils.numberMap("${homeStat.recovered ?? 0}"),
                                 style: TextStyle(
                                     fontSize: 22, color: Colors.black)),
                             Text(
