@@ -22,7 +22,7 @@ const post_suspect_user_report = "$base_url/suspect-report/";
 const post_user_login_credential = "$base_url/api-token-auth/";
 
 // secondary api
-const get_global_stat = "$base_url_secondary/count";
+const get_global_stat = "$base_url/global-data";
 const get_press_release = "$base_url_secondary/np/pressrelease";
 const get_mobile_version = "$base_url/mobile-version/1/";
 const post_fcm_reg_key = "$base_url/device/";
