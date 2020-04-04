@@ -13,20 +13,20 @@ class HomeBloc extends BaseBloc {
   BehaviorSubject<GlobalStat> _globalStreamController = BehaviorSubject();
 
   Stream<HomeStat> get homeStream => _streamController.stream;
+
   Stream<GlobalStat> get globalStatStream => _globalStreamController.stream;
 
-
-  getHomeData({ @required String province}) {
+  getHomeData({@required String province}) {
     try {
       print("[homeApiCalled]");
       String url = get_home_stat;
-      if(province.isNotEmpty) {
+      if (province.isNotEmpty) {
         url = "$get_home_stat/?provice=$province";
       }
-     print("[homeApi][url] ===========>>> $url");
+      print("[homeApi][url] ===========>>> $url");
       http.get("$url").timeout(Duration(minutes: 5)).then((resp) {
         print("[homedata]======>>> ${resp.body}");
-        if(resp.statusCode >= 200 && resp.statusCode <= 400) {
+        if (resp.statusCode >= 200 && resp.statusCode <= 400) {
           Map<String, dynamic> respMap = jsonDecode(resp.body);
           _streamController.sink.add(HomeStat.fromJson(respMap));
         }
@@ -39,16 +39,21 @@ class HomeBloc extends BaseBloc {
     }
   }
 
-   globalData() {
+  globalData() {
     try {
       print("[globalApiCalled]");
       String url = get_home_stat;
       print("[homeApi][url] ===========>>> $url");
       http.get(get_global_stat).timeout(Duration(minutes: 5)).then((resp) {
         print("[globalData]======>>> ${resp.body}");
-        if(resp.statusCode >= 200 && resp.statusCode <= 400) {
-          Map<String, dynamic> respMap = jsonDecode(resp.body);
-          _globalStreamController.sink.add(GlobalStat.fromJson(respMap));
+        if (resp.statusCode >= 200 && resp.statusCode <= 400) {
+          List response = jsonDecode(resp.body) as List;
+          if (response == null || response.isEmpty) {
+            _globalStreamController.sink.addError("Server not respoding");
+          } else {
+            Map<String, dynamic> respMap = response[0];
+            _globalStreamController.sink.add(GlobalStat.fromJson(respMap));
+          }
         }
       }, onError: (err) {
         print(err.toString());
@@ -69,7 +74,6 @@ class HomeBloc extends BaseBloc {
     _streamController.close();
     _globalStreamController.close();
   }
-
 }
 
 final HomeBloc homeBloc = HomeBloc();
