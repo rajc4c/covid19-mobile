@@ -436,6 +436,29 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             color: Color(0xffe9ecff),
                           ),
+                          padding: EdgeInsets.only(left: 11, top: 6),
+                          constraints:
+                              BoxConstraints.expand(width: 105.0, height: 60.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                  Utils.numberMap(
+                                      "${homeStat.totalSamplesCollected ?? 0}"),
+                                  style: TextStyle(
+                                      fontSize: 22, color: Colors.black)),
+                              Text(
+                                "नमुना संकलन गरिएको",
+                                style: TextStyle(fontSize: 11),
+                                textAlign: TextAlign.left,
+                              )
+                            ],
+                          )),
+                      Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Color(0xffe9ecff),
+                          ),
                           padding: EdgeInsets.only(left: 15, top: 6),
                           constraints:
                               BoxConstraints.expand(width: 105.0, height: 60.0),
@@ -465,33 +488,11 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             children: <Widget>[
                               Text(
                                   Utils.numberMap(
-                                      "${homeStat.tested - homeStat.confirmed}"),
+                                      "${homeStat.totalNegative}"),
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(
                                 "संक्रमण नदेखिएको",
-                                style: TextStyle(fontSize: 11),
-                                textAlign: TextAlign.left,
-                              )
-                            ],
-                          )),
-                      Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            color: Color(0xffe9ecff),
-                          ),
-                          padding: EdgeInsets.only(left: 15, top: 6),
-                          constraints:
-                              BoxConstraints.expand(width: 105.0, height: 60.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                  Utils.numberMap("${homeStat.isolation ?? 0}"),
-                                  style: TextStyle(
-                                      fontSize: 22, color: Colors.black)),
-                              Text(
-                                "आइसोलेसनमा",
                                 style: TextStyle(fontSize: 11),
                                 textAlign: TextAlign.left,
                               )
@@ -503,6 +504,27 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
+                    Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          color: Color(0xffe9ecff),
+                        ),
+                        padding: EdgeInsets.only(left: 15, top: 6),
+                        constraints:
+                            BoxConstraints.expand(width: 105.0, height: 60.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(Utils.numberMap("${homeStat.isolation ?? 0}"),
+                                style: TextStyle(
+                                    fontSize: 22, color: Colors.black)),
+                            Text(
+                              "आइसोलेसनमा",
+                              style: TextStyle(fontSize: 11),
+                              textAlign: TextAlign.left,
+                            )
+                          ],
+                        )),
                     Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -545,29 +567,37 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                             )
                           ],
                         )),
-                    Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: Color(0xffffebec),
-                        ),
-                        padding: EdgeInsets.only(left: 15, top: 6),
-                        constraints:
-                            BoxConstraints.expand(width: 105.0, height: 60.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(Utils.numberMap("${homeStat.death ?? 0}"),
-                                style: TextStyle(
-                                    fontSize: 22, color: Colors.black)),
-                            Text(
-                              "मृत्यु भएको",
-                              style: TextStyle(fontSize: 11),
-                              textAlign: TextAlign.left,
-                            )
-                          ],
-                        ))
                   ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 10, 20, 20),
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Color(0xffffebec),
+                          ),
+                          padding: EdgeInsets.only(left: 15, top: 6),
+                          constraints:
+                              BoxConstraints.expand(width: 105.0, height: 60.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(Utils.numberMap("${homeStat.death ?? 0}"),
+                                  style: TextStyle(
+                                      fontSize: 22, color: Colors.black)),
+                              Text(
+                                "मृत्यु भएको",
+                                style: TextStyle(fontSize: 11),
+                                textAlign: TextAlign.left,
+                              )
+                            ],
+                          )),
+                    )
+                  ],
+                )
               ],
             ),
           );
