@@ -1,5 +1,5 @@
-const base_url = "http://139.59.67.104:8021/api/v1";
-//const base_url = "https://covidapi.naxa.com.np/api/v1";
+//const base_url = "http://139.59.67.104:8021/api/v1";
+const base_url = "https://covidapi.naxa.com.np/api/v1";
 const base_url_secondary = "http://covidapi.yubarajpoudel.com";
 const get_open_space = base_url + "api/v1/open_space";
 const get_open_space_geo_json = base_url + "api/v1/open_space_geo_json";
