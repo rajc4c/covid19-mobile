@@ -5,6 +5,7 @@ class HomeStat {
   int tested;
   int confirmed;
   int isolation;
+  int negative;
   int recovered;
   int death;
   int icu;
@@ -24,6 +25,7 @@ class HomeStat {
     this.tested,
     this.confirmed,
     this.isolation,
+    this.negative,
     this.death,
     this.icu,
     this.occupiedIcu,
@@ -37,14 +39,12 @@ class HomeStat {
   });
 
   HomeStat.fromJson(Map<String, dynamic> json) {
-    tested = json['tested'];
-    confirmed = json['confirmed'];
-    isolation = json['isolation'];
-    recovered = json['total_recovered'];
-    totalNegative = json['total_negative'];
-    totalSamplesCollected = json['total_samples_collected'];
-    totalSamplesPending = json['total_samples_pending'];
-    death = json['death'];
+    tested = int.parse(json['samples_tested']);
+    confirmed = int.parse(json['positive']);
+    negative = int.parse(json['negative']);
+    isolation = int.parse(json['extra2']);
+    recovered = int.parse(json['extra1']);
+    death = int.parse(json['deaths']);
     icu = json['icu'];
     occupiedIcu = json['occupied_icu'];
     ventilator = json['ventilator'];
@@ -53,13 +53,14 @@ class HomeStat {
     occupiedIsolationBed = json['occupied_isolation_bed'];
     facilityCount = json['facility_count'];
     hotline = json['hotline'];
-    updateDate = json['update_date'];
+    updateDate = json['updated_at'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['tested'] = this.tested;
     data['confirmed'] = this.confirmed;
+    data['negative'] = this.negative;
     data['isolation'] = this.isolation;
     data['total_recovered'] = this.recovered;
     data['total_negative'] = this.totalNegative;
@@ -74,14 +75,15 @@ class HomeStat {
     data['occupied_isolation_bed'] = this.occupiedIsolationBed;
     data['facility_count'] = this.facilityCount;
     data['hotline'] = this.hotline;
-    data['update_date'] = this.updateDate;
+    data['updated_at'] = this.updateDate;
     return data;
   }
 
   String getFormattedDate() {
     String nepaliDate = "";
     final outputFormat = new DateFormat(' d MMM y |').add_jm();
-    final inputFormat = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    // final inputFormat = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    final inputFormat = new DateFormat("yyyy-MM-dd HH:mm:ss");
     DateTime updatedDateTime = inputFormat.parse(updateDate);
     String text = outputFormat.format(updatedDateTime);
 
