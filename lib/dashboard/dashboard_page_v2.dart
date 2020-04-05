@@ -185,7 +185,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                   ),
                   padding: EdgeInsets.all(20),
                   constraints: BoxConstraints.expand(
-                      width: double.infinity, height: 213),
+                      width: double.infinity, height: 240),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -216,6 +216,40 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                               style: TextStyle(color: Colors.red),
                             )
                           ]),
+
+                      RichText(
+                        text: TextSpan(
+                          text: '',
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: '1115',
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => launchCaller("1115"),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: Colors.blue)),
+                            TextSpan(
+                                text: ', ',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 12)),
+                            TextSpan(
+                                text: '1133',
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () => launchCaller("1133"),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    color: Colors.blue)),
+                          ],
+                        ),
+                      ),
+
+                      Text("(6am-10pm)"),
+                      SizedBox(
+                        height: 15,
+                      ),
                       RichText(
                         text: TextSpan(
                           text: '',
@@ -230,7 +264,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                                     fontSize: 12,
                                     color: Colors.blue)),
                             TextSpan(
-                                text: ' | ',
+                                text: ', ',
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 12)),
                             TextSpan(
@@ -242,7 +276,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                                     fontSize: 12,
                                     color: Colors.blue)),
                             TextSpan(
-                                text: ' | ',
+                                text: ', ',
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 12)),
                             TextSpan(
@@ -257,20 +291,6 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                         ),
                       ),
                       Text("(8am-8pm)"),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          launchCaller("1115");
-                        },
-                        child: Text("1115",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: Colors.blue)),
-                      ),
-                      Text("(6am-10pm)")
                     ],
                   ),
                 ),
