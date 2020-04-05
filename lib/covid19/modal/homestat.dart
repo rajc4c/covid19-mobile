@@ -15,6 +15,9 @@ class HomeStat {
   int isolationBed;
   int occupiedIsolationBed;
   int facilityCount;
+  int totalNegative;
+  int totalSamplesCollected;
+  int totalSamplesPending;
   String hotline;
   String updateDate;
 
@@ -60,6 +63,9 @@ class HomeStat {
     data['negative'] = this.negative;
     data['isolation'] = this.isolation;
     data['total_recovered'] = this.recovered;
+    data['total_negative'] = this.totalNegative;
+    data['total_samples_collected'] = this.totalSamplesCollected;
+    data['total_samples_pending'] = this.totalSamplesPending;
     data['death'] = this.death;
     data['icu'] = this.icu;
     data['occupied_icu'] = this.occupiedIcu;
@@ -74,7 +80,6 @@ class HomeStat {
   }
 
   String getFormattedDate() {
-
     String nepaliDate = "";
     final outputFormat = new DateFormat(' d MMM y |').add_jm();
     // final inputFormat = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -94,7 +99,6 @@ class HomeStat {
     String splitedMonth = months[yearList[1].trim()];
     String splitedYear = Utils.numberMap(yearList[2].trim());
 
-
     List<String> timeList = [];
     timeList = rawTime.split(" ");
 
@@ -107,8 +111,17 @@ class HomeStat {
     String splittedHours = Utils.numberMap(hrsMinList[0].trim());
     String splittedMins = Utils.numberMap(hrsMinList[1].trim());
 
-
-    nepaliDate = splitedDay+" "+splitedMonth+" "+splitedYear+" | "+splittedHours+":"+splittedMins+" "+rawAmPm;
+    nepaliDate = splitedDay +
+        " " +
+        splitedMonth +
+        " " +
+        splitedYear +
+        " | " +
+        splittedHours +
+        ":" +
+        splittedMins +
+        " " +
+        rawAmPm;
 
     return nepaliDate.split("|")[0];
   }

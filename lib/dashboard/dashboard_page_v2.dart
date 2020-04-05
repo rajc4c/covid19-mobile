@@ -359,20 +359,20 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                               textAlign: TextAlign.left,
                             )
                           ]),
-                      // Column(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: <Widget>[
-                      //       Text(Utils.numberMap("${gs.totalRecovered}"),
-                      //           style: TextStyle(
-                      //               fontSize: 22,
-                      //               fontWeight: FontWeight.bold,
-                      //               color: Color(0xff00ad13))),
-                      //       Text(
-                      //         "निको भएको",
-                      //         style: TextStyle(fontSize: 11),
-                      //         textAlign: TextAlign.left,
-                      //       )
-                      //     ]),
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(Utils.numberMap("${gs.totalRecovered}"),
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xff00ad13))),
+                            Text(
+                              "निको भएको",
+                              style: TextStyle(fontSize: 11),
+                              textAlign: TextAlign.left,
+                            )
+                          ]),
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -442,7 +442,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(Utils.numberMap("${homeStat.tested ?? 0}"),
+                              Text(Utils.numberMap("${homeStat.tested ?? 0} "),
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(
@@ -463,8 +463,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(
-                                  Utils.numberMap("${homeStat.negative ?? 0} "),
+                              Text(Utils.numberMap("${homeStat.negative}"),
                                   style: TextStyle(
                                       fontSize: 22, color: Colors.black)),
                               Text(
@@ -564,7 +563,7 @@ class _DashBoardPageV2State extends State<DashBoardPageV2> {
                               textAlign: TextAlign.left,
                             )
                           ],
-                        ))
+                        )),
                   ],
                 ),
               ],
