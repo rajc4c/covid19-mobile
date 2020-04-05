@@ -47,26 +47,26 @@ class GlobalStat {
   set created(String created) => _created = created;
 
   GlobalStat.fromJson(Map<String, dynamic> json) {
-    _totalConfirmed = json['totalConfirmed'];
-    _totalDeaths = json['totalDeaths'];
-    _totalRecovered = json['totalRecovered'];
-    _totalNewCases = json['totalNewCases'];
-    _totalNewDeaths = json['totalNewDeaths'];
-    _totalActiveCases = json['totalActiveCases'];
-    _totalCasesPerMillionPop = json['totalCasesPerMillionPop'];
-    _created = json['created'];
+    _totalConfirmed = int.parse(json['positive']);
+    _totalDeaths = int.parse(json['deaths']);
+    // _totalRecovered = json['totalRecovered'];
+    // _totalNewCases = json['totalNewCases'];
+    // _totalNewDeaths = json['totalNewDeaths'];
+    // _totalActiveCases = json['totalActiveCases'];
+    // _totalCasesPerMillionPop = json['totalCasesPerMillionPop'];
+    // _created = json['created'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['totalConfirmed'] = this._totalConfirmed;
-    data['totalDeaths'] = this._totalDeaths;
-    data['totalRecovered'] = this._totalRecovered;
-    data['totalNewCases'] = this._totalNewCases;
-    data['totalNewDeaths'] = this._totalNewDeaths;
-    data['totalActiveCases'] = this._totalActiveCases;
-    data['totalCasesPerMillionPop'] = this._totalCasesPerMillionPop;
-    data['created'] = this._created;
+    data['positive'] = this._totalConfirmed;
+    data['deaths'] = this._totalDeaths;
+    // data['totalRecovered'] = this._totalRecovered;
+    // data['totalNewCases'] = this._totalNewCases;
+    // data['totalNewDeaths'] = this._totalNewDeaths;
+    // data['totalActiveCases'] = this._totalActiveCases;
+    // data['totalCasesPerMillionPop'] = this._totalCasesPerMillionPop;
+    // data['created'] = this._created;
     return data;
   }
 }
