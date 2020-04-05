@@ -32,6 +32,3 @@ const post_fcm_reg_key = "$base_url/device/";
 
 const viber =
     "https://invite.viber.com/?g2=AQAmvXtYaOXJSktBo5ZGUatVwyaa1K7KXkDWLWdMyKJfMs8GbSnY5IplkYNTC3iu&lang=en";
-
-//new stats for home dashboard
-const get_all_stat = "https://covid19.mohp.gov.np/covid/api/confirmedcases";

@@ -16,16 +16,19 @@ class HomeBloc extends BaseBloc {
 
   Stream<GlobalStat> get globalStatStream => _globalStreamController.stream;
 
-  getHomeData() {
+  getHomeData({@required String province}) {
     try {
       print("[homeApiCalled]");
-      String url = get_all_stat;
-     print("[homeApi][url] ===========>>> $url");
+      String url = get_home_stat;
+      if (province.isNotEmpty) {
+        url = "$get_home_stat/?provice=$province";
+      }
+      print("[homeApi][url] ===========>>> $url");
       http.get("$url").timeout(Duration(minutes: 5)).then((resp) {
         print("[homedata]======>>> ${resp.body}");
         if (resp.statusCode >= 200 && resp.statusCode <= 400) {
           Map<String, dynamic> respMap = jsonDecode(resp.body);
-          _streamController.sink.add(HomeStat.fromJson(respMap['nepal']));
+          _streamController.sink.add(HomeStat.fromJson(respMap));
         }
       }, onError: (err) {
         print(err.toString());
@@ -39,7 +42,7 @@ class HomeBloc extends BaseBloc {
   globalData() {
     try {
       print("[globalApiCalled]");
-      String url = get_all_stat;
+      String url = get_home_stat;
       print("[homeApi][url] ===========>>> $url");
       http.get(get_global_stat).timeout(Duration(minutes: 5)).then((resp) {
         print("[globalData]======>>> ${resp.body}");
